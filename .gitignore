@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Ultralytics YOLO — checkpoints baixados e resultados de treino/validação
+*.pt
+runs/
+datasets/
+
+# Partições de dados dos veículos (grandes, não versionadas)
+data/
