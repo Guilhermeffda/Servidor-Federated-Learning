@@ -3,7 +3,7 @@
 Aprendizado Federado para detecção e mapeamento de descarte irregular de resíduos em
 vias urbanas, via câmeras veiculares. Este repositório é o **FL Core** do projeto (par
 servidor/cliente Flower); este README documenta especificamente a parte do **P4
-(Rodrigo) — FL Core Cliente**.
+(Rodrigo) — FL Core Cliente**, seguindo o planejamento oficial do quadro Trello.
 
 ## Sobre o projeto (contexto geral)
 
@@ -13,114 +13,106 @@ veículos de borda, mantém qualidade comparável a um treinamento centralizado 
 permanece robusto sob conectividade intermitente dos clientes — sem que nenhuma imagem
 bruta seja centralizada?
 
-- **Dataset:** [pLitterStreet](https://github.com/AI-Thailand/pLitterStreet) (Mandhati et
-  al., 2024) — 13.000+ imagens de lixo/descarte em vias urbanas, coletadas por câmeras
-  veiculares (Tailândia/Sri Lanka), formato COCO (compatível com YOLO), com coordenadas
-  GPS reais associadas.
+- **Dataset:** [pLitterStreet](https://arxiv.org/pdf/2401.14719) (Mandhati et al., 2024)
+  — 13.000+ imagens de lixo/descarte em vias urbanas, coletadas por câmeras veiculares
+  (Tailândia/Sri Lanka/Vietnã), anotações em **COCO JSON**, com metadados de
+  geolocalização. Distribuído via [Zenodo](https://zenodo.org/records/8288500)
+  (`images.zip`, ~13,7 GB — não há amostra pequena oficial separada).
+- **Modelo:** YOLOv8n (Ultralytics), transfer learning a partir de `yolov8n.pt`
+  (pré-treinado em COCO).
 - **Arquitetura:** cada veículo é um cliente FL. Treina YOLOv8n localmente sobre as
   imagens capturadas e envia **apenas os pesos do modelo** ao servidor — a imagem bruta
-  nunca é centralizada e pode ser descartada após o treino local. O servidor agrega via
-  **FedAvg** (McMahan et al., 2017).
-- **Simulação:** tudo roda em uma única máquina via **Flower + PyTorch** (Flower simula
-  os clientes como processos/atores orquestrados internamente por Ray). Não há hardware
-  físico, streaming de vídeo real ou rede distribuída de verdade — "dropout" e
-  "conectividade intermitente" são simulados via código (ex.: sortear aleatoriamente
-  quais clientes participam de cada round).
+  nunca é centralizada. O servidor agrega via **FedAvg** nativo do Flower (McMahan et
+  al., 2017) — sem reimplementação própria do algoritmo.
+- **Simulação:** 3 a 5 "clientes virtuais" (cada um = uma região/rota de coleta),
+  tudo rodando numa única máquina via **Flower + PyTorch**. **Windows nativo, sem
+  WSL/Docker/Linux.** TensorFlow Federated está proibido no projeto (sem suporte nativo
+  a Windows) — decisão fechada pelo grupo: exclusivamente Flower + PyTorch.
 
 ### Equipe (P1–P5)
 
 | Pessoa | Papel | Responsabilidade central |
 |---|---|---|
-| P1 — Camila | Literatura & Validação | Lê/valida artigos-base, escreve trabalhos relacionados |
-| P2 — Anabelly | Dados | Aquisição, limpeza e particionamento do pLitterStreet; coordenadas geográficas |
-| P3 — Ferraz | FL Core (Servidor) | Servidor Flower, agregação FedAvg, orquestração de rounds — ver [`server.py`](server.py) |
-| **P4 — Rodrigo (eu)** | **FL Core (Cliente)** | **Cliente Flower + YOLOv8n, simulação de múltiplos veículos, dropout/conectividade intermitente** |
-| P5 — Andressa | Sistema & Dashboard | Pipeline de metadados, dashboard, baseline centralizado |
-
-Todo mundo escreve a seção do artigo referente à própria frente; revisão final em
-conjunto na Etapa 6.
-
-## Minha parte — P4: FL Core (Cliente)
-
-Responsabilidades:
-
-1. **Cliente Flower** (`FLClient`) que treina um **YOLOv8n** localmente sobre a partição
-   de dados de um veículo.
-2. **Simulação de múltiplos veículos**: cada "veículo" é uma instância de cliente com
-   sua própria fatia do dataset (por região/rota, conforme particionamento feito por P2).
-3. **Robustez a conectividade intermitente / dropout de clientes** — este é o
-   **experimento central do projeto** (o diferencial frente à literatura, já que não
-   existe trabalho publicado combinando FL com detecção de lixo urbano). Simular veículos
-   que nem sempre estão "online" para sincronizar pesos, e avaliar como isso afeta a
-   qualidade do modelo agregado.
-
-### Contrato de interface com o servidor (P3)
-
-Definido em [`server.py`](server.py) — **confirmar com P3 antes de fechar a
-implementação**:
-
-- **Pesos trocados:** lista de `numpy.ndarray` correspondendo ao `state_dict()` do
-  modelo YOLO, na ordem das chaves do `state_dict()`.
-  - ⚠️ Preciso confirmar que essa ordem é estável entre execuções/clientes.
-- **Métricas retornadas em `fit()`/`evaluate()`:** dict com, no mínimo,
-  `{"loss": float, "num_examples": int}`, e opcionalmente `{"map50": float}`.
-- **Número de clientes:** `server.py` está com `min_fit_clients` /
-  `min_available_clients` como placeholder (`3`). Precisa bater com o número real de
-  veículos simulados — atualizar dos dois lados se mudar.
-- Ainda não há `fl/CONTRACT.md` no repositório (referenciado nos comentários de
-  `server.py`, mas não commitado) — vale criar/alinhar esse arquivo com P3 como fonte
-  única da verdade do contrato, em vez de manter isso apenas em comentários.
+| P1 | Literatura, validação e escrita do artigo |
+| P2 | Dados (download, inspeção, particionamento, GeoJSON) |
+| P3 | Servidor FL (`FLServer`, FedAvg, integração) — ver [`server.py`](server.py) |
+| **P4 (eu)** | **Cliente FL (`FLClient`, YOLOv8n, treino local, baseline centralizado, experimentos)** |
+| P5 | Dashboard |
 
 ### O que fica fora do escopo (P4 e geral)
 
-- Comparação entre algoritmos de agregação (só FedAvg).
+- Comparação entre algoritmos de agregação (só FedAvg — não reimplementar do zero).
 - Heterogeneidade estatística entre clientes como eixo central de pesquisa.
 - Implantação em hardware físico real — tudo é simulado em software.
+- WSL, Docker ou TensorFlow Federated.
 
 ## Cronograma
 
 | Sprint | Início | Fim | Foco relevante para P4 |
 |---|---|---|---|
-| 1 — Kickoff e Dados | 12/08 | 27/08 | Alinhar contrato de interface com P3; entender particionamento do P2 |
-| 2 — Pipeline FL Funcional | 28/08 | 12/09 | Implementar `FLClient` + YOLOv8n treinando localmente |
-| 3 — Experimentos e Dashboard Avançado | 13/09 | 03/10 | Simular múltiplos veículos + dropout/conectividade intermitente |
+| **1 — Kickoff e Dados** | 12/08 | 27/08 | **Em andamento** — setup YOLOv8n, esqueleto do `FLClient`, baseline centralizado |
+| 2 — Pipeline FL Funcional | 28/08 | 12/09 | Implementar `FLClient` de verdade (pesos, treino, simulação de 3-5 clientes) |
+| 3 — Experimentos e Dashboard Avançado | 13/09 | 03/10 | Dropout/conectividade intermitente, experimentos |
 | 4 — Integração e Redação | 04/10 | 24/10 | Integração com servidor/dashboard; escrever seção do artigo |
 | 5 — Validação e Ajustes Finais | 25/10 | **31/10 (entrega)** | Ajustes finais e revisão conjunta |
 
-## Tecnologias
+## Ambiente e restrições técnicas
 
-- **Python**
-- **Flower** — orquestração de aprendizado federado
-- **PyTorch** + **Ultralytics YOLOv8n** — modelo de detecção
-- **pLitterStreet** — dataset base (formato COCO)
+- **Windows nativo**, Python (ver [pendência de versão](#pendências-e-decisões-abertas)),
+  virtualenv em `C:\venvs\fedlitter` (não em `.venv` dentro do projeto — ver nota abaixo).
+- Dependências em [`requirements.txt`](requirements.txt), fixadas via `pip freeze`.
 
 ## Como instalar
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install flwr torch ultralytics
+python -m venv C:\venvs\fedlitter
+C:\venvs\fedlitter\Scripts\activate
+pip install -r requirements.txt
 ```
 
-> `requirements.txt` ainda não existe no repo — criar conforme as dependências forem
-> sendo usadas na implementação do cliente.
+> ⚠️ No Windows, se a instalação do `torch` falhar com
+> `OSError: [WinError 206] O nome do arquivo ou a extensão é muito grande`, é o limite de
+> caminho do Windows (o pacote tem arquivos de licença com caminhos bem profundos). É por
+> isso que o venv fica em `C:\venvs\fedlitter` (caminho curto) em vez de dentro do
+> projeto — criar o venv num caminho longo (`Documents\...\Servidor-Federated-Learning\.venv`)
+> reproduz o erro.
 
 ## Como usar
 
 ```bash
+# Card 1 — sanity check do ambiente YOLOv8n (mede tempo/época nesta máquina)
+python scripts\sanity_check.py
+
 # Subir o servidor (P3)
 python server.py
-
-# Subir um cliente (a implementar)
-python client.py
 ```
+
+`fl/client.py` ainda é um esqueleto (Card 2, sem lógica de treino — ver seção de
+status). A versão completa e já testada (pesos reais, treino local, simulação de
+frota, dropout) está guardada em [`sprint2_preview/`](sprint2_preview/README.md) até o
+Sprint 2 ser autorizado.
 
 ## Estrutura do repositório
 
 ```
 Servidor-Federated-Learning/
-├── server.py       # Servidor Flower (P3) — FedAvg, orquestração de rounds
-├── client.py        # Cliente Flower + YOLOv8n (P4) — a implementar
+├── server.py                  # Servidor Flower (P3) — FedAvg, orquestração de rounds
+├── fl/
+│   ├── __init__.py
+│   ├── client.py                # FLClient (P4) — esqueleto Sprint 1, Card 2
+│   └── CONTRACT.md               # Contrato de interface servidor↔cliente
+├── scripts/
+│   └── sanity_check.py            # Card 1 — valida ambiente YOLOv8n + benchmark
+├── data/
+│   └── mini_test/                  # Mini-subset PROVISÓRIO (coco8, não é pLitterStreet)
+├── notes/
+│   └── hardware_benchmark.md        # Tempo/época medido (Card 1)
+├── results/
+│   └── baseline_centralized/         # Métricas do baseline (Card 3, pendente)
+├── tests/                              # (vazio por enquanto)
+├── sprint2_preview/                     # FLClient completo, testado, aguardando Sprint 2
+│   └── README.md                         # Explica o que tem aqui e por quê
+├── requirements.txt
 └── README.md
 ```
 
@@ -130,8 +122,37 @@ Servidor-Federated-Learning/
 - [Quadro Trello](https://trello.com/b/xLPh4nGW/fedlitter)
 - [Planilha de referências](https://docs.google.com/spreadsheets/d/1bzcV3RmFYEOkHI2ypBLuRrPeney1tr_KgJ7XCtrOoaE/edit?usp=sharing)
 - [Trabalho anterior de Federated Learning (Drive)](https://drive.google.com/drive/u/1/folders/1j6V4jQKRuyRWsNrHqz93fhAWWd6EtNk6)
+- [Artigo do dataset (pLitterStreet, arXiv)](https://arxiv.org/pdf/2401.14719)
+- [Dataset (Zenodo)](https://zenodo.org/records/8288500) · [Código oficial (GitHub)](https://github.com/gicait/pLitter)
 
-## Status
+## Status — Sprint 1
 
-🟡 Em desenvolvimento — Sprint 1 (Kickoff e Dados). Servidor tem estrutura inicial
-(`server.py`); cliente (parte do P4) ainda não implementado.
+🟡 Em andamento. Progresso por card, com DoD explícito:
+
+**Card 1 — Setup YOLOv8n local**
+- [x] Treino mínimo completa 3 épocas sem erro
+- [x] Pesos salvos e carregáveis (`YOLO(best.pt)` + `model.val()` funcionaram)
+- [x] Tempo por época documentado em [`notes/hardware_benchmark.md`](notes/hardware_benchmark.md)
+  (~13,1s/época) — **mas com ressalva**: usa o `coco8` (8 imagens), não o pLitterStreet
+  real, então o número não é representativo do custo real. Precisa remedir quando o
+  mini-subset de verdade existir.
+
+**Card 2 — Esqueleto vazio do FLClient**
+- [x] `fl/client.py` existe e importa sem erro (testado)
+- [x] Estrutura compatível com a interface `NumPyClient` esperada pelo `server.py`
+- Lógica real (não faz parte deste card) guardada em [`sprint2_preview/`](sprint2_preview/README.md)
+
+**Card 3 — Baseline centralizado**
+- ⛔ **Bloqueado.** Depende do dataset completo do pLitterStreet. O P2 tem as imagens
+  localmente mas ainda não commitou/compartilhou. Não baixei o dataset completo do
+  Zenodo (13,7 GB, um único `images.zip`) porque duplicaria o trabalho do P2 — aguardando
+  ele disponibilizar.
+
+## Pendências e decisões abertas
+
+- **Versão do Python:** o brief pede 3.11; esta máquina só tem 3.12 instalado (sem 3.11
+  disponível). Decisão do grupo: seguir com 3.12 por ora (ambiente já validado), com essa
+  divergência documentada aqui.
+- **Mini-subset real (Card 1) e dataset completo (Card 3):** aguardando P2 subir as
+  imagens do pLitterStreet.
+- Itens em aberto do contrato com P3 — ver [`fl/CONTRACT.md`](fl/CONTRACT.md).

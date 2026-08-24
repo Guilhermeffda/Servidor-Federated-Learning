@@ -8,5 +8,8 @@ __pycache__/
 runs/
 datasets/
 
-# Partições de dados dos veículos (grandes, não versionadas)
-data/
+# Dataset completo e partições por veículo (grandes, não versionadas) -- exceto
+# data/mini_test/, que é um recorte pequeno (~1MB) versionado para reproduzir o
+# sanity check do Card 1 sem precisar rebaixar nada.
+data/*
+!data/mini_test/

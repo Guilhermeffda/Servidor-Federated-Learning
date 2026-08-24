@@ -1,17 +1,22 @@
 """
-Cliente Federated Learning (Flower) - FLClient.
+sprint2_preview/client_full.py
+Implementação completa do FLClient (Sprint 2, card "Implementar simulação de 3-5
+clientes virtuais" — ver seção 6 do planejamento). PARADA DE LADO até o Card 2
+(esqueleto, fl/client.py) ser aceito e o Sprint 2 ser autorizado — ver
+sprint2_preview/README.md. Já testada ponta a ponta com sprint2_preview/simulate_fleet.py
+e o dataset coco8 antes deste brief chegar; mantida aqui pronta para reaproveitar.
 
 Representa um veículo: treina um YOLOv8n localmente sobre a partição de dados do
 veículo e troca pesos com o servidor (fl/CONTRACT.md) a cada round. Simula
-conectividade intermitente via fl/dropout.py -- um veículo "fora de conexão" no round
+conectividade intermitente via dropout.py -- um veículo "fora de conexão" no round
 simplesmente não retorna uma atualização válida para o servidor.
 """
 
 import flwr as fl
 
-from fl.dataset import resolve_smoke_test_dataset, resolve_vehicle_dataset
-from fl.dropout import ClientUnavailableError, ConnectivitySimulator
-from fl.model import create_model, evaluate, get_weights, set_weights, train_one_round
+from dataset import resolve_smoke_test_dataset, resolve_vehicle_dataset
+from dropout import ClientUnavailableError, ConnectivitySimulator
+from model import create_model, evaluate, get_weights, set_weights, train_one_round
 
 
 class FLClient(fl.client.NumPyClient):

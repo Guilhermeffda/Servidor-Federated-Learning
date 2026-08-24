@@ -1,17 +1,23 @@
 """
-simulate_fleet.py
-Sobe uma frota de veículos simulados (clientes Flower) e o servidor (server.py) num
-único processo, usando fl.simulation. É como o experimento de conectividade
-intermitente do P4 é rodado na prática: sem hardware real, tudo em software.
+sprint2_preview/simulate_fleet.py
+Sobe uma frota de veículos simulados (clientes Flower) e o servidor (../server.py) num
+único processo, usando fl.simulation. PARADA DE LADO junto com client_full.py -- ver
+sprint2_preview/README.md.
 
-Uso:
-    python simulate_fleet.py
+Uso (a partir da raiz do projeto):
+    python -m sprint2_preview.simulate_fleet
 """
+
+import sys
+from pathlib import Path
 
 import flwr as fl
 from flwr.simulation import run_simulation
 
-from client import make_client
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from client_full import make_client
 from server import get_strategy
 
 NUM_VEHICLES = 3
