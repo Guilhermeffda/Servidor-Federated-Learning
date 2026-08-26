@@ -19,7 +19,8 @@ contém dados brutos ou metadados locais de aquisição, é ignorado pelo Git e
 não deve ser versionado.
 
 As estatísticas reais serão preenchidas somente depois da auditoria do
-conteúdo extraído. **TODO:** registrar as estatísticas verificadas na etapa de
-inspeção do dataset.
+conteúdo extraído. 
 
-GPS e geolocalização estão fora do escopo deste TCC.
+**TODO:** registrar as estatísticas verificadas na etapa de
+inspeção do dataset. 
+
