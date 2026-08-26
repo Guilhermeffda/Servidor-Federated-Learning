@@ -1,0 +1,10 @@
+# Raw datasets and acquisition metadata are local artifacts.
+data/raw/taco/
+
+# Python environments and bytecode.
+.venv/
+__pycache__/
+*.py[cod]
+
+# Incomplete atomic downloads.
+*.part
