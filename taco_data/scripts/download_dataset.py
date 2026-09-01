@@ -27,6 +27,8 @@ from urllib.request import Request, urlopen
 LOGGER = logging.getLogger("taco-download")
 DATASET_NAME = "TACO - Trash Annotations in Context"
 GITHUB_URL = "https://github.com/pedropro/TACO"
+MAP_10_URL = "https://raw.githubusercontent.com/pedropro/TACO/master/detector/taco_config/map_10.csv"
+MAP_10_NAME = "map_10.csv"
 ZENODO_RECORD = "3587843"
 ZENODO_DOI = "10.5281/zenodo.3587843"
 ZENODO_API_URL = f"https://zenodo.org/api/records/{ZENODO_RECORD}"
@@ -512,6 +514,40 @@ def extract_archive(
     return "completed"
 
 
+def download_map_10(output_path: Path, timeout: float, retries: int) -> None:
+    """Download the official TACO-10 category mapping."""
+    if output_path.is_file():
+        LOGGER.info("Reusing existing TACO-10 mapping: %s", output_path)
+        return
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    for attempt in range(retries + 1):
+        try:
+            request = Request(
+                MAP_10_URL,
+                headers={"User-Agent": USER_AGENT},
+            )
+            with urlopen(request, timeout=timeout) as response:
+                content = response.read()
+
+            if not content.strip():
+                raise PipelineError("downloaded map_10.csv is empty")
+
+            output_path.write_bytes(content)
+            LOGGER.info("TACO-10 mapping downloaded: %s", output_path)
+            return
+
+        except (HTTPError, URLError, TimeoutError, socket.timeout, ConnectionError) as exc:
+            if is_transient_network_error(exc) and attempt < retries:
+                LOGGER.warning("TACO-10 mapping download failed; retrying: %s", exc)
+                time.sleep(min(2**attempt, 4))
+                continue
+            raise PipelineError(f"could not download {MAP_10_NAME}: {exc}") from exc
+        except OSError as exc:
+            raise PipelineError(f"could not save {MAP_10_NAME}: {exc}") from exc
+
+
 def extraction_status(extraction_root: Path, marker_path: Path) -> str:
     """Describe extraction state without reading the multi-gigabyte archive."""
     if marker_path.is_file():
@@ -576,6 +612,7 @@ def run(args: argparse.Namespace) -> int:
     metadata_root = raw_root / "metadata"
     manifest_path = metadata_root / "download_manifest.json"
     marker_path = metadata_root / "extraction_complete.json"
+    map_10_path = extraction_root / "TACO" / "detector" / "taco_config" / MAP_10_NAME
 
     metadata = validate_metadata(
         fetch_json(ZENODO_API_URL, args.timeout, args.retries)
@@ -616,6 +653,7 @@ def run(args: argparse.Namespace) -> int:
         marker_path,
         archive_state.observed_sha256,
     )
+    download_map_10(map_10_path, args.timeout, args.retries)
     write_json_atomic(
         manifest_path,
         build_manifest(metadata, archive_state, extraction_state),

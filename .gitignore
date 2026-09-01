@@ -8,8 +8,11 @@ __pycache__/
 runs/
 datasets/
 
-# Dataset completo e partições por veículo (grandes, não versionadas) -- exceto
-# data/mini_test/, que é um recorte pequeno (~1MB) versionado para reproduzir o
-# sanity check do Card 1 sem precisar rebaixar nada.
+# Dados grandes — não versionados
 data/*
+
+# Exceções versionadas
 !data/mini_test/
+!data/processed/
+!data/processed/taco10/
+!data/processed/taco10/annotations_regrouped.json
