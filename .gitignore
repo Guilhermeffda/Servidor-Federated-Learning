@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Ultralytics YOLO — checkpoints baixados e resultados de treino/validação
+*.pt
+runs/
+datasets/
+
+# Dataset completo e partições por veículo (grandes, não versionadas) -- exceto
+# data/mini_test/, que é um recorte pequeno (~1MB) versionado para reproduzir o
+# sanity check do Card 1 sem precisar rebaixar nada.
+data/*
+!data/mini_test/
