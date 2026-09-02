@@ -29,6 +29,18 @@ DATASET_NAME = "TACO - Trash Annotations in Context"
 GITHUB_URL = "https://github.com/pedropro/TACO"
 MAP_10_URL = "https://raw.githubusercontent.com/pedropro/TACO/master/detector/taco_config/map_10.csv"
 MAP_10_NAME = "map_10.csv"
+# NOTE: computed from a fetch of MAP_10_URL performed on 2026-09-01. This is
+# NOT guaranteed byte-for-byte identical to what urlopen() will receive
+# (the fetch path used to obtain the reference content is not the same
+# code path as the actual download below, and could differ in trailing
+# newline/whitespace handling). Before relying on this value, cross-check
+# it against a copy already known-good on a team member's machine:
+#   Get-FileHash <path to your existing map_10.csv> -Algorithm SHA256
+# If it does not match, replace this constant with the value from that
+# command instead of the one below, and note the discrepancy for the group.
+EXPECTED_MAP_10_SHA256 = (
+    "7b399b805da188e52fdbc484dc4453c449d680dc06d1d530d9ab58d46d55508d"
+)
 ZENODO_RECORD = "3587843"
 ZENODO_DOI = "10.5281/zenodo.3587843"
 ZENODO_API_URL = f"https://zenodo.org/api/records/{ZENODO_RECORD}"
@@ -514,29 +526,54 @@ def extract_archive(
     return "completed"
 
 
-def download_map_10(output_path: Path, timeout: float, retries: int) -> None:
-    """Download the official TACO-10 category mapping."""
+def download_map_10(output_path: Path, timeout: float, retries: int) -> str:
+    """Download and verify the official TACO-10 category mapping.
+
+    Unlike TACO.zip (validated against a checksum published by Zenodo
+    itself), map_10.csv has no checksum published by any registry. The
+    expected SHA-256 below (EXPECTED_MAP_10_SHA256) is a value pinned by
+    this project from a known-good copy, not an independently trusted
+    third-party source -- see the comment on that constant. Returns the
+    verified SHA-256 hex digest, so it can be recorded in the manifest.
+    """
     if output_path.is_file():
-        LOGGER.info("Reusing existing TACO-10 mapping: %s", output_path)
-        return
+        existing_sha256 = hashlib.sha256(output_path.read_bytes()).hexdigest()
+        if existing_sha256 != EXPECTED_MAP_10_SHA256:
+            raise PipelineError(
+                f"existing {MAP_10_NAME} has unexpected SHA-256 "
+                f"{existing_sha256}; expected {EXPECTED_MAP_10_SHA256}. "
+                "The file was not modified. If this machine's copy is the "
+                "one the group has been using successfully, update "
+                "EXPECTED_MAP_10_SHA256 to this observed value instead."
+            )
+        LOGGER.info("Reusing existing TACO-10 mapping with verified SHA-256")
+        return existing_sha256
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     for attempt in range(retries + 1):
         try:
-            request = Request(
-                MAP_10_URL,
-                headers={"User-Agent": USER_AGENT},
-            )
+            request = Request(MAP_10_URL, headers={"User-Agent": USER_AGENT})
             with urlopen(request, timeout=timeout) as response:
                 content = response.read()
 
             if not content.strip():
                 raise PipelineError("downloaded map_10.csv is empty")
 
+            observed_sha256 = hashlib.sha256(content).hexdigest()
+            if observed_sha256 != EXPECTED_MAP_10_SHA256:
+                raise PipelineError(
+                    f"downloaded {MAP_10_NAME} has unexpected SHA-256 "
+                    f"{observed_sha256}; expected {EXPECTED_MAP_10_SHA256}. "
+                    "File was not saved. This can mean the upstream file "
+                    "changed, or the pinned hash in this script is stale -- "
+                    "verify manually against the GitHub source before "
+                    "updating EXPECTED_MAP_10_SHA256."
+                )
+
             output_path.write_bytes(content)
-            LOGGER.info("TACO-10 mapping downloaded: %s", output_path)
-            return
+            LOGGER.info("TACO-10 mapping downloaded and verified: %s", output_path)
+            return observed_sha256
 
         except (HTTPError, URLError, TimeoutError, socket.timeout, ConnectionError) as exc:
             if is_transient_network_error(exc) and attempt < retries:
@@ -546,6 +583,7 @@ def download_map_10(output_path: Path, timeout: float, retries: int) -> None:
             raise PipelineError(f"could not download {MAP_10_NAME}: {exc}") from exc
         except OSError as exc:
             raise PipelineError(f"could not save {MAP_10_NAME}: {exc}") from exc
+    raise AssertionError("map_10.csv retry loop ended unexpectedly")
 
 
 def extraction_status(extraction_root: Path, marker_path: Path) -> str:
@@ -583,6 +621,7 @@ def build_manifest(
     metadata: ArchiveMetadata,
     archive_state: ArchiveState,
     extraction_state: str,
+    map_10_sha256: str | None,
 ) -> dict[str, Any]:
     """Build the archive-level acquisition manifest."""
     return {
@@ -593,6 +632,9 @@ def build_manifest(
         "extraction_status": extraction_state,
         "integrity_status": archive_state.integrity_status,
         "local_size_bytes": archive_state.local_size_bytes,
+        "map_10_sha256": map_10_sha256,
+        "map_10_sha256_expected": EXPECTED_MAP_10_SHA256,
+        "map_10_source_url": MAP_10_URL,
         "md5_expected": EXPECTED_MD5,
         "md5_observed": archive_state.observed_md5,
         "official_source": ZENODO_RECORD_URL,
@@ -635,9 +677,14 @@ def run(args: argparse.Namespace) -> int:
             "not_checked_metadata_only" if local_size is not None else "not_downloaded",
         )
         extraction_state = extraction_status(extraction_root, marker_path)
+        map_10_sha256 = (
+            hashlib.sha256(map_10_path.read_bytes()).hexdigest()
+            if map_10_path.is_file()
+            else None
+        )
         write_json_atomic(
             manifest_path,
-            build_manifest(metadata, archive_state, extraction_state),
+            build_manifest(metadata, archive_state, extraction_state, map_10_sha256),
         )
         print("Zenodo metadata validated; archive download was not started.")
         return 0
@@ -653,10 +700,10 @@ def run(args: argparse.Namespace) -> int:
         marker_path,
         archive_state.observed_sha256,
     )
-    download_map_10(map_10_path, args.timeout, args.retries)
+    map_10_sha256 = download_map_10(map_10_path, args.timeout, args.retries)
     write_json_atomic(
         manifest_path,
-        build_manifest(metadata, archive_state, extraction_state),
+        build_manifest(metadata, archive_state, extraction_state, map_10_sha256),
     )
     print("TACO archive verified and extraction completed.")
     return 0
@@ -677,3 +724,4 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+    
