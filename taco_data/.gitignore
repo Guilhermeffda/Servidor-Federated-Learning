@@ -8,3 +8,7 @@ __pycache__/
 
 # Incomplete atomic downloads.
 *.part
+
+data/partitions/non_iid/client_*/
+data/partitions/non_iid/.materialization_staging/
+data/partitions/non_iid/.client_*.backup/
