@@ -7,6 +7,8 @@ __pycache__/
 *.pt
 runs/
 datasets/
+results/baseline/*/local_runs/
+results/baseline/*/partitions/
 
 # Dados grandes — não versionados
 data/*

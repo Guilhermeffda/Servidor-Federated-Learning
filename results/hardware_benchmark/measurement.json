@@ -1,0 +1,23 @@
+{
+  "measured_at": "2026-09-14T13:43:21.905331+00:00",
+  "data_yaml": "data/partitions/iid/client_0/data.yaml",
+  "train_images": 192,
+  "epochs": 1,
+  "image_size": 640,
+  "batch_size": 16,
+  "device": "cpu",
+  "elapsed_seconds": 160.2022278860004,
+  "seconds_per_epoch": 160.2022278860004,
+  "estimated_federated_epochs": 52500,
+  "estimated_total_hours": 2336.282490004173,
+  "estimated_total_days": 97.34510375017386,
+  "decision": "colab",
+  "hardware": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu",
+    "cuda_available": false,
+    "gpu": null
+  }
+}

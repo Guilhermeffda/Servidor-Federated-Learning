@@ -51,6 +51,17 @@ data/processed/taco10/annotations_regrouped.json
 
 O arquivo de saída mantém o formato **COCO JSON**, alterando apenas a categorização das anotações para o esquema TACO-10.
 
+Para converter as anotações para YOLO e gerar, de forma reproduzível, o dataset
+centralizado e as partições IID/non-IID dos cinco clientes:
+
+```bash
+python scripts/prepare_experiments.py
+```
+
+O script usa seed 42 e registra a política, as contagens e o hash dos IDs do teste
+em `../data/partitions/metadata.json` (a pasta gerada é deliberadamente ignorada
+pelo Git por conter caminhos e dados locais).
+
 ## Divisão dos dados
 
 O conjunto de dados é dividido em duas etapas.

@@ -27,6 +27,12 @@ O TACO possui originalmente 60 categorias. Para os experimentos, elas são agrup
 
 O processamento dos dados está documentado em `taco_data/data/README.md`.
 
+Para materializar os splits YOLO, as cinco particoes IID/non-IID e o teste global:
+
+```bash
+python taco_data/scripts/prepare_experiments.py
+```
+
 ## Estrutura
 
 ```text
@@ -38,8 +44,8 @@ Servidor-Federated-Learning/
 │   │   └── test_global/  # imagens/labels não versionados; README/data.yaml versionados
 │   └── scripts/
 │
-├── fl/            # cliente/servidor federado (em desenvolvimento)
-├── server.py      # esqueleto — ainda não integrado com cliente real
+├── fl/            # cliente, modelo, particionamento e agregação federada
+├── run_config.py  # runner das baselines IID/non-IID
 └── README.md
 ```
 
@@ -51,20 +57,21 @@ Servidor-Federated-Learning/
 
 - ✅ Download, inspeção e reagrupamento (TACO-10) do dataset — funcional.
 - ✅ Separação do teste global (20%, estratificado, seed fixa) — funcional.
-- 🚧 Partição de clientes (IID / non-IID via Dirichlet) — em desenvolvimento.
-- 🚧 `server.py` (FedAvg) — esqueleto, ainda não integrado com um cliente real.
-- 🚧 Cliente federado (`fl/client.py`) — esqueleto oficial; implementação de
-  referência existe em `sprint2_preview/`, ainda não portada.
-- ⛔ FedProx, FedTrimmed — não iniciados.
+- ✅ Partição reproduzível de clientes IID / non-IID — funcional no runner.
+- ✅ FedAvg (`fl/server.py`) integrado ao cliente e ao runner de baseline.
+- ✅ Cliente federado (`fl/client.py`) com troca de pesos e treino local YOLO.
+- ✅ Termo proximal do FedProx integrado ao treino local (`mu > 0`).
+- ⛔ FedTrimmed — não iniciado.
 
 ## Dados
 
 Para baixar e preparar o TACO, rode em sequência:
 
 ```bash
-python taco_data\scripts\download_dataset.py
-python taco_data\scripts\inspect_dataset.py
-python taco_data\scripts\regroup_categories.py
+python taco_data/scripts/download_dataset.py
+python taco_data/scripts/inspect_dataset.py
+python taco_data/scripts/regroup_categories.py
+python taco_data/scripts/prepare_experiments.py
 ```
 
 Isso gera, entre outros:
@@ -79,6 +86,24 @@ taco_data/data/test_global/
 O projeto utiliza uma arquitetura cliente-servidor para simular diferentes participantes do treinamento federado.
 
 Cada cliente realiza treinamento local e envia os parâmetros do modelo ao servidor. O servidor agrega os modelos utilizando as estratégias avaliadas no projeto.
+
+### Baseline FedAvg da Sprint 2 (P4)
+
+O runner reproduz os cenários IID e non-IID com três repetições e grava métricas,
+checkpoints e curvas em `results/baseline/`:
+
+```bash
+.venv/bin/python run_config.py --all
+```
+
+Neste checkout, `configs/baseline.yaml` aponta explicitamente para o mini-subset de
+smoke test e, por isso, usa `scientific_valid: false`. Troque o `dataset_yaml` pelas
+partições TACO-10 reais antes de usar os números no TCC. Consulte
+`results/baseline/README.md` para o formato dos artefatos.
+
+A medicao real de hardware determinou que os treinos finais devem rodar em GPU. O
+notebook `notebooks/P4_sprint2_colab.ipynb` executa a baseline centralizada e as seis
+baselines federadas TACO-10 no Colab.
 
 ## Tecnologias
 
@@ -104,8 +129,4 @@ python .\taco_data\scripts\create_global_test.py
 
 ```powershell
 python scripts\sanity_check.py
-```
-
-# Subir o servidor (P3)
-python server.py
 ```
