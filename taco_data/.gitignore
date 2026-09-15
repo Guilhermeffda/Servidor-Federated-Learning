@@ -8,3 +8,11 @@ __pycache__/
 
 # Incomplete atomic downloads.
 *.part
+
+# Large derived client datasets (scientific manifests and figures stay tracked).
+data/partitions/non_iid/client_*/
+data/partitions/non_iid/.materialization_staging/
+data/partitions/non_iid/.client_*.backup/
+data/partitions/iid/client_*/
+data/partitions/iid/.materialization_staging/
+data/partitions/iid/.client_*.backup/
