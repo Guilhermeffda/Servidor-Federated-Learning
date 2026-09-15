@@ -1,0 +1,20 @@
+{
+  "run_id": "non_iid_rep1",
+  "status": "complete",
+  "scenario": "non_iid",
+  "repetition": 1,
+  "dataset_label": "coco8-mini-smoke-test",
+  "scientific_valid": false,
+  "rounds_completed": 3,
+  "started_at": "2026-09-14T13:56:34.843228+00:00",
+  "finished_at": "2026-09-14T13:56:55.657142+00:00",
+  "duration_seconds": 20.813914,
+  "final_map50": 0.43,
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu",
+    "flower": "1.36.0",
+    "ultralytics": "8.4.152",
+    "pandas": "2.3.3"
+  }
+}

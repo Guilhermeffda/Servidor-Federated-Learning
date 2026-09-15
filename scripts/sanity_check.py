@@ -1,42 +1,96 @@
-"""
-scripts/sanity_check.py
-Card 1 (Sprint 1, P4) — valida que o ambiente YOLOv8n/Ultralytics está funcional
-nesta máquina e mede o tempo de treino por época, referência para estimar o custo
-dos experimentos federados reais (e decidir se migramos para o Google Colab).
+#!/usr/bin/env python3
+"""Mede o custo por epoca do YOLO numa particao real do TACO."""
 
-Uso:
-    python scripts/sanity_check.py
-"""
+from __future__ import annotations
 
+import argparse
+import json
+import platform
+import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
+import torch
 from ultralytics import YOLO
 
-DATA_YAML = Path(__file__).resolve().parent.parent / "data" / "mini_test" / "data.yaml"
-EPOCHS = 3
-IMAGE_SIZE = 640
-BATCH_SIZE = 8
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from fl.partition import count_split_images
+
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_DATA = ROOT / "data" / "partitions" / "iid" / "client_0" / "data.yaml"
+DEFAULT_OUTPUT = ROOT / "results" / "hardware_benchmark" / "measurement.json"
+TOTAL_FEDERATED_EPOCHS = 5 * 50 * 5 * 42
 
 
-def run_sanity_check() -> None:
-    """Treina o YOLOv8n por EPOCHS épocas, valida os pesos salvos e mede o tempo/época."""
-    model = YOLO("yolov8n.pt")
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
+    parser.add_argument("--epochs", type=int, default=1)
+    parser.add_argument("--imgsz", type=int, default=640)
+    parser.add_argument("--batch", type=int, default=16)
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    return parser.parse_args()
 
-    start = time.perf_counter()
-    model.train(data=str(DATA_YAML), epochs=EPOCHS, imgsz=IMAGE_SIZE, batch=BATCH_SIZE)
-    elapsed_seconds = time.perf_counter() - start
 
-    best_weights_path = model.trainer.best
-    print(f"\nPesos salvos em: {best_weights_path}")
-
-    # Confirma que os pesos salvos são carregáveis e utilizáveis (DoD do Card 1).
-    reloaded_model = YOLO(best_weights_path)
-    reloaded_model.val(data=str(DATA_YAML))
-
-    print(f"\nTempo total de treino ({EPOCHS} épocas): {elapsed_seconds:.1f}s")
-    print(f"Tempo médio por época: {elapsed_seconds / EPOCHS:.1f}s")
+def main() -> None:
+    args = parse_args()
+    data = args.data.resolve()
+    if not data.is_file():
+        raise FileNotFoundError(
+            f"Particao real ausente: {data}. Rode taco_data/scripts/prepare_experiments.py."
+        )
+    if args.epochs <= 0:
+        raise ValueError("epochs deve ser positivo")
+    train_images = count_split_images(data, "train")
+    model = YOLO(str(ROOT / "yolov8n.pt"))
+    started = time.perf_counter()
+    model.train(
+        data=str(data),
+        epochs=args.epochs,
+        imgsz=args.imgsz,
+        batch=args.batch,
+        device=args.device,
+        workers=0,
+        project=str(ROOT / "runs" / "hardware_benchmark"),
+        name="taco_iid_client_0",
+        exist_ok=True,
+        plots=False,
+        verbose=False,
+    )
+    elapsed = time.perf_counter() - started
+    seconds_per_epoch = elapsed / args.epochs
+    total_seconds = seconds_per_epoch * TOTAL_FEDERATED_EPOCHS
+    decision = "colab" if total_seconds > 24 * 3600 else "cpu_local"
+    result = {
+        "measured_at": datetime.now(timezone.utc).isoformat(),
+        "data_yaml": str(data.relative_to(ROOT)),
+        "train_images": train_images,
+        "epochs": args.epochs,
+        "image_size": args.imgsz,
+        "batch_size": args.batch,
+        "device": args.device,
+        "elapsed_seconds": elapsed,
+        "seconds_per_epoch": seconds_per_epoch,
+        "estimated_federated_epochs": TOTAL_FEDERATED_EPOCHS,
+        "estimated_total_hours": total_seconds / 3600,
+        "estimated_total_days": total_seconds / 86400,
+        "decision": decision,
+        "hardware": {
+            "platform": platform.platform(),
+            "processor": platform.processor(),
+            "python": platform.python_version(),
+            "torch": torch.__version__,
+            "cuda_available": torch.cuda.is_available(),
+            "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        },
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":
-    run_sanity_check()
+    main()

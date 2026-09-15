@@ -1,8 +1,6 @@
-path: .
 train: images
 val: images
 test: images
-
 names:
   0: Can
   1: Other

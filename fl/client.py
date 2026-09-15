@@ -1,60 +1,66 @@
-"""
-fl/client.py
-Cliente Federated Learning (Flower) — esqueleto da interface NumPyClient.
+"""Cliente Flower usado pelas execucoes federadas do projeto.
 
-Define a estrutura mínima que o FLServer (P3) espera poder instanciar e chamar a
-cada round de treino federado (contrato em fl/CONTRACT.md). A lógica real de treino
-local do YOLOv8n fica para o próximo card (Sprint 2, "Implementar simulação de 3-5
-clientes virtuais") — os `TODO` abaixo são intencionais, não esquecimento.
+O dropout foi deliberadamente removido do caminho ativo da Sprint 2. A simulacao
+anterior continua preservada em ``sprint2_preview/dropout.py`` para um eventual
+experimento secundario, mas nao interfere nas baselines FedAvg/FedProx.
 """
 
+from __future__ import annotations
+
+from pathlib import Path
 from typing import Any
 
 import flwr as fl
-from ultralytics import YOLO
+import yaml
+
+from fl.model import evaluate_model, get_weights, load_model, set_weights, train_local
 
 
 class FLClient(fl.client.NumPyClient):
-    """Representa um veículo/cliente federado, dono do seu próprio YOLOv8n local."""
+    """Um cliente YOLO com dados locais e configuracao recebida por round."""
 
-    def __init__(self, client_id: str, data_yaml_path: str) -> None:
-        """
-        Args:
-            client_id: identificador do cliente (ex.: "client_0"), usado em logs.
-            data_yaml_path: caminho do data.yaml (formato Ultralytics) com a
-                partição de dados deste cliente.
-        """
+    def __init__(
+        self,
+        client_id: str,
+        data_yaml_path: str,
+        num_train_examples: int,
+        model_weights: str = "yolov8n.pt",
+    ) -> None:
         self.client_id = client_id
         self.data_yaml_path = data_yaml_path
-        self.model = YOLO("yolov8n.pt")
+        self.num_train_examples = num_train_examples
+        dataset = yaml.safe_load(Path(data_yaml_path).read_text(encoding="utf-8"))
+        self.model = load_model(model_weights, num_classes=len(dataset["names"]))
 
     def get_parameters(self, config: dict[str, Any]) -> list:
-        """
-        Retorna os pesos atuais do modelo local, no formato do contrato
-        (fl/CONTRACT.md): lista de numpy.ndarray na ordem do state_dict().
-        """
-        # TODO (próximo card): extrair pesos de model.model.state_dict()
-        return []
+        return get_weights(self.model)
 
     def fit(self, parameters: list, config: dict[str, Any]) -> tuple[list, int, dict]:
-        """
-        Treina o modelo local a partir dos pesos globais recebidos.
+        set_weights(self.model, parameters)
+        metrics = train_local(
+            model=self.model,
+            data_yaml=self.data_yaml_path,
+            epochs=int(config.get("local_epochs", 1)),
+            batch_size=int(config.get("batch_size", 8)),
+            image_size=int(config.get("image_size", 640)),
+            device=str(config.get("device", "cpu")),
+            seed=int(config.get("seed", 0)),
+            output_dir=Path(str(config.get("output_dir", "runs/federated"))),
+            run_name=str(config.get("run_name", self.client_id)),
+            mu=float(config.get("mu", 0.0)),
+        )
+        metrics["num_examples"] = self.num_train_examples
+        return get_weights(self.model), self.num_train_examples, metrics
 
-        Returns:
-            Tupla (pesos atualizados, número de exemplos usados, métricas).
-        """
-        # TODO (próximo card): setar pesos, treinar localmente, retornar pesos
-        #       atualizados. `config` traz {"local_epochs": int, "batch_size": int}
-        #       enviados pelo servidor (fl/CONTRACT.md) -- nunca hardcodar esses
-        #       valores.
-        return [], 0, {}
-
-    def evaluate(self, parameters: list, config: dict[str, Any]) -> tuple[float, int, dict]:
-        """
-        Avalia o modelo local com os pesos recebidos.
-
-        Returns:
-            Tupla (loss, número de exemplos avaliados, métricas).
-        """
-        # TODO (próximo card): avaliar localmente e retornar métricas (loss, map50)
-        return 0.0, 0, {}
+    def evaluate(
+        self, parameters: list, config: dict[str, Any]
+    ) -> tuple[float, int, dict]:
+        set_weights(self.model, parameters)
+        metrics = evaluate_model(
+            self.model,
+            self.data_yaml_path,
+            image_size=int(config.get("image_size", 640)),
+            batch_size=int(config.get("batch_size", 8)),
+            device=str(config.get("device", "cpu")),
+        )
+        return metrics["loss"], int(metrics["num_examples"]), metrics

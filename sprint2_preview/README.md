@@ -10,10 +10,9 @@ cá — em vez de descartada — porque já está testada ponta a ponta (rodei
 `simulate_fleet.py` com o dataset `coco8`: 3 veículos, 3 rounds, agregação FedAvg,
 0 falhas, e a simulação de dropout levantando `ClientUnavailableError` corretamente).
 
-**Não está ativa.** `fl/client.py` (Card 2) é o esqueleto oficial em uso agora. Quando
-o Sprint 2 for autorizado, dá pra portar esta lógica para `fl/client.py` sem reescrever
-do zero — só falta trocar o dataset de smoke-test (`coco8`) pelas partições reais do
-pLitterStreet quando o P2 entregar.
+**Histórico, não ativo.** A implementação mantida aqui serviu de referência inicial.
+O código ativo e revisado agora está em `fl/`, e as execuções são feitas por
+`run_config.py`. Estes arquivos permanecem apenas para preservar o histórico.
 
 | Arquivo aqui | Vira o quê em `fl/` quando o Sprint 2 for autorizado |
 |---|---|

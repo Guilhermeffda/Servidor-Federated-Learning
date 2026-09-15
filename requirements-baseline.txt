@@ -1,0 +1,9 @@
+# Dependencias adicionais/minimas para run_config.py.
+# Instale PyTorch CPU primeiro quando nao houver CUDA:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+flwr>=1.15,<2
+matplotlib>=3.8,<4
+pandas>=2.2,<3
+PyYAML>=6,<7
+scikit-learn>=1.4,<2
+ultralytics>=8.3,<9

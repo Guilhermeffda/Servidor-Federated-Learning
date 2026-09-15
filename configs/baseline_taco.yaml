@@ -1,0 +1,17 @@
+# Baseline cientifica: requer taco_data/scripts/prepare_experiments.py concluido.
+dataset_yaml: data/centralized/data.yaml
+dataset_label: TACO-10
+scientific_valid: true
+partition_root: data/partitions
+evaluation_yaml: taco_data/data/test_global/data.yaml
+model: yolov8n.pt
+num_clients: 5
+rounds: 50
+local_epochs: 5
+mu: 0.0
+batch_size: 16
+image_size: 640
+device: "0"
+base_seed: 20260914
+partition_seed: 42
+output_dir: results/baseline_taco
