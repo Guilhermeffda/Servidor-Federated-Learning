@@ -1,0 +1,14 @@
+# Moderate HSV variation for plausible lighting and color changes.
+hsv_h: 0.015
+hsv_s: 0.50
+hsv_v: 0.30
+# Low rotation and translation preserve urban-scene geometry.
+degrees: 5.0
+translate: 0.05
+# Conservative scale because many litter objects are small.
+scale: 0.25
+# Vertical flips are implausible for urban scenes; horizontal flips remain valid.
+flipud: 0.0
+fliplr: 0.50
+# Moderate Mosaic trades visual diversity against apparent small-object size.
+mosaic: 0.50
