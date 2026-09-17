@@ -1,0 +1,252 @@
+{
+  "threshold": 15,
+  "note": "Combinacoes abaixo do limiar dependem das augmentations nativas do Ultralytics (bloco 'augmentation' em configs/baseline_taco.yaml). Casos com 0 instancias nao sao resolviveis por augmentation e ficam documentados como limitacao conhecida do cenario non-IID.",
+  "critical_combinations": [
+    {
+      "scenario": "iid",
+      "client": "client_0",
+      "class": "Pop tab",
+      "train_instances": 6
+    },
+    {
+      "scenario": "iid",
+      "client": "client_0",
+      "class": "Straw",
+      "train_instances": 11
+    },
+    {
+      "scenario": "iid",
+      "client": "client_1",
+      "class": "Pop tab",
+      "train_instances": 9
+    },
+    {
+      "scenario": "iid",
+      "client": "client_2",
+      "class": "Lid",
+      "train_instances": 11
+    },
+    {
+      "scenario": "iid",
+      "client": "client_3",
+      "class": "Lid",
+      "train_instances": 14
+    },
+    {
+      "scenario": "iid",
+      "client": "client_3",
+      "class": "Pop tab",
+      "train_instances": 9
+    },
+    {
+      "scenario": "iid",
+      "client": "client_4",
+      "class": "Lid",
+      "train_instances": 6
+    },
+    {
+      "scenario": "iid",
+      "client": "client_4",
+      "class": "Pop tab",
+      "train_instances": 13
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_0",
+      "class": "Bottle cap",
+      "train_instances": 11
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_0",
+      "class": "Lid",
+      "train_instances": 10
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_0",
+      "class": "Pop tab",
+      "train_instances": 11
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_0",
+      "class": "Straw",
+      "train_instances": 7
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_1",
+      "class": "Pop tab",
+      "train_instances": 11
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_2",
+      "class": "Lid",
+      "train_instances": 10
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_3",
+      "class": "Lid",
+      "train_instances": 4
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_3",
+      "class": "Pop tab",
+      "train_instances": 12
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_3",
+      "class": "Straw",
+      "train_instances": 7
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_4",
+      "class": "Can",
+      "train_instances": 9
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_4",
+      "class": "Lid",
+      "train_instances": 9
+    },
+    {
+      "scenario": "non_iid",
+      "client": "client_4",
+      "class": "Pop tab",
+      "train_instances": 2
+    }
+  ],
+  "instances_per_client": {
+    "iid": {
+      "client_0": {
+        "Can": 35,
+        "Other": 236,
+        "Bottle": 55,
+        "Bottle cap": 43,
+        "Cup": 29,
+        "Lid": 16,
+        "Plastic bag + wrapper": 103,
+        "Pop tab": 6,
+        "Straw": 11,
+        "Cigarette": 94
+      },
+      "client_1": {
+        "Can": 22,
+        "Other": 224,
+        "Bottle": 58,
+        "Bottle cap": 31,
+        "Cup": 35,
+        "Lid": 18,
+        "Plastic bag + wrapper": 122,
+        "Pop tab": 9,
+        "Straw": 24,
+        "Cigarette": 70
+      },
+      "client_2": {
+        "Can": 28,
+        "Other": 186,
+        "Bottle": 56,
+        "Bottle cap": 29,
+        "Cup": 24,
+        "Lid": 11,
+        "Plastic bag + wrapper": 109,
+        "Pop tab": 19,
+        "Straw": 23,
+        "Cigarette": 86
+      },
+      "client_3": {
+        "Can": 35,
+        "Other": 258,
+        "Bottle": 55,
+        "Bottle cap": 43,
+        "Cup": 28,
+        "Lid": 14,
+        "Plastic bag + wrapper": 120,
+        "Pop tab": 9,
+        "Straw": 18,
+        "Cigarette": 74
+      },
+      "client_4": {
+        "Can": 29,
+        "Other": 161,
+        "Bottle": 63,
+        "Bottle cap": 34,
+        "Cup": 24,
+        "Lid": 6,
+        "Plastic bag + wrapper": 108,
+        "Pop tab": 13,
+        "Straw": 15,
+        "Cigarette": 71
+      }
+    },
+    "non_iid": {
+      "client_0": {
+        "Can": 35,
+        "Other": 135,
+        "Bottle": 21,
+        "Bottle cap": 11,
+        "Cup": 37,
+        "Lid": 10,
+        "Plastic bag + wrapper": 33,
+        "Pop tab": 11,
+        "Straw": 7,
+        "Cigarette": 38
+      },
+      "client_1": {
+        "Can": 35,
+        "Other": 676,
+        "Bottle": 85,
+        "Bottle cap": 49,
+        "Cup": 48,
+        "Lid": 32,
+        "Plastic bag + wrapper": 112,
+        "Pop tab": 11,
+        "Straw": 44,
+        "Cigarette": 51
+      },
+      "client_2": {
+        "Can": 40,
+        "Other": 60,
+        "Bottle": 69,
+        "Bottle cap": 76,
+        "Cup": 21,
+        "Lid": 10,
+        "Plastic bag + wrapper": 60,
+        "Pop tab": 20,
+        "Straw": 16,
+        "Cigarette": 150
+      },
+      "client_3": {
+        "Can": 30,
+        "Other": 108,
+        "Bottle": 39,
+        "Bottle cap": 18,
+        "Cup": 19,
+        "Lid": 4,
+        "Plastic bag + wrapper": 74,
+        "Pop tab": 12,
+        "Straw": 7,
+        "Cigarette": 56
+      },
+      "client_4": {
+        "Can": 9,
+        "Other": 86,
+        "Bottle": 73,
+        "Bottle cap": 26,
+        "Cup": 15,
+        "Lid": 9,
+        "Plastic bag + wrapper": 283,
+        "Pop tab": 2,
+        "Straw": 17,
+        "Cigarette": 100
+      }
+    }
+  }
+}
