@@ -49,6 +49,31 @@ Servidor-Federated-Learning/
 └── README.md
 ```
 
+## Status do projeto
+
+> ⚠️ **Nem tudo neste repositório já está funcional de ponta a ponta.**
+> Consulte o board do projeto para o status real de cada componente antes de assumir
+> que algo "já funciona" só porque o arquivo existe.
+
+- ✅ Download, inspeção e reagrupamento (TACO-10) do dataset — funcional.
+- ✅ Separação do teste global (20%, estratificado, seed fixa) — funcional.
+- ✅ Partição reproduzível de clientes IID / non-IID — funcional no runner.
+- ✅ FedAvg (`fl/server.py`) integrado ao cliente e ao runner de baseline.
+- ✅ Cliente federado (`fl/client.py`) com troca de pesos e treino local YOLO.
+- ✅ Termo proximal do FedProx integrado ao treino local (`mu > 0`).
+- ⬜ Baselines científicas TACO-10 (5 clientes × 50 rounds, IID e non-IID ×3) — **pendentes de execução em GPU**.
+- ⬜ Baseline centralizada TACO-10 (50 épocas) — pendente de execução em GPU.
+- ⛔ FedTrimmed — não iniciado (Sprint 3).
+
+> 🐛 **Correção importante (15/09/2026):** até essa data, o `model.train()` do
+> Ultralytics treinava uma cópia interna e os pesos treinados **não voltavam** para
+> o modelo do cliente (`save=False` não recarrega checkpoint). Cada cliente devolvia
+> os pesos globais inalterados e todas as execuções federadas eram no-ops silenciosos
+> — as métricas ficavam bit-idênticas em todos os rounds. Corrigido em
+> `fl/model.py` (`_sync_trained_weights`), com teste de regressão em
+> `tests/test_baseline.py`. **Qualquer resultado federado gerado antes da correção é
+> inválido e precisa ser reexecutado.** Detalhes em `fl/CONTRACT.md`.
+
 ## Dados
 
 Para baixar e preparar o TACO, rode em sequência:
@@ -73,40 +98,74 @@ O projeto utiliza uma arquitetura cliente-servidor para simular diferentes parti
 
 Cada cliente realiza treinamento local e envia os parâmetros do modelo ao servidor. O servidor agrega os modelos utilizando as estratégias avaliadas no projeto.
 
+### Baseline FedAvg da Sprint 2 (P4)
+
+O runner reproduz os cenários IID e non-IID com três repetições e grava métricas,
+checkpoints e curvas em `results/baseline/`:
+
+```bash
+.venv/bin/python run_config.py --all
+```
+
+Neste checkout, `configs/baseline.yaml` aponta explicitamente para o mini-subset de
+smoke test e, por isso, usa `scientific_valid: false`. Consulte
+`results/baseline/README.md` para o formato dos artefatos.
+
+Com o TACO preparado, valide o pipeline completo sobre as partições reais em
+poucos minutos (2 rounds, `scientific_valid: false`):
+
+```bash
+python run_config.py --config configs/taco_smoke.yaml --scenario iid --repetition 1
+```
+
+A configuração científica final (5 clientes, 50 rounds, 5 épocas locais, GPU) é
+`configs/baseline_taco.yaml`:
+
+```bash
+python run_config.py --config configs/baseline_taco.yaml --all
+```
+
+A medicao real de hardware determinou que os treinos finais devem rodar em GPU. O
+notebook `notebooks/P4_sprint2_colab.ipynb` executa a baseline centralizada e as seis
+baselines federadas TACO-10 no Colab.
+
+## Tecnologias
+
+* Python
+* PyTorch (CPU ou GPU — ver seção de instalação)
+* Flower
+* Ultralytics (YOLOv8n)
+* scikit-learn
+* COCO / pycocotools
 
 ## Iniciação
 
-PyTorch: instale conforme o hardware ANTES de instalar os requisitos do projeto:
-   
-   - GPU NVIDIA (CUDA 12.x):
-   
-   ```
-   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-   ```
+### Windows (PowerShell)
 
-   - CPU apenas:             
-   
-   ```
-   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-   ```
+```powershell
+cd Servidor-Federated-Learning
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+# GPU NVIDIA (CUDA 12.x):
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+# ou CPU apenas:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+```
 
-   - macOS (Apple Silicon):  
-   ```
-   pip install torch torchvision
-   ```
-
+### Linux / macOS
 
 ```bash
 cd Servidor-Federated-Learning
-python -m venv C:\venvs\fedlitter
-C:\venvs\fedlitter\Scripts\Activate.ps1
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
-python .\taco_data\scripts\create_global_test.py
+python3 -m venv .venv
+source .venv/bin/activate
+pip install torch torchvision   # em Linux+NVIDIA, use o índice cu126 acima
+pip install -r requirements.txt
 ```
 
-## Como validar a instalação
+Depois, prepare os dados (seção **Dados**) e valide a instalação:
 
-```powershell
-python scripts\sanity_check.py
+```bash
+python -m pytest
+python scripts/sanity_check.py   # requer as partições TACO já geradas
 ```

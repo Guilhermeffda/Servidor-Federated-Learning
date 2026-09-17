@@ -33,15 +33,39 @@ Essa é uma estimativa conservadora e não inclui paralelismo entre clientes. Me
 com variações de cache e overhead, a ordem de grandeza torna as 42 execuções
 incompatíveis com o prazo em CPU local.
 
-## Decisão
+## Medição em GPU (16/09/2026)
 
-**Usar Google Colab com GPU para os treinos reais.** A CPU local fica restrita a
-smoke tests, testes de integração e validação dos artefatos. O comando usado para a
-medição foi:
+O grupo tem GPU disponível e roda localmente no VS Code, então a medição só-CPU
+acima não é mais a base de decisão. Nova medição, mesma partição e mesmos
+hiperparâmetros, em GPU (Apple M1 Pro / MPS, `--device mps`):
+
+- Tempo por época: **50,08 segundos** (3,2× mais rápido que a CPU)
+- Estimativa das 42 execuções: **730,29 horas / 30,43 dias** sequenciais
 
 ```bash
-.venv/bin/python scripts/sanity_check.py --epochs 1 --imgsz 640 --batch 16 --device cpu
+.venv/bin/python scripts/sanity_check.py --epochs 1 --imgsz 640 --batch 16 --device mps
 ```
 
-Esta decisão está registrada no repositório para comunicação ao grupo. A comunicação
-em canal externo (Trello/Slack/Teams) ainda deve ser feita por um integrante do grupo.
+Uma GPU NVIDIA dedicada deve ser mais rápida que o MPS, mas mesmo otimista
+(≈25 s/época) a grade completa fica em ~15 dias sequenciais.
+
+## Decisão
+
+**Treinar em GPU local** (o grupo já tem GPU e roda no VS Code); a CPU fica restrita
+a smoke tests e validação de artefatos. O Colab continua sendo alternativa para
+paralelizar execuções entre integrantes, não uma necessidade.
+
+⚠️ **Alerta de planejamento:** o gargalo não é mais CPU vs GPU, é o **tamanho da
+grade experimental**. 42 execuções × 50 rounds × 5 épocas × 5 clientes = 52.500
+épocas de treino. Mesmo em GPU isso não cabe no prazo se rodar sequencialmente numa
+máquina só. Opções a decidir com o grupo (cards S3 de P3/P4/P5 já preveem divisão
+entre P4 e P5):
+
+1. Paralelizar entre as máquinas dos integrantes (já planejado, mas insuficiente
+   sozinho: 3 máquinas ≈ 10 dias).
+2. Reduzir a grade de μ do FedProx (5 valores → 3) — o card de P4 já prevê isso como
+   primeiro corte se houver atraso no checkpoint de ~20-22/09.
+3. Reduzir rounds de 50 para 30, se a curva de convergência estabilizar antes.
+
+Essa conta deve ser refeita por cada integrante na própria máquina antes de fechar a
+divisão das execuções.
