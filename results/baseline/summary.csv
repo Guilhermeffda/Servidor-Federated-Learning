@@ -1,7 +1,0 @@
-run_id,status,scenario,repetition,dataset_label,scientific_valid,rounds_completed,duration_seconds,final_map50
-iid_rep1,complete,iid,1,coco8-mini-smoke-test,False,3,55.008186,0.43
-iid_rep2,complete,iid,2,coco8-mini-smoke-test,False,3,31.362761,0.43
-iid_rep3,complete,iid,3,coco8-mini-smoke-test,False,3,28.998571,0.43
-non_iid_rep1,complete,non_iid,1,coco8-mini-smoke-test,False,3,18.832365,0.43
-non_iid_rep2,complete,non_iid,2,coco8-mini-smoke-test,False,3,36.435842,0.43
-non_iid_rep3,complete,non_iid,3,coco8-mini-smoke-test,False,3,28.62819,0.43

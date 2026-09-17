@@ -1,171 +1,162 @@
 # FedLitter
 
-Projeto de Trabalho de Conclusão de Curso sobre **Aprendizado Federado para detecção de resíduos urbanos**.
+Aprendizado Federado para detecção de resíduos urbanos — comparação de estratégias
+de agregação (FedAvg, FedProx e FedTrimmed) sob cenários IID e non-IID.
 
-## Objetivo
+Trabalho de Conclusão de Curso — Bacharelado em Ciência da Computação, PUCPR.
 
-Investigar o uso de Aprendizado Federado para treinar modelos de detecção de resíduos sem centralizar as imagens dos clientes.
+---
 
-O projeto compara diferentes estratégias de agregação (FedAvg, FedProx e FedTrimmed) e avalia o impacto delas no desempenho do modelo sob cenários de dados IID e non-IID.
+## Documentação
+
+Este repositório tem **três documentos de referência**. Não duplique informação
+entre eles.
+
+| Documento | Para quê |
+|---|---|
+| `README.md` (este) | Visão geral, dataset, arquitetura, status macro |
+| [`docs/INSTRUCOES.md`](docs/INSTRUCOES.md) | **Como rodar tudo**, do zero ao experimento final |
+| [`docs/STATUS.md`](docs/STATUS.md) | Status detalhado por área (P1–P5) e por card |
+
+Documentos técnicos de apoio:
+
+- [`fl/CONTRACT.md`](fl/CONTRACT.md) — contrato servidor ↔ cliente (pesos, config, métricas)
+- [`taco_data/data/README.md`](taco_data/data/README.md) — auditoria estrutural do TACO
+- [`notes/hardware_benchmark.md`](notes/hardware_benchmark.md) — custo por época e viabilidade da grade
+
+---
+
+## Pergunta de pesquisa
+
+Em que medida a escolha da estratégia de agregação federada (FedAvg, FedProx,
+FedTrimmed) afeta o desempenho de um detector de resíduos treinado sobre clientes
+heterogêneos, e qual valor do termo proximal μ do FedProx maximiza esse desempenho.
+
+**Hipóteses.** H1: sob non-IID, FedProx supera FedAvg. H2: FedTrimmed é mais estável
+que FedAvg sob atualizações extremas, mesmo sem clientes maliciosos. H3: a diferença
+entre estratégias é menor no cenário IID.
+
+---
 
 ## Dataset
 
-É utilizado o dataset **TACO (Trash Annotations in Context)**.
+**TACO (Trash Annotations in Context)** — 1.500 imagens, 4.784 anotações de
+instância em formato COCO.
 
-O TACO possui originalmente 60 categorias. Para os experimentos, elas são agrupadas no esquema **TACO-10**, composto por 10 categorias:
+As 60 categorias originais são agrupadas no esquema **TACO-10**. O artigo original
+descreve a taxonomia como 9 supercategorias mais uma classe residual chamada
+*Other Litter*; o mapeamento oficial dos autores (`map_10.csv`) nomeia essa classe
+residual como **`Other`**. Este projeto segue o mapeamento oficial:
 
-* Bottle
-* Bottle cap
-* Can
-* Cigarette
-* Cup
-* Lid
-* Other Litter
-* Plastic bag + wrapper
-* Pop tab
-* Straw
+| ID | Classe | Instâncias |
+|---:|---|---:|
+| 0 | Can | 273 |
+| 1 | Other | 1.727 |
+| 2 | Bottle | 439 |
+| 3 | Bottle cap | 289 |
+| 4 | Cup | 192 |
+| 5 | Lid | 87 |
+| 6 | Plastic bag + wrapper | 850 |
+| 7 | Pop tab | 99 |
+| 8 | Straw | 161 |
+| 9 | Cigarette | 667 |
 
-O processamento dos dados está documentado em `taco_data/data/README.md`.
+### Divisão dos dados
 
-Para materializar os splits YOLO, as cinco particoes IID/non-IID e o teste global:
-
-```bash
-python taco_data/scripts/prepare_experiments.py
+```
+TACO — 1.500 imagens
+├── Teste global — 300 (20%, estratificado, seed 42) → avaliação final de TODAS as estratégias
+└── Desenvolvimento — 1.200
+    ├── Centralizado: 960 treino / 240 validação        (baseline de referência)
+    └── Federado: 5 clientes × {IID, non-IID}
 ```
 
-## Estrutura
+O teste global é separado **antes** de qualquer particionamento e é idêntico para
+FedAvg, FedProx, FedTrimmed e para a baseline centralizada — é o que garante
+comparação justa.
 
-```text
-Servidor-Federated-Learning/
-├── taco_data/
-│   ├── data/
-│   │   ├── raw/          # não versionado — baixado pelo script
-│   │   ├── processed/    # não versionado — gerado pelo script
-│   │   └── test_global/  # imagens/labels não versionados; README/data.yaml versionados
-│   └── scripts/
-│
-├── fl/            # cliente, modelo, particionamento e agregação federada
-├── run_config.py  # runner das baselines IID/non-IID
-└── README.md
+**Cenário IID:** `StratifiedKFold` sobre as imagens de desenvolvimento, preservando
+a proporção de classes em cada cliente.
+
+**Cenário non-IID:** alocação de Dirichlet por classe primária, **α = 0,5**.
+Candidatos 0,1 / 0,5 / 1,0 foram analisados; 0,5 foi escolhido por equilibrar
+heterogeneidade mensurável e viabilidade operacional (CV de imagens 0,544; entropia
+normalizada média 0,766; JSD média 0,045; cobertura mínima 7/10 classes primárias;
+nenhum cliente vazio). Justificativa completa em
+`taco_data/data/partitions/non_iid/manifest_non_iid.json`.
+
+---
+
+## Arquitetura
+
+```
+fl/
+├── CONTRACT.md   # contrato servidor ↔ cliente
+├── model.py      # YOLOv8n ↔ Flower: get/set_weights, train_local, evaluate, termo proximal
+├── client.py     # FLClient (NumPyClient): treino local por round
+├── server.py     # FedAvg, on_fit_config_fn, evaluate_metrics_aggregation_fn
+├── dataset.py    # resolve data/partitions/{iid,non_iid}/client_X/data.yaml
+└── partition.py  # particionamento genérico (usado só pelo smoke test)
+
+run_config.py     # runner: orquestra rounds, agrega, salva métricas e curvas
 ```
 
-## Status do projeto
+Modelo: **YOLOv8n** (Ultralytics), transfer learning a partir de `yolov8n.pt`.
+Orquestração: **Flower**. Treino: **PyTorch**.
 
-> ⚠️ **Nem tudo neste repositório já está funcional de ponta a ponta.**
-> Consulte o board do projeto para o status real de cada componente antes de assumir
-> que algo "já funciona" só porque o arquivo existe.
+O termo proximal do FedProx é injetado no `loss` do trainer do Ultralytics antes do
+backward (`fl/model.py::_install_fedprox_loss`), ativado quando `mu > 0`.
 
-- ✅ Download, inspeção e reagrupamento (TACO-10) do dataset — funcional.
-- ✅ Separação do teste global (20%, estratificado, seed fixa) — funcional.
-- ✅ Partição reproduzível de clientes IID / non-IID — funcional no runner.
-- ✅ FedAvg (`fl/server.py`) integrado ao cliente e ao runner de baseline.
-- ✅ Cliente federado (`fl/client.py`) com troca de pesos e treino local YOLO.
-- ✅ Termo proximal do FedProx integrado ao treino local (`mu > 0`).
-- ⬜ Baselines científicas TACO-10 (5 clientes × 50 rounds, IID e non-IID ×3) — **pendentes de execução em GPU**.
-- ⬜ Baseline centralizada TACO-10 (50 épocas) — pendente de execução em GPU.
-- ⛔ FedTrimmed — não iniciado (Sprint 3).
+---
 
-> 🐛 **Correção importante (15/09/2026):** até essa data, o `model.train()` do
-> Ultralytics treinava uma cópia interna e os pesos treinados **não voltavam** para
-> o modelo do cliente (`save=False` não recarrega checkpoint). Cada cliente devolvia
-> os pesos globais inalterados e todas as execuções federadas eram no-ops silenciosos
-> — as métricas ficavam bit-idênticas em todos os rounds. Corrigido em
-> `fl/model.py` (`_sync_trained_weights`), com teste de regressão em
-> `tests/test_baseline.py`. **Qualquer resultado federado gerado antes da correção é
-> inválido e precisa ser reexecutado.** Detalhes em `fl/CONTRACT.md`.
+## Status macro
 
-## Dados
+| Área | Status |
+|---|---|
+| Aquisição, auditoria e reagrupamento do TACO | ✅ Completo |
+| Teste global (300 imagens, estratificado) | ✅ Completo |
+| Partições IID e non-IID (Dirichlet α=0,5) | ✅ Completo |
+| Relatório de classes escassas + augmentation | ✅ Completo |
+| Cliente federado (troca de pesos + treino local) | ✅ Completo |
+| Agregação FedAvg + config por round + métricas | ✅ Completo |
+| Termo proximal do FedProx (código) | ✅ Completo |
+| Pipeline validado ponta a ponta (smoke test) | ✅ Completo |
+| **Baseline centralizada (50 épocas)** | ⬜ **Pendente de execução** |
+| **6 baselines federadas TACO-10 (50 rounds)** | ⬜ **Pendente de execução** |
+| **Execução com μ > 0 (FedProx real)** | ⬜ **Pendente de execução** |
+| Infraestrutura de execução paralela (P5) | ⬜ Não iniciado |
+| FedTrimmed | ⛔ Sprint 3 |
 
-Para baixar e preparar o TACO, rode em sequência:
+> **O código está pronto; os experimentos científicos não foram rodados.**
+> Todos os resultados hoje em `results/baseline/` estão marcados
+> `scientific_valid: false` — são smoke tests de pipeline, não resultados do artigo.
 
-```bash
-python taco_data/scripts/download_dataset.py
-python taco_data/scripts/inspect_dataset.py
-python taco_data/scripts/regroup_categories.py
-python taco_data/scripts/prepare_experiments.py
-```
+Detalhamento por card em [`docs/STATUS.md`](docs/STATUS.md).
 
-Isso gera, entre outros:
+---
 
-```text
-taco_data/data/processed/taco10/annotations_regrouped.json
-taco_data/data/test_global/
-```
+## Riscos abertos
 
-## Aprendizado Federado
+**Tamanho da grade experimental.** 42 execuções × 50 rounds × 5 épocas × 5 clientes
+= 52.500 épocas de treino. Medição real: 160 s/época em CPU, 50 s/época em GPU (MPS)
+sobre uma partição de 192 imagens. Mesmo em GPU, isso dá ~30 dias sequenciais numa
+máquina só. **Precisa de decisão do grupo** — paralelizar entre integrantes, reduzir
+a grade de μ de 5 para 3 valores, ou reduzir rounds de 50 para 30. Ver
+`notes/hardware_benchmark.md`.
 
-O projeto utiliza uma arquitetura cliente-servidor para simular diferentes participantes do treinamento federado.
+**Classes escassas pós-Dirichlet.** Combinações (cliente, classe) com menos de 15
+instâncias estão catalogadas em `taco_data/data/partitions/augmentation_report.json`.
+Mitigação via augmentations nativas do Ultralytics, configuradas em
+`configs/baseline_taco.yaml`. Casos com 0 instâncias não são resolvíveis por
+augmentation e ficam como limitação declarada do cenário non-IID.
 
-Cada cliente realiza treinamento local e envia os parâmetros do modelo ao servidor. O servidor agrega os modelos utilizando as estratégias avaliadas no projeto.
+---
 
-### Baseline FedAvg da Sprint 2 (P4)
+## Escopo — o que este projeto NÃO faz
 
-O runner reproduz os cenários IID e non-IID com três repetições e grava métricas,
-checkpoints e curvas em `results/baseline/`:
-
-```bash
-.venv/bin/python run_config.py --all
-```
-
-Neste checkout, `configs/baseline.yaml` aponta explicitamente para o mini-subset de
-smoke test e, por isso, usa `scientific_valid: false`. Consulte
-`results/baseline/README.md` para o formato dos artefatos.
-
-Com o TACO preparado, valide o pipeline completo sobre as partições reais em
-poucos minutos (2 rounds, `scientific_valid: false`):
-
-```bash
-python run_config.py --config configs/taco_smoke.yaml --scenario iid --repetition 1
-```
-
-A configuração científica final (5 clientes, 50 rounds, 5 épocas locais, GPU) é
-`configs/baseline_taco.yaml`:
-
-```bash
-python run_config.py --config configs/baseline_taco.yaml --all
-```
-
-A medicao real de hardware determinou que os treinos finais devem rodar em GPU. O
-notebook `notebooks/P4_sprint2_colab.ipynb` executa a baseline centralizada e as seis
-baselines federadas TACO-10 no Colab.
-
-## Tecnologias
-
-* Python
-* PyTorch (CPU ou GPU — ver seção de instalação)
-* Flower
-* Ultralytics (YOLOv8n)
-* scikit-learn
-* COCO / pycocotools
-
-## Iniciação
-
-### Windows (PowerShell)
-
-```powershell
-cd Servidor-Federated-Learning
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-# GPU NVIDIA (CUDA 12.x):
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-# ou CPU apenas:
-# pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-pip install -r requirements.txt
-```
-
-### Linux / macOS
-
-```bash
-cd Servidor-Federated-Learning
-python3 -m venv .venv
-source .venv/bin/activate
-pip install torch torchvision   # em Linux+NVIDIA, use o índice cu126 acima
-pip install -r requirements.txt
-```
-
-Depois, prepare os dados (seção **Dados**) e valide a instalação:
-
-```bash
-python -m pytest
-python scripts/sanity_check.py   # requer as partições TACO já geradas
-```
+- Não simula clientes maliciosos nem ataques Byzantine à agregação
+- Não compara outros agregadores robustos além do FedTrimmed (Krum, mediana geométrica)
+- Não implanta em hardware físico real — tudo é simulação em lote, máquina única
+- Não oferece garantia formal de privacidade (privacidade diferencial, agregação
+  segura ficam fora do escopo)
+  
