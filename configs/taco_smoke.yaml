@@ -1,0 +1,20 @@
+# Smoke test do pipeline federado sobre as particoes TACO-10 REAIS.
+# Valida ponta a ponta (particoes -> treino local -> agregacao -> teste global)
+# em minutos, sem custo cientifico. Requer prepare_experiments.py concluido.
+# Para as execucoes cientificas use configs/baseline_taco.yaml (50 rounds, 640px).
+dataset_yaml: data/centralized/data.yaml
+dataset_label: TACO-10-smoke
+scientific_valid: false
+partition_root: data/partitions
+evaluation_yaml: taco_data/data/test_global/data.yaml
+model: yolov8n.pt
+num_clients: 5
+rounds: 2
+local_epochs: 1
+mu: 0.0
+batch_size: 8
+image_size: 416
+device: cpu
+base_seed: 20260914
+partition_seed: 42
+output_dir: results/taco_smoke

@@ -6,15 +6,15 @@
   "dataset_label": "coco8-mini-smoke-test",
   "scientific_valid": false,
   "rounds_completed": 3,
-  "started_at": "2026-09-14T13:55:24.503397+00:00",
-  "finished_at": "2026-09-14T13:55:41.810239+00:00",
-  "duration_seconds": 17.306842,
+  "started_at": "2026-09-16T01:23:20.404457+00:00",
+  "finished_at": "2026-09-16T01:24:15.412643+00:00",
+  "duration_seconds": 55.008186,
   "final_map50": 0.43,
   "versions": {
-    "python": "3.12.3",
-    "torch": "2.14.0+cpu",
-    "flower": "1.36.0",
-    "ultralytics": "8.4.152",
+    "python": "3.13.14",
+    "torch": "2.14.0",
+    "flower": "1.37.0",
+    "ultralytics": "8.4.153",
     "pandas": "2.3.3"
   }
 }
