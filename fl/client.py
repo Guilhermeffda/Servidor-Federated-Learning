@@ -1,8 +1,7 @@
 """Cliente Flower usado pelas execucoes federadas do projeto.
 
-O dropout foi deliberadamente removido do caminho ativo da Sprint 2. A simulacao
-anterior continua preservada em ``sprint2_preview/dropout.py`` para um eventual
-experimento secundario, mas nao interfere nas baselines FedAvg/FedProx.
+O dropout de conectividade do escopo anterior (frota de veiculos) foi descartado
+junto com esse escopo; nao faz parte deste projeto.
 """
 
 from __future__ import annotations
