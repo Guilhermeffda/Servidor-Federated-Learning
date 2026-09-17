@@ -9,6 +9,7 @@ runs/
 datasets/
 results/baseline/*/local_runs/
 results/baseline/*/partitions/
+*.cache
 
 # Dados grandes — não versionados
 data/*

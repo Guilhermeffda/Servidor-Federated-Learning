@@ -49,20 +49,6 @@ Servidor-Federated-Learning/
 └── README.md
 ```
 
-## Status do projeto
-
-> ⚠️ **Nem tudo neste repositório já está funcional de ponta a ponta.**
-> Consulte o board do projeto para o status real de cada componente antes de assumir
-> que algo "já funciona" só porque o arquivo existe.
-
-- ✅ Download, inspeção e reagrupamento (TACO-10) do dataset — funcional.
-- ✅ Separação do teste global (20%, estratificado, seed fixa) — funcional.
-- ✅ Partição reproduzível de clientes IID / non-IID — funcional no runner.
-- ✅ FedAvg (`fl/server.py`) integrado ao cliente e ao runner de baseline.
-- ✅ Cliente federado (`fl/client.py`) com troca de pesos e treino local YOLO.
-- ✅ Termo proximal do FedProx integrado ao treino local (`mu > 0`).
-- ⛔ FedTrimmed — não iniciado.
-
 ## Dados
 
 Para baixar e preparar o TACO, rode em sequência:
@@ -87,34 +73,28 @@ O projeto utiliza uma arquitetura cliente-servidor para simular diferentes parti
 
 Cada cliente realiza treinamento local e envia os parâmetros do modelo ao servidor. O servidor agrega os modelos utilizando as estratégias avaliadas no projeto.
 
-### Baseline FedAvg da Sprint 2 (P4)
-
-O runner reproduz os cenários IID e non-IID com três repetições e grava métricas,
-checkpoints e curvas em `results/baseline/`:
-
-```bash
-.venv/bin/python run_config.py --all
-```
-
-Neste checkout, `configs/baseline.yaml` aponta explicitamente para o mini-subset de
-smoke test e, por isso, usa `scientific_valid: false`. Troque o `dataset_yaml` pelas
-partições TACO-10 reais antes de usar os números no TCC. Consulte
-`results/baseline/README.md` para o formato dos artefatos.
-
-A medicao real de hardware determinou que os treinos finais devem rodar em GPU. O
-notebook `notebooks/P4_sprint2_colab.ipynb` executa a baseline centralizada e as seis
-baselines federadas TACO-10 no Colab.
-
-## Tecnologias
-
-* Python
-* PyTorch (build CPU, via índice próprio do PyTorch — ver seção de instalação)
-* Flower
-* Ultralytics (YOLOv8n)
-* scikit-learn
-* COCO / pycocotools
 
 ## Iniciação
+
+PyTorch: instale conforme o hardware ANTES de instalar os requisitos do projeto:
+   
+   - GPU NVIDIA (CUDA 12.x):
+   
+   ```
+   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+   ```
+
+   - CPU apenas:             
+   
+   ```
+   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+   ```
+
+   - macOS (Apple Silicon):  
+   ```
+   pip install torch torchvision
+   ```
+
 
 ```bash
 cd Servidor-Federated-Learning
