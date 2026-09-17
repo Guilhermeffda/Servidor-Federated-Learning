@@ -15,3 +15,19 @@ device: "0"
 base_seed: 20260914
 partition_seed: 42
 output_dir: results/baseline_taco
+# Augmentations nativas do Ultralytics, fixadas explicitamente (card P2/S2 de
+# classes escassas pos-Dirichlet). Sao os valores padrao do Ultralytics —
+# registrados aqui para que a estrategia fique documentada e reproduzivel.
+# Objetos de lixo em foto de rua sao pequenos: manter mosaic/scale padrao e nao
+# usar flipud (lixo raramente aparece de cabeca para baixo).
+# Relatorio de combinacoes criticas: taco_data/scripts/augmentation_report.py.
+augmentation:
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
+  degrees: 0.0
+  translate: 0.1
+  scale: 0.5
+  flipud: 0.0
+  fliplr: 0.5
+  mosaic: 1.0
