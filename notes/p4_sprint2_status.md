@@ -1,13 +1,26 @@
 # Status dos cards P4 — Sprint 2
 
-Atualizado em 14/09/2026.
+Atualizado em 15/09/2026.
+
+> ⚠️ **Correção de 15/09/2026:** foi descoberto que `fl/model.py::train_local` não
+> sincronizava os pesos treinados de volta para o modelo do cliente (o Ultralytics
+> treina uma cópia interna e `save=False` não recarrega checkpoint). Todas as
+> execuções federadas anteriores a essa data — inclusive os seis smoke tests e o
+> `client_taco_smoke` — devolviam os pesos globais inalterados (no-op). O bug foi
+> corrigido (`_sync_trained_weights`), coberto por teste de regressão, e os seis
+> smoke tests foram reexecutados com o código corrigido. As execuções científicas
+> TACO-10 ainda não haviam sido rodadas, portanto nenhum resultado científico foi
+> afetado. O item "Treino isolado concluído em uma partição TACO real" abaixo
+> continua válido como teste de plumbing, mas não comprovava treino efetivo.
 
 ## Remedir benchmark com TACO real
 
 - [x] Particao IID real preparada (240 imagens; 192 treino + 48 validacao).
 - [x] Medicao em `640`, batch 16, CPU: 160,20 s/epoca.
-- [x] Estimativa das 42 execucoes: 2.336,28 h / 97,35 dias sequenciais.
-- [x] Decisao registrada: Colab/GPU.
+- [x] Remedicao em GPU (MPS, 16/09/2026): 50,08 s/epoca — 730,29 h / 30,43 dias.
+- [x] Decisao atualizada: GPU local (o grupo tem GPU e roda no VS Code).
+- [ ] **Decidir com o grupo como reduzir a grade experimental** — mesmo em GPU as 42
+      execucoes nao cabem no prazo numa maquina so. Ver `notes/hardware_benchmark.md`.
 - [ ] Comunicar externamente ao grupo (o repositorio nao possui conector de mensagens).
 
 ## Portar cliente, remover dropout e suportar FedProx
