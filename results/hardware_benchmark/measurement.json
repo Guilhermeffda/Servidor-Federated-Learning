@@ -1,23 +1,23 @@
 {
-  "measured_at": "2026-09-14T13:43:21.905331+00:00",
-  "data_yaml": "data/partitions/iid/client_0/data.yaml",
+  "measured_at": "2026-09-17T18:59:03.759556+00:00",
+  "data_yaml": "data\\partitions\\iid\\client_0\\data.yaml",
   "train_images": 192,
   "epochs": 1,
   "image_size": 640,
   "batch_size": 16,
-  "device": "cpu",
-  "elapsed_seconds": 160.2022278860004,
-  "seconds_per_epoch": 160.2022278860004,
+  "device": "0",
+  "elapsed_seconds": 20.277686300105415,
+  "seconds_per_epoch": 20.277686300105415,
   "estimated_federated_epochs": 52500,
-  "estimated_total_hours": 2336.282490004173,
-  "estimated_total_days": 97.34510375017386,
+  "estimated_total_hours": 295.716258543204,
+  "estimated_total_days": 12.321510772633498,
   "decision": "colab",
   "hardware": {
-    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
-    "processor": "x86_64",
-    "python": "3.12.3",
-    "torch": "2.14.0+cpu",
-    "cuda_available": false,
-    "gpu": null
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+    "python": "3.12.10",
+    "torch": "2.14.0+cu126",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce GTX 1660 SUPER"
   }
 }

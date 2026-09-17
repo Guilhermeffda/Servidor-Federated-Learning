@@ -9,13 +9,13 @@ runs/
 datasets/
 results/baseline/*/local_runs/
 results/baseline/*/partitions/
+results/taco_smoke/
 *.cache
 
 # Dados grandes — não versionados
 data/*
 
 # Exceções versionadas
-!data/mini_test/
 !data/processed/
 !data/processed/taco10/
 !data/processed/taco10/annotations_regrouped.json

@@ -162,6 +162,12 @@ artefatos batam em formato com os de P4.
 | GPU (M1 Pro / MPS) | 50,1 | 30 dias |
 | GPU NVIDIA (estimado otimista) | ~25 | ~15 dias |
 
+### RESULTADOS DE BENCHMARK JA OBTIDOS:
+
+| Pessoa | s/epoca | tempo estimado |
+|---|---:|---:|
+| GPU CAMILA | 20,28s | 12 dias |
+
 Opções, em ordem de preferência:
 
 1. **Paralelizar entre integrantes** — já planejado, mas insuficiente sozinho

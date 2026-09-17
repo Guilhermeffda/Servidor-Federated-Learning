@@ -20,6 +20,7 @@ import yaml
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PARTITIONS = PROJECT_ROOT / "data" / "partitions"
 DEFAULT_OUTPUT = PROJECT_ROOT / "taco_data" / "data" / "partitions" / "augmentation_report.json"
+DEFAULT_SVG = PROJECT_ROOT / "taco_data" / "data" / "partitions" / "iid" / "distribution_iid.svg"
 DEFAULT_THRESHOLD = 15
 
 
@@ -28,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--threshold", type=int, default=DEFAULT_THRESHOLD,
                         help="minimo de instancias por (cliente, classe) (default: 15)")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--svg", type=Path, default=DEFAULT_SVG)
     return parser.parse_args()
 
 
@@ -52,6 +54,39 @@ def count_instances(train_manifest: Path) -> Counter[int]:
             if fields:
                 counts[int(float(fields[0]))] += 1
     return counts
+
+
+def write_distribution_svg(path: Path, report: dict, names: dict[int, str]) -> None:
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    clients = report["iid"]
+    class_ids = sorted(names)
+    totals = [sum(client.values()) for client in clients.values()]
+    bottoms = np.zeros(len(clients), dtype=float)
+    x = np.arange(len(clients))
+    figure, axis = plt.subplots(figsize=(11, 7))
+    for class_id in class_ids:
+        values = np.asarray(
+            [client.get(names[class_id], 0) / total if total else 0 for client, total in zip(clients.values(), totals)],
+            dtype=float,
+        )
+        axis.bar(x, values, bottom=bottoms, label=f"{class_id}: {names[class_id]}")
+        bottoms += values
+    axis.set_xticks(x, [f"{client}\nn={total}" for client, total in zip(clients, totals)])
+    axis.set_ylim(0, 1)
+    axis.set_ylabel("Within-client fraction of object instances")
+    axis.set_xlabel("IID client population")
+    axis.set_title("IID partition - object instance distributions")
+    axis.legend(bbox_to_anchor=(1.02, 1), loc="upper left", fontsize=8)
+    axis.grid(axis="y", alpha=0.25)
+    figure.tight_layout()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(path, format="svg", metadata={"Creator": "taco_data", "Date": None})
+    plt.close(figure)
 
 
 def main() -> None:
@@ -94,10 +129,12 @@ def main() -> None:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_distribution_svg(args.svg, report, names)
     print(f"{len(critical)} combinacoes (cenario, cliente, classe) abaixo de {args.threshold} instancias")
     for item in critical:
         print(f"  {item['scenario']:8s} {item['client']}  {item['class']:22s} {item['train_instances']}")
     print(f"Relatorio: {args.output}")
+    print(f"Distribuicao IID: {args.svg}")
 
 
 if __name__ == "__main__":

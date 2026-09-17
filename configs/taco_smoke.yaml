@@ -14,7 +14,7 @@ local_epochs: 1
 mu: 0.0
 batch_size: 8
 image_size: 416
-device: cpu
+device: 0 # trocar 0 para cpu se nao houver gpu
 base_seed: 20260914
 partition_seed: 42
 output_dir: results/taco_smoke

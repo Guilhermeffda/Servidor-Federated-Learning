@@ -1,0 +1,167 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{makecell}
+\newcommand{\cmark}{\textbf{X}}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,allcolors=black]{hyperref}
+\usepackage{float}
+
+
+\title{FedLitter: Comparação de Estratégias de Agregação em Aprendizado Federado para Detecção de Resíduos Urbanos}
+
+\author{
+\IEEEauthorblockA{Experiência Criativa: Projeto Transformador II\\
+Bacharelado em Ciência da Computação -- PUCPR
+\\[3ex]
+Turma 8ºA -- Grupo 11 \\
+Anabelly Montibeller, Andressa Souza , Camila Vieira, Guilherme Ferraz , Rodrigo Bittencourt \\
+{\tt\small \{montibeller.anabelly, andressa.t, camila.oliveira3, ferraz.freire, bittencourt.rodrigo\}@pucpr.edu.br}
+}
+}
+
+\sloppy
+\begin{document}
+
+\maketitle
+
+\section{Descrição, Contextualização e Escopo do Projeto}
+\label{sec:intro}
+
+A triagem automática de resíduos por visão computacional já é consolidada, com arquiteturas de classificação e detecção capazes de distinguir categorias recicláveis a partir de imagens, ainda que limitações de generalização entre datasets sejam um obstáculo prático relatado na literatura \cite{lu2022wastemanagement}. O que permanece pouco explorado é como treinar esses modelos quando os dados estão espalhados entre fontes que não podem ser centralizadas. O \textit{Aprendizado Federado} (\textit{Federated Learning}, FL) resolve isso treinando um modelo global a partir de atualizações calculadas localmente em cada cliente e agregadas por um servidor central, sem transmitir imagens brutas, seguindo o algoritmo clássico FedAvg \cite{mcmahan2017}.
+
+Já existem precedentes de FL aplicado a resíduos: um estudo aplica um \textit{framework} federado à classificação de resíduos no dataset TrashBox, combinando o desempenho de múltiplas arquiteturas CNN \cite{khan2024scirep}, e outro compara FL contra treinamento centralizado sob partição \textit{non-IID} \cite{wang2026ijeces}. Nenhum investiga sistematicamente o efeito da escolha do algoritmo de agregação, limitando-se a uma única estratégia. Essa é a lacuna que este projeto ocupa: comparar, sob as mesmas condições, três estratégias de agregação federada aplicadas à detecção de resíduos, quantificando o impacto da heterogeneidade dos dados entre clientes.
+
+A pergunta de pesquisa é: em que medida a escolha da estratégia de agregação, entre FedAvg, FedProx e FedTrimmed (\textit{trimmed mean}), afeta o desempenho de um detector de resíduos sobre clientes heterogêneos, e qual valor do termo proximal do FedProx maximiza esse desempenho. O projeto testa três hipóteses, formuladas como expectativas motivadas pela literatura e não como resultados já estabelecidos: H1: sob \textit{non-IID}, o FedProx supera o FedAvg, pois o termo proximal reduz a divergência entre atualizações locais -- embora a literatura mostre que esse ganho depende do contexto e da calibração de $\mu$ \cite{fedprox2020}; H2: o FedTrimmed é mais estável que o FedAvg quando a heterogeneidade produz atualizações extremas, mesmo sem clientes maliciosos, sem que isso implique superioridade geral sobre heterogeneidade estatística benigna; H3: a diferença entre as três estratégias é menor no cenário IID do que no \textit{non-IID}.
+
+A Figura~\ref{fig:aggregation_overview} ilustra o funcionamento do FL: cada cliente treina localmente e envia apenas os pesos ao servidor, que os agrega para atualizar o modelo global. Os clientes usados aqui são partições simuladas do TACO (Seção~\ref{sec:materiais}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{fl-diagram.jpg}
+\caption{Visão geral do Aprendizado Federado: cada cliente treina o modelo localmente e envia os pesos ao servidor, que agrega as atualizações e atualiza o modelo global.}
+\label{fig:aggregation_overview}
+\end{figure}
+
+Todo o sistema é uma simulação em lote, em máquina única, sem dispositivo físico real. O \textit{Flower} orquestra os clientes como processos locais sobre PyTorch. O projeto não simula clientes maliciosos: a robustez investigada é a divergência sob heterogeneidade estatística benigna, não a robustez Byzantine a atualizações adversariais.
+
+\section{Materiais e Métodos}
+\label{sec:materiais}
+
+O \textit{dataset} escolhido é o TACO (\textit{Trash Annotations in Context}), composto por 1500 imagens de lixo em ambientes reais diversos, com 4784 anotações de instância em formato COCO \cite{taco2020}. O TACO possui originalmente 60 categorias, agrupadas pelos próprios autores em um esquema experimental reduzido conhecido como TACO-10: o texto do artigo original descreve o critério como a seleção de 9 supercategorias pela quantidade de instâncias, com as demais categorias reunidas em uma classe residual chamada \textit{Other Litter}. O mapeamento oficial disponibilizado pelos autores (\texttt{map\_10.csv}), no entanto, nomeia essa mesma classe residual apenas como \textit{Other}. Este projeto adota o TACO-10 tal como definido pelo mapeamento oficial -- 9 supercategorias mais a classe residual \textit{Other} --, citando \textit{Other Litter} apenas como a denominação textual dos autores \cite{taco2020}. A Figura~\ref{fig:dataset_samples} apresenta amostras representativas do TACO.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{ex-taco.png}
+\caption{Amostras do TACO, ilustrando a diversidade de ambientes e categorias de resíduo anotadas em formato COCO.}
+\label{fig:dataset_samples}
+\end{figure}
+
+Como o TACO não tem divisão institucional ou geográfica própria, os clientes federados são partições simuladas: cinco clientes, com dois cenários de partição entre eles. No cenário IID, os exemplos são distribuídos por amostragem aleatória uniforme; no cenário \textit{non-IID}, a distribuição é gerada por partição de Dirichlet, técnica padrão da literatura de FL para sintetizar heterogeneidade estatística controlada \cite{hsu2019dirichlet}. Após a partição, 20\% das imagens do TACO são separadas como conjunto de teste global, mantido fora de qualquer partição de cliente e usado para avaliar o modelo global de cada estratégia.
+
+A arquitetura de detecção adotada é o YOLOv8n, leve o suficiente para simular treinamento em dispositivo de borda. O treino local usa SGD (lr 0.01), 5 épocas locais por rodada, \textit{batch size} 16 e 50 rodadas de comunicação. A métrica principal é o mAP@50:95 no teste global, segundo o protocolo padrão de avaliação de detecção \cite{lin2014coco}; precisão, \textit{recall} e mAP@50 são secundárias. Cada configuração (estratégia $\times$ cenário) roda em 3 repetições independentes, com sementes distintas. O treinamento é orquestrado pelo \textit{Flower} com PyTorch, comparando:
+
+\begin{itemize}
+\item \textbf{FedAvg}: média dos pesos locais ponderada pelo tamanho do conjunto de dados de cada cliente, usada como linha de base \cite{mcmahan2017};
+\item \textbf{FedProx}: adiciona à função objetivo local um termo de penalização proximal, controlado por $\mu$, para lidar com heterogeneidade estatística e de sistema \cite{fedprox2020};
+\item \textbf{FedTrimmed}: descarta o maior e o menor valor recebido em cada coordenada dos pesos ($\beta = 0.4$, $k=1$ de cada lado com 5 clientes) e calcula a média ponderada dos 3 valores restantes \cite{yin2018}.
+\end{itemize}
+
+A \textit{trimmed mean} foi originalmente formulada como defesa contra clientes Byzantine \cite{yin2018}. Como este projeto não simula clientes maliciosos, o FedTrimmed entra como teste de H2, não como defesa a ataques: sob \textit{non-IID} forte e sem clientes maliciosos, esquemas robustos baseados em mediana podem degradar a ponto de se equivaler a escolha aleatória, enquanto a \textit{trimmed mean} tende a se manter estável nesse cenário benigno \cite{li2023byzantine}; esse achado é a base empírica de H2.
+
+Para o FedProx, serão avaliados $\mu \in \{0.01, 0.1, 0.2, 0.5, 1\}$, buscando o valor que maximiza o mAP@50:95. Essa faixa é motivada pelos autores do FedProx, que relatam ganho médio de 22\% sobre o FedAvg em cenários heterogêneos, com $\mu$ ótimo calibrado empiricamente \cite{fedprox2020}. A comparação entre cenários (H3) é reforçada pela literatura de convergência do FedAvg sob heterogeneidade estatística \cite{li2020noniid}. Ao todo, o protocolo totaliza 42 execuções federadas: FedAvg e FedTrimmed (2 cenários $\times$ 3 repetições) mais a varredura do FedProx (5 valores de $\mu$ $\times$ 2 cenários $\times$ 3 repetições).
+
+Cada hipótese é avaliada sobre as 3 repetições por configuração, com o poder estatístico de $n=3$ declarado como limitação. H1 usa teste $t$ de Welch entre FedAvg e FedProx($\mu^*$) no \textit{non-IID}, com intervalo de confiança além do $p$. H2 é análise de estabilidade, não teste formal: compara-se o desvio padrão do mAP@50:95 entre repetições de FedAvg e FedTrimmed no \textit{non-IID}. H3 compara a diferença absoluta de mAP@50:95 médio entre as três estratégias em cada cenário.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\caption{Resumo de Materiais e Métodos.}
+\label{tab:materiais_metodos}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{p{2.1cm} p{5.6cm}}
+\toprule
+\textbf{Materiais} & \textbf{Descrição} \\
+\midrule
+\textit{Dataset} & TACO-10 \cite{taco2020} (9 supercategorias + \textit{Other}), 5 clientes, partição IID e Dirichlet \cite{hsu2019dirichlet}, 20\% para teste global \\
+Modelo & YOLOv8n, SGD (lr 0.01), 5 épocas locais, \textit{batch} 16, 50 rodadas \\
+Agregação & FedAvg \cite{mcmahan2017}, FedProx \cite{fedprox2020} ($\mu \in \{0.01, 0.1, 0.2, 0.5, 1\}$) e FedTrimmed \cite{yin2018} ($\beta = 0.4$, $k=1$, média ponderada) \\
+Métricas & Principal: mAP@50:95. Secundárias: precisão, \textit{recall}, mAP@50 \\
+Repetições & 3 execuções por configuração (média $\pm$ desvio padrão) \\
+\textit{Frameworks} & \textit{Flower} (orquestração federada) e PyTorch (treinamento) \\
+Hardware & Desktop com GPU RTX 5060 Ti 12GB e 32GB de RAM \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\section{Etapas do Projeto e Marcos Físicos}
+\label{sec:etapas}
+
+O trabalho está organizado em cinco etapas, alinhadas às cinco \textit{sprints} do plano de execução da equipe.
+
+\textbf{Etapa 1 -- Revisão e Formalização (12/08--27/08).} Validação dos artigos-base de FL e dos trabalhos aplicados a resíduos, download/inspeção inicial do TACO, esqueleto de servidor/cliente Flower. Entregável: este documento e o ambiente validado.
+
+\textbf{Etapa 2 -- Preparação dos Dados (28/08--12/09).} Reagrupamento em TACO-10, separação do teste global (20\%), partições IID e \textit{non-IID} (Dirichlet) e \textit{data augmentation} para classes escassas. Entregável: os conjuntos federados prontos.
+
+\textbf{Etapa 3 -- Implementação do FedAvg (13/09--03/10).} Linha de base FedAvg sobre o dataset final, nos dois cenários (3 repetições cada). Entregável: modelo global comparável a um treinamento centralizado equivalente.
+
+\textbf{Etapa 4 -- FedProx e FedTrimmed (04/10--24/10).} Termo proximal do FedProx, varredura de $\mu$, FedTrimmed e execução das 42 rodadas experimentais. Entregável: tabela comparativa bruta entre as três estratégias.
+
+\textbf{Etapa 5 -- Avaliação e Finalização (25/10--31/10).} Testes de H1, H2 e H3, consolidação de gráficos/tabelas, revisão cruzada e apresentação. Entregável: artigo final e materiais de apresentação, entregues em 31/10.
+
+\section{Cronograma}
+\label{sec:cronograma}
+
+A Tabela~\ref{tab:cronograma} distribui as atividades ao longo das cinco \textit{sprints} descritas na Seção~\ref{sec:etapas}, alinhadas aos \textit{checkpoints} do plano de ensino, da submissão deste planejamento até a entrega final em 31/10.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\caption{Cronograma do projeto, por \textit{sprint}.}
+\label{tab:cronograma}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l c c c c c}
+\toprule
+\textbf{Atividade} &
+\makecell[c]{\textbf{12/08}\\\textbf{27/08}} &
+\makecell[c]{\textbf{28/08}\\\textbf{12/09}} &
+\makecell[c]{\textbf{13/09}\\\textbf{03/10}} &
+\makecell[c]{\textbf{04/10}\\\textbf{24/10}} &
+\makecell[c]{\textbf{25/10}\\\textbf{31/10}} \\
+\midrule
+\rowcolor{gray!10} Revisão bibliográfica e formalização do escopo & \cmark & & & & \\
+Reagrupamento do TACO em TACO-10 e teste global (20\%) & & \cmark & & & \\
+\rowcolor{gray!10} Partição de clientes (IID uniforme e \textit{non-IID} por Dirichlet) & & \cmark & & & \\
+Servidor FedAvg e rodada federada \textit{end-to-end} (linha de base) & & \cmark & \cmark & & \\
+\rowcolor{gray!10} Termo proximal do FedProx e varredura de $\mu$ (teste de H1) & & & \cmark & \cmark & \\
+Implementação do FedTrimmed (teste de H2) & & & \cmark & \cmark & \\
+\rowcolor{gray!10} Execução das 42 rodadas experimentais & & & \cmark & \cmark & \\
+Testes estatísticos de H1, H2 e H3 & & & & \cmark & \cmark \\
+\rowcolor{gray!10} Consolidação de tabelas/gráficos e redação final & & & & \cmark & \cmark \\
+Revisão cruzada, apresentação e submissão final & & & & & \cmark \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\section{Estado Atual da Implementação}
+\label{sec:baseline}
+
+O código-fonte e os demais artefatos do projeto estão disponíveis no repositório do grupo: \url{https://github.com/Guilhermeffda/Servidor-Federated-Learning}
+
+O que já está implementado cobre a primeira metade da Etapa 2: \textit{download}, auditoria e reagrupamento do TACO em TACO-10 são funcionais e reprodutíveis por \textit{script}, assim como a separação estratificada do teste global (20\%, seed fixa). A partição de clientes IID/\textit{non-IID} está em andamento. Do lado federado, existe o esqueleto da interface: contrato formal servidor-cliente (pesos como lista de \texttt{numpy.ndarray}, métricas \texttt{\{loss, num\_examples\}}), \texttt{server.py} com a \textit{Strategy} FedAvg nativa do Flower ainda não customizada, e um \texttt{FLClient} cujos métodos são pontos de extensão vazios. Não há rodada federada \textit{end-to-end} funcional sobre o TACO ainda: essa integração é o objetivo da Etapa 3. Uma implementação exploratória anterior, mantida à parte como referência não ativa no repositório, já validou a mecânica de treino/agregação sobre um \textit{dataset} de \textit{smoke test} distinto do TACO e fora do escopo (cenário de frota de veículos); servirá apenas de referência de código ao portar a lógica para o \texttt{FLClient} oficial.
+
+FedProx, a varredura de $\mu$ e o FedTrimmed ainda não foram iniciados. Ficam fora do escopo: clientes maliciosos, outros agregadores robustos (Krum, mediana geométrica) e hardware físico real \cite{li2023byzantine}. O tamanho reduzido do TACO é um risco reconhecido: a partição de Dirichlet pode deixar clientes com poucos exemplos; \textit{data augmentation} está prevista para mitigar isso \cite{taco2020}. O FL reduz a exposição de dados brutos por arquitetura, mas isso não equivale a privacidade formal; técnicas complementares ficam fora do escopo \cite{kairouz2021}.
+
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+
+\end{document}

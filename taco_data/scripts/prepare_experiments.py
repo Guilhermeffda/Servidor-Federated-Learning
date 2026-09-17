@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -117,8 +118,15 @@ def ensure_symlink(source: Path, destination: Path) -> None:
             raise FileExistsError(f"Link existente aponta para outro arquivo: {destination}")
         return
     if destination.exists():
+        if destination.is_file() and destination.read_bytes() == source.read_bytes():
+            return
         raise FileExistsError(f"Destino ja existe e nao e link: {destination}")
-    destination.symlink_to(source.resolve())
+    try:
+        destination.symlink_to(source.resolve())
+    except OSError as error:
+        if getattr(error, "winerror", None) != 1314:
+            raise
+        shutil.copy2(source, destination)
 
 
 def write_label(
@@ -165,9 +173,7 @@ def materialize_split(
         if split == "test":
             ensure_symlink(image_destination, GLOBAL_TEST / "images" / name)
             global_label = GLOBAL_TEST / "labels" / Path(name).with_suffix(".txt")
-            global_label.parent.mkdir(parents=True, exist_ok=True)
-            if not global_label.exists():
-                global_label.symlink_to(label_destination.resolve())
+            ensure_symlink(label_destination, global_label)
     return paths
 
 

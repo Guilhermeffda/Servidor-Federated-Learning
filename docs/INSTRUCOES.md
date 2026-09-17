@@ -29,7 +29,7 @@ Python 3.12 ou superior.
 
 ```powershell
 python -m venv .venv
-.venv\Scripts\Activate.ps1
+.\.venv\Scripts\activate
 
 # GPU NVIDIA (CUDA 12.x):
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
@@ -65,7 +65,9 @@ pip install -r requirements.txt
 python -c "import torch; print('CUDA:', torch.cuda.is_available()); print('MPS:', torch.backends.mps.is_available())"
 ```
 
-Guarde o resultado — ele define o valor de `device` nos passos seguintes:
+se `CUDA: True` confirma que o PyTorch está vendo a GPU NVIDIA corretamente Guarde o resultado — ele define o valor de `device` nos passos seguintes:
+
+Em `Servidor-Federated-Learning\configs\taco_smoke.yaml`, ajustar `device:` (linha 17) para o device correspondente:
 
 | Hardware | `device` |
 |---|---|
@@ -141,7 +143,7 @@ Saídas: `taco_data/data/partitions/non_iid/alpha_analysis.json` e
 ### Relatório de classes escassas (opcional)
 
 ```bash
-python taco_data/scripts/augmentation_report.py --threshold 15
+python taco_data/scripts/augmentation_report.py
 ```
 
 Lista combinações (cliente, classe) com poucas instâncias →
@@ -171,14 +173,14 @@ partições, termo proximal do FedProx, round-trip exato dos pesos, e — import
 
 Rode sempre que mexer no pipeline, **antes** de comprometer horas de GPU.
 
-### 4.1 Smoke test mínimo (segundos, sem precisar do TACO)
+### 4.1 Smoke test do pipeline TACO (minutos)
 
 ```bash
 python run_config.py --all
 ```
 
-Usa `configs/baseline.yaml` (mini-subset embutido, 3 clientes, 3 rounds, CPU).
-Saída em `results/baseline/`, marcada `scientific_valid: false`.
+Usa `configs/taco_smoke.yaml` (partições TACO reais, 5 clientes, 2 rounds, CPU).
+Saída em `results/taco_smoke/`, marcada `scientific_valid: false`.
 
 ### 4.2 Smoke test sobre as partições TACO reais (minutos)
 
@@ -224,9 +226,16 @@ de treino) e grava `results/hardware_benchmark/measurement.json`.
 tempo_por_época × 5 épocas × 50 rounds × 5 clientes × 42 execuções
 ```
 
-Referências já medidas: **160 s/época em CPU** (i7-1165G7) → 97 dias;
+Referências estimadas: **160 s/época em CPU** (i7-1165G7) → 97 dias;
 **50 s/época em GPU** (M1 Pro/MPS) → 30 dias. Anote o seu número e leve ao grupo —
 a divisão das execuções depende disso.
+
+
+#### RESULTADOS DE BENCHMARK REAIS JA OBTIDOS:
+
+| Pessoa | s/epoca | tempo estimado |
+|---|---:|---:|
+| GPU CAMILA | 20,28s | 12 dias |
 
 ---
 

@@ -73,6 +73,31 @@ def test_train_local_changes_trainable_parameters(tmp_path: Path) -> None:
     save=False, os pesos treinados nao voltavam para model.model — o cliente
     devolvia os pesos globais inalterados e o federado inteiro era um no-op."""
     from fl.model import train_local
+    from PIL import Image
+
+    dataset_root = tmp_path / "mini_test"
+    for split, image_count in (("train", 2), ("val", 1)):
+        image_dir = dataset_root / "images" / split
+        label_dir = dataset_root / "labels" / split
+        image_dir.mkdir(parents=True)
+        label_dir.mkdir(parents=True)
+        for image_index in range(image_count):
+            image_name = f"image_{image_index}.jpg"
+            Image.new("RGB", (64, 64), color=(128, 128, 128)).save(
+                image_dir / image_name
+            )
+            (label_dir / f"image_{image_index}.txt").write_text(
+                "0 0.5 0.5 0.5 0.5\n", encoding="utf-8"
+            )
+    data_yaml = dataset_root / "data.yaml"
+    names = "\n".join(f"  {class_id}: class_{class_id}" for class_id in range(80))
+    data_yaml.write_text(
+        "path: " + str(dataset_root).replace("\\", "/") + "\n"
+        "train: images/train\n"
+        "val: images/val\n"
+        "names:\n" + names + "\n",
+        encoding="utf-8",
+    )
 
     model = load_model("yolov8n.pt")
     parameter_names = {name for name, _ in model.model.named_parameters()}
@@ -81,7 +106,7 @@ def test_train_local_changes_trainable_parameters(tmp_path: Path) -> None:
     }
     train_local(
         model=model,
-        data_yaml="data/mini_test/data.yaml",
+        data_yaml=str(data_yaml),
         epochs=1,
         batch_size=2,
         image_size=128,

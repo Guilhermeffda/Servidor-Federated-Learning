@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parent
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "baseline.yaml")
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "taco_smoke.yaml")
     parser.add_argument("--scenario", choices=("iid", "non_iid"))
     parser.add_argument("--repetition", type=int, choices=(1, 2, 3))
     parser.add_argument("--all", action="store_true", help="executa as seis combinacoes")

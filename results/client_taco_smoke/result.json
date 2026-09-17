@@ -1,17 +1,17 @@
 {
   "status": "complete",
   "dataset": "TACO-10 real",
-  "data_yaml": "data/partitions/iid/client_0/data.yaml",
+  "data_yaml": "data\\partitions\\iid\\client_0\\data.yaml",
   "client_id": "client_0",
   "num_examples": 192,
   "num_parameter_tensors": 355,
   "weight_roundtrip_exact": true,
   "dropout_active": false,
   "metrics": {
-    "train_loss": 6.97435188293457,
-    "fitness": 0.022697251998302984,
+    "train_loss": 7.0632123947143555,
+    "fitness": 0.034629201183612374,
     "mu": 0.0,
-    "proximal_distance_sq_half": 2.8807125091552734,
+    "proximal_distance_sq_half": 2.8677749633789062,
     "num_examples": 192
   }
 }
