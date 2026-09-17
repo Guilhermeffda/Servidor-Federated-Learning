@@ -34,6 +34,38 @@ def test_proximal_penalty_is_zero_at_global_model_and_positive_after_change() ->
     assert np.isclose(proximal_penalty(model, reference).item(), 1.0)
 
 
+def test_train_local_changes_trainable_parameters(tmp_path: Path) -> None:
+    """Regressao: model.train() do Ultralytics treina uma copia interna e, com
+    save=False, os pesos treinados nao voltavam para model.model — o cliente
+    devolvia os pesos globais inalterados e o federado inteiro era um no-op."""
+    from fl.model import train_local
+
+    model = load_model("yolov8n.pt")
+    parameter_names = {name for name, _ in model.model.named_parameters()}
+    before = {
+        name: value.detach().clone() for name, value in model.model.state_dict().items()
+    }
+    train_local(
+        model=model,
+        data_yaml="data/mini_test/data.yaml",
+        epochs=1,
+        batch_size=2,
+        image_size=128,
+        device="cpu",
+        seed=0,
+        output_dir=tmp_path,
+        run_name="regression_probe",
+        nbs=2,
+    )
+    after = model.model.state_dict()
+    changed_parameters = [
+        name
+        for name in parameter_names
+        if not torch.equal(before[name], after[name].detach().cpu())
+    ]
+    assert changed_parameters, "treino local nao alterou nenhum parametro treinavel"
+
+
 def test_yolo_weight_roundtrip_is_exact() -> None:
     model = load_model("yolov8n.pt")
     before = get_weights(model)

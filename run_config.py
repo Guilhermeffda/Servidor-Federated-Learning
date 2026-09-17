@@ -133,7 +133,7 @@ def run_one(config: dict, scenario: str, repetition: int, force: bool = False) -
         # Drive montado para sobreviver a desconexoes do Colab.
         scratch_dir = ROOT / "runs" / "federated_scratch" / run_id
         # Valida a mesma Strategy que seria usada num servidor Flower distribuido.
-        get_strategy(int(config["num_clients"]))
+        get_strategy(int(config["num_clients"]), config)
         clients = [
             FLClient(f"client_{index}", data_yaml, count, str(ROOT / config["model"]))
             for index, (data_yaml, count) in enumerate(partitions)
@@ -161,6 +161,11 @@ def run_one(config: dict, scenario: str, repetition: int, force: bool = False) -
                     "output_dir": str(scratch_dir),
                     "run_name": f"round_{server_round}_client_{index}",
                     "mu": float(config.get("mu", 0.0)),
+                    "nbs": int(config.get("nbs", 64)),
+                    **{
+                        f"aug_{key}": float(value)
+                        for key, value in (config.get("augmentation") or {}).items()
+                    },
                 }
                 weights, count, metrics = client.fit(global_weights, fit_config)
                 updates.append((weights, count))

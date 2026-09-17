@@ -48,6 +48,14 @@ class FLClient(fl.client.NumPyClient):
             output_dir=Path(str(config.get("output_dir", "runs/federated"))),
             run_name=str(config.get("run_name", self.client_id)),
             mu=float(config.get("mu", 0.0)),
+            nbs=int(config.get("nbs", 64)),
+            # Chaves "aug_<nome>" chegam achatadas para manter o config do Flower
+            # restrito a escalares; viram kwargs de augmentation do Ultralytics.
+            augmentation={
+                key[4:]: float(value)
+                for key, value in config.items()
+                if key.startswith("aug_")
+            },
         )
         metrics["num_examples"] = self.num_train_examples
         return get_weights(self.model), self.num_train_examples, metrics

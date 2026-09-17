@@ -57,6 +57,36 @@ def proximal_penalty(
     return 0.5 * torch.stack(terms).sum()
 
 
+def _sync_trained_weights(model: YOLO) -> None:
+    """Copia os pesos treinados de trainer.model de volta para model.model.
+
+    Com ``save=False`` o Ultralytics nao recarrega checkpoint nenhum em
+    ``model.model`` ao final do ``train()``: o treino acontece numa copia
+    (``model.trainer.model``) e o wrapper fica com os pesos antigos. Sem esta
+    sincronizacao, ``get_weights`` devolveria os pesos globais inalterados e o
+    treino federado seria um no-op silencioso.
+    """
+    trainer = getattr(model, "trainer", None)
+    if trainer is None or getattr(trainer, "model", None) is None:
+        raise RuntimeError("Treino nao produziu um trainer com modelo treinado")
+    trained = unwrap_model(trainer.model)
+    trained_state = trained.state_dict()
+    current_state = model.model.state_dict()
+    if trained_state.keys() != current_state.keys():
+        raise RuntimeError(
+            "state_dict do modelo treinado diverge do wrapper "
+            f"({len(trained_state)} != {len(current_state)} tensores); "
+            "o modelo do trainer pode ter sido fundido ou alterado"
+        )
+    model.model.load_state_dict(
+        {
+            name: value.detach().to(device=current_state[name].device, dtype=current_state[name].dtype)
+            for name, value in trained_state.items()
+        },
+        strict=True,
+    )
+
+
 def _install_fedprox_loss(trainer, reference: dict[str, torch.Tensor], mu: float) -> None:
     """Adiciona o termo proximal ao loss antes do backward do Ultralytics."""
     train_model = unwrap_model(trainer.model)
@@ -84,6 +114,8 @@ def train_local(
     output_dir: Path,
     run_name: str,
     mu: float = 0.0,
+    nbs: int = 64,
+    augmentation: dict[str, float] | None = None,
 ) -> dict[str, float]:
     if mu < 0:
         raise ValueError("mu deve ser maior ou igual a zero")
@@ -99,10 +131,16 @@ def train_local(
         callback = lambda trainer: _install_fedprox_loss(trainer, reference, mu)
         model.add_callback("on_pretrain_routine_end", callback)
     try:
+        # nbs e o batch nominal do Ultralytics: gradientes sao acumulados ate
+        # round(nbs/batch) iteracoes antes de cada optimizer.step(). Particoes
+        # federadas pequenas podem nao atingir o acumulo com nbs=64 e terminar o
+        # round sem nenhum passo do otimizador; nbs=batch garante um passo por
+        # iteracao quando isso importa (ex.: smoke tests).
         result = model.train(
             data=data_yaml,
             epochs=epochs,
             batch=batch_size,
+            nbs=nbs,
             imgsz=image_size,
             device=device,
             seed=seed,
@@ -115,10 +153,12 @@ def train_local(
             plots=False,
             val=False,
             verbose=False,
+            **(augmentation or {}),
         )
     finally:
         if callback is not None:
             model.callbacks["on_pretrain_routine_end"].remove(callback)
+    _sync_trained_weights(model)
     loss_items = getattr(model.trainer, "tloss", None)
     if loss_items is None:
         train_loss = float("nan")

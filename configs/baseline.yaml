@@ -9,6 +9,9 @@ rounds: 3
 local_epochs: 1
 mu: 0.0
 batch_size: 2
+# Com 2 iteracoes/round, o acumulo padrao (nbs=64) nunca daria um passo do
+# otimizador; nbs=2 garante que o smoke test realmente treina e agrega.
+nbs: 2
 image_size: 128
 device: cpu
 base_seed: 20260914
