@@ -160,3 +160,9 @@ augmentation e ficam como limitação declarada do cenário non-IID.
 - Não oferece garantia formal de privacidade (privacidade diferencial, agregação
   segura ficam fora do escopo)
   
+
+### RESULTADOS DE BENCHMARK JA OBTIDOS:
+
+| Pessoa | s/epoca | tempo estimado |
+|---|---:|---:|
+| GPU CAMILA | 20,28s | 12 dias |
