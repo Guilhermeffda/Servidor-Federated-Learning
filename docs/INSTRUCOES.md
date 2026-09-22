@@ -257,6 +257,13 @@ python scripts/train_centralized.py --epochs 50 --imgsz 640 --batch 16 --device 
 Saídas em `results/baseline_centralized/`: `metrics.json`, `training_status.json`,
 `training_curve.csv`, `best.pt`.
 
+
+Obter resultados do baseline:
+
+```bash
+python scripts/analyze_centralized_baseline.py
+```
+
 ### 6.2 Baselines federadas FedAvg — 6 execuções
 
 ```bash
