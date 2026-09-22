@@ -166,3 +166,4 @@ augmentation e ficam como limitação declarada do cenário non-IID.
 | Pessoa | s/epoca | tempo estimado |
 |---|---:|---:|
 | GPU CAMILA | 20,28s | 12 dias |
+| GPU GUILHERME | 18,60s | 11 dias |

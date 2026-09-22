@@ -236,6 +236,7 @@ a divisão das execuções depende disso.
 | Pessoa | s/epoca | tempo estimado |
 |---|---:|---:|
 | GPU CAMILA | 20,28s | 12 dias |
+| GPU GUILHERME | 18,60s | 11 dias |
 
 ---
 
