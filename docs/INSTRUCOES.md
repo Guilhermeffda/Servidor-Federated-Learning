@@ -65,9 +65,11 @@ pip install -r requirements.txt
 python -c "import torch; print('CUDA:', torch.cuda.is_available()); print('MPS:', torch.backends.mps.is_available())"
 ```
 
-se `CUDA: True` confirma que o PyTorch está vendo a GPU NVIDIA corretamente Guarde o resultado — ele define o valor de `device` nos passos seguintes:
+Se `CUDA: True`, o PyTorch está vendo a GPU NVIDIA corretamente. Guarde o
+resultado — ele define o valor de `device` nos passos seguintes.
 
-Em `Servidor-Federated-Learning\configs\taco_smoke.yaml`, ajustar `device:` (linha 17) para o device correspondente:
+Em `configs/taco_smoke.yaml` (linha `device:`) e em cada `configs/*.yaml` que você
+for rodar (Seção 6), ajuste `device` conforme seu hardware:
 
 | Hardware | `device` |
 |---|---|
@@ -75,11 +77,17 @@ Em `Servidor-Federated-Learning\configs\taco_smoke.yaml`, ajustar `device:` (lin
 | Apple Silicon | `"mps"` |
 | Sem GPU | `"cpu"` |
 
+> Este projeto roda exclusivamente em máquinas próprias com GPU (Seção 5 confirma
+> por quê). Não há caminho de execução via Google Colab — foi removido deste guia
+> porque nenhuma máquina do grupo precisa dele.
+
 ---
 
 ## 2. Preparação dos dados
 
-**Roda uma vez por máquina.** Baixa ~2,7 GB e materializa todos os splits.
+**Roda uma vez por máquina — cada pessoa do grupo precisa rodar isso na sua
+própria máquina antes de participar dos experimentos.** Baixa ~2,7 GB e
+materializa todos os splits.
 
 Execute **nesta ordem** — cada script depende da saída do anterior:
 
@@ -113,6 +121,12 @@ taco_data/data/test_global/   # 300 imagens + data.yaml + test_image_ids.txt
 As imagens são **symlinks** para `taco_data/data/raw/`, não cópias — não ocupa
 espaço duplicado, mas não mova a pasta `raw` depois.
 
+**Importante para quem for rodar a grade em paralelo (Seção 6.4):** a
+`partition_seed: 42` é fixa no config, então as partições IID e non-IID geradas
+por `prepare_experiments.py` são **idênticas em qualquer máquina** — Camila,
+Guilherme e Anabelly treinam sobre os mesmos 5 clientes, só em computadores
+diferentes.
+
 ### Como saber que deu certo
 
 ```bash
@@ -130,15 +144,13 @@ print('teste global:', pathlib.Path('taco_data/data/test_global/data.yaml').is_f
 
 ### Análise de α (opcional — gera a figura do artigo)
 
-Produz a comparação entre α = 0,1 / 0,5 / 1,0 com métricas de heterogeneidade e a
-figura vetorial usada na seção de Materiais e Métodos:
-
 ```bash
 python taco_data/scripts/partition_non_iid.py --analyze
 ```
 
 Saídas: `taco_data/data/partitions/non_iid/alpha_analysis.json` e
-`alpha_comparison.svg`.
+`alpha_comparison.svg`. Só precisa rodar uma vez, por qualquer pessoa — o
+resultado não depende de máquina.
 
 ### Relatório de classes escassas (opcional)
 
@@ -171,18 +183,10 @@ partições, termo proximal do FedProx, round-trip exato dos pesos, e — import
 
 ## 4. Smoke tests
 
-Rode sempre que mexer no pipeline, **antes** de comprometer horas de GPU.
+Rode sempre que mexer no pipeline, **antes** de comprometer horas de GPU — e
+**sempre**, antes de rodar sua fatia da grade pela primeira vez (Seção 6.4).
 
-### 4.1 Smoke test do pipeline TACO (minutos)
-
-```bash
-python run_config.py --all
-```
-
-Usa `configs/taco_smoke.yaml` (partições TACO reais, 5 clientes, 2 rounds, CPU).
-Saída em `results/taco_smoke/`, marcada `scientific_valid: false`.
-
-### 4.2 Smoke test sobre as partições TACO reais (minutos)
+### 4.1 Smoke test sobre as partições TACO reais (minutos)
 
 **Este é o teste que importa** — valida partições → treino local → agregação →
 avaliação no teste global:
@@ -191,9 +195,18 @@ avaliação no teste global:
 python run_config.py --config configs/taco_smoke.yaml --scenario iid --repetition 1
 ```
 
-5 clientes, 2 rounds, 416 px, CPU. Saída em `results/taco_smoke/`.
+5 clientes, 2 rounds, 416 px. Saída em `results/taco_smoke/`.
 
-### 4.3 Cliente isolado numa partição real
+Valide o formato:
+
+```bash
+python scripts/validate_run_format.py --candidate results/taco_smoke/iid_rep1
+```
+
+Espera `✅ FORMATO VALIDADO`. Se não der, não siga para a Seção 6 — algo no seu
+ambiente está diferente do esperado.
+
+### 4.2 Cliente isolado numa partição real
 
 ```bash
 python scripts/test_taco_client.py
@@ -220,23 +233,27 @@ python scripts/sanity_check.py --epochs 1 --imgsz 640 --batch 16 --device cpu
 Mede o tempo por época sobre `data/partitions/iid/client_0/data.yaml` (192 imagens
 de treino) e grava `results/hardware_benchmark/measurement.json`.
 
-### Estimativa da grade completa
+### Estimativa por execução completa
+
+Uma execução (50 rounds × 5 épocas locais × 5 clientes) equivale a 1.250
+"época-equivalentes" de treino:
 
 ```
-tempo_por_época × 5 épocas × 50 rounds × 5 clientes × 42 execuções
+tempo_por_época × 1.250
 ```
 
-Referências estimadas: **160 s/época em CPU** (i7-1165G7) → 97 dias;
-**50 s/época em GPU** (M1 Pro/MPS) → 30 dias. Anote o seu número e leve ao grupo —
-a divisão das execuções depende disso.
+### RESULTADOS DE BENCHMARK REAIS JÁ OBTIDOS
 
+| Pessoa | s/época | Tempo por execução | Grade completa solo (42 execuções) |
+|---|---:|---:|---:|
+| Camila | 20,28s | ~7,0h | ~12 dias |
+| Guilherme | 18,60s | ~6,5h | ~11 dias |
+| Anabelly | *(rodar antes de pegar sua fatia — Seção 6.4)* | — | — |
 
-#### RESULTADOS DE BENCHMARK REAIS JA OBTIDOS:
-
-| Pessoa | s/epoca | tempo estimado |
-|---|---:|---:|
-| GPU CAMILA | 20,28s | 12 dias |
-| GPU GUILHERME | 18,60s | 11 dias |
+> **Anabelly: rode o benchmark antes de seguir para a Seção 6.4.** A divisão de
+> carga assume um tempo por execução parecido com o de Camila/Guilherme
+> (~18-20s/época). Se sua GPU for muito mais lenta ou mais rápida, avise o grupo
+> antes de começar — a fatia de 10 execuções pode precisar ser rebalanceada.
 
 ---
 
@@ -244,78 +261,126 @@ a divisão das execuções depende disso.
 
 > ⚠️ Só rode depois que os passos 2 a 5 estiverem OK. São dezenas de horas de GPU.
 
-Antes de começar, ajuste `device` em `configs/baseline_taco.yaml` para o hardware
-da sua máquina (`"0"`, `"mps"` ou `"cpu"`).
+### 6.1 Baseline centralizada (referência de comparação) _NAO PRECISA RODAR DE NOVO_
 
-### 6.1 Baseline centralizada (referência de comparação)
+> Já concluída — ver `results/baseline_centralized/`. **----> Não precisa rodar de novo <----** , a
+> menos que o dataset ou o modelo mudem.
 
-Treina YOLOv8n com todos os dados juntos, sem federação:
+> ```bash
+> python scripts/train_centralized.py --epochs 50 --imgsz 640 --batch 16 --device 0
+> python scripts/analyze_centralized_baseline.py
+> ```
+
+### 6.2 O que falta rodar agora: FedAvg + varredura de FedProx
+
+A grade completa do artigo tem 42 execuções (FedAvg + FedProx + FedTrimmed).
+
+O fedprox será feito com a varredura dos termos 0.01, 0.1, 0.2, 0.5, 1
+0.01, 0.1, 0.2, 0.5, 1
+
+**FedTrimmed é da Sprint 3** (ainda não implementado) — o que dá para rodar agora é o FedAvg
+
+| Config | μ | Execuções | Status |
+|---|---:|---:|---|
+| `configs/baseline_taco.yaml` | 0 (= FedAvg) | 6 | Pronto |
+| **Total** | | **30** | |
+
+Cada config gera 6 execuções (IID × 3 repetições + non-IID × 3 repetições) em
+`results/<output_dir>/<cenário>_rep<n>/`, sempre no mesmo formato — os 4 configs
+novos são clones de `baseline_taco.yaml`, só mudando `mu` e `output_dir`.
+
+### 6.3 Rodar uma fatia manualmente
+
+Sintaxe geral:
 
 ```bash
-python scripts/train_centralized.py --epochs 50 --imgsz 640 --batch 16 --device 0
+# Um config inteiro (6 execuções)
+python run_config.py --config configs/<nome>.yaml --all
+
+# Uma execução específica
+python run_config.py --config configs/<nome>.yaml --scenario iid --repetition 1
+python run_config.py --config configs/<nome>.yaml --scenario non_iid --repetition 2
 ```
 
-Saídas em `results/baseline_centralized/`: `metrics.json`, `training_status.json`,
-`training_curve.csv`, `best.pt`.
+### 6.4 Divisão entre Camila, Guilherme e Anabelly
 
+As 30 execuções ficam divididas em **10 para cada pessoa**, com base no benchmark
+da Seção 5. Cada execução é independente — pode rodar em qualquer ordem, pausar
+entre uma e outra, e retomar depois (o runner pula execuções já `complete`).
 
-Obter resultados do baseline:
-
-```bash
-python scripts/analyze_centralized_baseline.py
-```
-
-### 6.2 Baselines federadas FedAvg — 6 execuções
+**Camila — `configs/baseline_taco.yaml` inteiro + metade do `fedprox_mu0_001`:**
 
 ```bash
-# Tudo de uma vez (IID ×3 + non-IID ×3)
 python run_config.py --config configs/baseline_taco.yaml --all
-
-# Ou individualmente, para dividir entre máquinas:
-python run_config.py --config configs/baseline_taco.yaml --scenario iid --repetition 1
-python run_config.py --config configs/baseline_taco.yaml --scenario iid --repetition 2
-python run_config.py --config configs/baseline_taco.yaml --scenario iid --repetition 3
-python run_config.py --config configs/baseline_taco.yaml --scenario non_iid --repetition 1
-python run_config.py --config configs/baseline_taco.yaml --scenario non_iid --repetition 2
-python run_config.py --config configs/baseline_taco.yaml --scenario non_iid --repetition 3
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 1
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 2
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 1
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 2
 ```
+Status Camila: 
 
-Saída por execução em `results/baseline_taco/<cenário>_rep<n>/`:
+[X] FedAvg Completo
+[] Metade do Fedprox 0.01
 
-| Arquivo | Conteúdo |
-|---|---|
-| `config.json` | configuração e seed resolvidas |
-| `rounds.csv` | métricas globais por round (inclui round 0) |
-| `clients.csv` | loss local e nº de exemplos por cliente/round |
-| `convergence.png` | curva de convergência |
-| `status.json` | estado, duração, versões, métrica final |
-| `final.pt` | checkpoint agregado (não versionado) |
+---
 
-Na raiz do `output_dir`: `summary.csv` (as 6 execuções) e `aggregate.csv`
-(média ± desvio por cenário).
-
-### 6.3 FedProx com μ fixo
-
-O termo proximal já está implementado. Para rodar, copie
-`configs/baseline_taco.yaml`, mude `mu` e `output_dir`:
+**Guilherme — resto do `fedprox_mu0_001` + `fedprox_mu0_01` inteiro + metade do `fedprox_mu0_1`:**
 
 ```bash
-cp configs/baseline_taco.yaml configs/fedprox_mu001.yaml
-# edite: mu: 0.01   e   output_dir: results/fedprox_mu001
-python run_config.py --config configs/fedprox_mu001.yaml --all
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 3
+python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 3
+python run_config.py --config configs/fedprox_mu0_01.yaml --all
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 1
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 2
 ```
 
-A varredura completa (μ ∈ {0, 0.001, 0.01, 0.1, 1}) é da Sprint 3.
+**Anabelly — resto do `fedprox_mu0_1` + `fedprox_mu1` inteiro:**
 
-### Sobre o fallback usando collab
+```bash
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 3
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 1
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 2
+python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 3
+python run_config.py --config configs/fedprox_mu1.yaml --all
+```
 
-Rode tudo local, seguindo a seção 6 do INSTRUCOES.md, com device selecionado no configs/baseline_taco.yaml. O notebook do Colab só entra em cena se, na hora de dividir as 42 execuções entre os 5 integrantes (o bloqueio do P5 que mencionei), alguém não tiver GPU própria — aí essa pessoa roda a fatia dela no Colab em vez de ficar travada em CPU.
+Com os tempos medidos (Seção 5), cada fatia de 10 execuções leva **cerca de 3
+dias de GPU rodando sem parar** — contra ~12 dias se uma pessoa só tentasse a
+grade inteira sozinha. Isso pressupõe a máquina ligada e sem hibernar durante o
+treino; se você precisa usar o computador para outra coisa no meio, o runner
+retoma de onde parou (execução por execução), só não pausa uma execução em
+andamento.
 
-### Execução no Colab
+### 6.5 Sincronizando resultados entre as três máquinas
 
-> `notebooks/P4_sprint2_colab.ipynb` executa a baseline centralizada e as seis
-> federadas. Monte o Google Drive para persistir resultados entre sessões — o Colab
-> desconecta por inatividade.
+Cada execução escreve num subdiretório próprio
+(`results/<config>/<cenário>_rep<n>/`) — como ninguém escreve na pasta de outra
+pessoa, não há conflito de merge. Depois de terminar sua fatia:
+
+```bash
+git add results/
+git status   # confira que NAO esta adicionando final.pt (checkpoints, pesados)
+git commit -m "resultados: <seu nome>, <config>, 10 execucoes"
+git push
+```
+
+As outras duas pessoas rodam `git pull` para ver os resultados de todo mundo. Se
+`final.pt` aparecer no `git status` para commit, adicione `results/**/final.pt` ao
+`.gitignore` antes de commitar — são checkpoints de ~6 MB cada, 30 deles não
+compensam versionar.
+
+Depois que as 30 execuções estiverem no repositório (de qualquer uma das três
+máquinas), gere o resumo consolidado:
+
+```bash
+python scripts/validate_baseline.py
+```
+
+### 6.6 FedTrimmed (Sprint 3, ainda não roda)
+
+Depende da implementação do card de FedTrimmed. Quando pronto, deve seguir o
+mesmo padrão: um `configs/fedtrimmed.yaml` clonado de `baseline_taco.yaml`, mais 6
+execuções, divididas entre as três máquinas do mesmo jeito.
 
 ---
 
@@ -327,7 +392,7 @@ Depois de qualquer lote de execuções:
 python scripts/validate_baseline.py
 ```
 
-Verifica que as 6 execuções geraram todos os artefatos exigidos e que as curvas são
+Verifica que as execuções geraram todos os artefatos exigidos e que as curvas são
 consistentes.
 
 ---
@@ -335,7 +400,8 @@ consistentes.
 ## 8. Solução de problemas
 
 **`FileNotFoundError: Particao TACO nao encontrada`**
-O passo 2 não foi concluído. Rode `python taco_data/scripts/prepare_experiments.py`.
+O passo 2 não foi concluído nessa máquina. Rode
+`python taco_data/scripts/prepare_experiments.py`.
 
 **`FileExistsError: Destino ja existe e nao e link`**
 Uma execução anterior deixou `data/` sujo. Apague `data/centralized/` e
@@ -353,8 +419,15 @@ atingir o número de iterações necessário. Nesses casos, defina `nbs` igual a
 
 **Out of memory na GPU**
 Reduza `batch_size` de 16 para 8 e mantenha `nbs: 64`. Registre a mudança no
-`config.json` da execução — batch diferente muda a comparabilidade.
+`config.json` da execução — batch diferente muda a comparabilidade. Se você mudar
+isso, avise as outras duas pessoas: as execuções deixam de ser comparáveis entre
+si se o batch size divergir entre máquinas.
 
-**Sessão do Colab caiu no meio**
-Cada execução (`--scenario X --repetition N`) é independente. Rode só as que
-faltaram; não precisa refazer as concluídas.
+**`[skip] <run_id> ja esta completo` mas eu queria refazer**
+Use `--force`:
+```bash
+python run_config.py --config configs/<nome>.yaml --scenario iid --repetition 1 --force
+```
+
+**Resultado de outra pessoa não aparece depois do `git pull`**
+Confirme que ela deu `git push` (Seção 6.5) e que você está na mesma branch.
