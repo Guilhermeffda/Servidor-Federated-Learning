@@ -271,87 +271,60 @@ tempo_por_época × 1.250
 > python scripts/analyze_centralized_baseline.py
 > ```
 
-### 6.2 O que falta rodar agora: FedAvg + varredura de FedProx
+### 6.2 O que falta rodar agora: varredura de FedProx
 
-A grade completa do artigo tem 42 execuções (FedAvg + FedProx + FedTrimmed).
+FedAvg já rodou (6/6). Falta a varredura de FedProx, μ ∈ {0,01 / 0,1 / 0,2 / 0,5 / 1}
+— 5 valores × 6 execuções (IID×3 + non-IID×3) = **30 execuções**.
 
-O fedprox será feito com a varredura dos termos 0.01, 0.1, 0.2, 0.5, 1
-0.01, 0.1, 0.2, 0.5, 1
+| Config | μ | Execuções | Onda | Responsável |
+|---|---:|---:|---|---|
+| `configs/fedprox_mu001.yaml` | 0,01 | 6 | 1 (prioridade) | Camila |
+| `configs/fedprox_mu020.yaml` | 0,2 | 6 | 1 (prioridade) | Guilherme |
+| `configs/fedprox_mu100.yaml` | 1,0 | 6 | 1 (prioridade) | Anabelly |
+| `configs/fedprox_mu010.yaml` | 0,1 | 6 | 2 | veremos depois |
+| `configs/fedprox_mu050.yaml` | 0,5 | 6 | 2 | veremos depois |
 
-**FedTrimmed é da Sprint 3** (ainda não implementado) — o que dá para rodar agora é o FedAvg
-
-| Config | μ | Execuções | Status |
-|---|---:|---:|---|
-| `configs/baseline_taco.yaml` | 0 (= FedAvg) | 6 | Pronto |
-| **Total** | | **30** | |
-
-Cada config gera 6 execuções (IID × 3 repetições + non-IID × 3 repetições) em
-`results/<output_dir>/<cenário>_rep<n>/`, sempre no mesmo formato — os 4 configs
-novos são clones de `baseline_taco.yaml`, só mudando `mu` e `output_dir`.
+A Onda 1 cobre o primeiro, o do meio e o último valor do grid — dá uma leitura
+inicial da forma da curva (μ pequeno vs. médio vs. grande) antes de preencher os
+pontos intermediários na Onda 2.
 
 ### 6.3 Rodar uma fatia manualmente
-
-Sintaxe geral:
 
 ```bash
 # Um config inteiro (6 execuções)
 python run_config.py --config configs/<nome>.yaml --all
 
-# Uma execução específica
+# Uma execução específica — prefira isso a --all se a energia na sua região não
+# for confiável (ver Seção 8, "Recuperação após queda de energia")
 python run_config.py --config configs/<nome>.yaml --scenario iid --repetition 1
 python run_config.py --config configs/<nome>.yaml --scenario non_iid --repetition 2
 ```
 
-### 6.4 Divisão entre Camila, Guilherme e Anabelly
-
-As 30 execuções ficam divididas em **10 para cada pessoa**, com base no benchmark
-da Seção 5. Cada execução é independente — pode rodar em qualquer ordem, pausar
-entre uma e outra, e retomar depois (o runner pula execuções já `complete`).
-
-**Camila — `configs/baseline_taco.yaml` inteiro + metade do `fedprox_mu0_001`:**
+### 6.4 Onda 1 — um FedProx inteiro para cada pessoa
 
 ```bash
-python run_config.py --config configs/baseline_taco.yaml --all
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 1
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 2
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 1
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 2
-```
-Status Camila: 
+# Camila
+python run_config.py --config configs/fedprox_mu001.yaml --all
 
-[X] FedAvg Completo
-[] Metade do Fedprox 0.01
+# Guilherme
+python run_config.py --config configs/fedprox_mu020.yaml --all
 
----
-
-**Guilherme — resto do `fedprox_mu0_001` + `fedprox_mu0_01` inteiro + metade do `fedprox_mu0_1`:**
-
-```bash
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario iid --repetition 3
-python run_config.py --config configs/fedprox_mu0_001.yaml --scenario non_iid --repetition 3
-python run_config.py --config configs/fedprox_mu0_01.yaml --all
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 1
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 2
+# Anabelly
+python run_config.py --config configs/fedprox_mu100.yaml --all
 ```
 
-**Anabelly — resto do `fedprox_mu0_1` + `fedprox_mu1` inteiro:**
+18 execuções no total, 6 por pessoa, ~3 dias de GPU contínua cada (Seção 5). Cada
+`--all` já pula sozinho qualquer execução que porventura já esteja `complete`.
 
-```bash
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario iid --repetition 3
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 1
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 2
-python run_config.py --config configs/fedprox_mu0_1.yaml --scenario non_iid --repetition 3
-python run_config.py --config configs/fedprox_mu1.yaml --all
-```
+### 6.5 Onda 2 — μ = 0,1 e μ = 0,5
 
-Com os tempos medidos (Seção 5), cada fatia de 10 execuções leva **cerca de 3
-dias de GPU rodando sem parar** — contra ~12 dias se uma pessoa só tentasse a
-grade inteira sozinha. Isso pressupõe a máquina ligada e sem hibernar durante o
-treino; se você precisa usar o computador para outra coisa no meio, o runner
-retoma de onde parou (execução por execução), só não pausa uma execução em
-andamento.
+Só começa depois que a Onda 1 terminar e a curva μ pequeno/médio/grande já der
+alguma leitura. Divisão a combinar quando chegar lá — provavelmente uma pessoa fica
+com μ=0,1 inteiro (6 execuções) e outra com μ=0,5 inteiro (6 execuções), e a
+terceira ajuda a rodar `scripts/validate_baseline.py` e a consolidar os resultados
+da Onda 1 enquanto isso.
 
-### 6.5 Sincronizando resultados entre as três máquinas
+### 6.6 Sincronizando resultados entre as três máquinas
 
 Cada execução escreve num subdiretório próprio
 (`results/<config>/<cenário>_rep<n>/`) — como ninguém escreve na pasta de outra
@@ -360,27 +333,19 @@ pessoa, não há conflito de merge. Depois de terminar sua fatia:
 ```bash
 git add results/
 git status   # confira que NAO esta adicionando final.pt (checkpoints, pesados)
-git commit -m "resultados: <seu nome>, <config>, 10 execucoes"
+git commit -m "resultados: <seu nome>, fedprox mu=<valor>, 6 execucoes"
 git push
 ```
 
 As outras duas pessoas rodam `git pull` para ver os resultados de todo mundo. Se
-`final.pt` aparecer no `git status` para commit, adicione `results/**/final.pt` ao
-`.gitignore` antes de commitar — são checkpoints de ~6 MB cada, 30 deles não
-compensam versionar.
+`final.pt` aparecer no `git status`, adicione `results/**/final.pt` ao
+`.gitignore` antes de commitar.
 
-Depois que as 30 execuções estiverem no repositório (de qualquer uma das três
-máquinas), gere o resumo consolidado:
+### 6.7 FedTrimmed (Sprint 3, ainda não roda)
 
-```bash
-python scripts/validate_baseline.py
-```
-
-### 6.6 FedTrimmed (Sprint 3, ainda não roda)
-
-Depende da implementação do card de FedTrimmed. Quando pronto, deve seguir o
-mesmo padrão: um `configs/fedtrimmed.yaml` clonado de `baseline_taco.yaml`, mais 6
-execuções, divididas entre as três máquinas do mesmo jeito.
+Depende da implementação do card de FedTrimmed. Quando pronto, segue o mesmo
+padrão: `configs/fedtrimmed.yaml` clonado de `baseline_taco.yaml`, 6 execuções,
+divididas entre as três máquinas do mesmo jeito.
 
 ---
 
@@ -398,6 +363,17 @@ consistentes.
 ---
 
 ## 8. Solução de problemas
+
+**Recuperação após queda de energia**
+`run_config.py` só marca uma execução como recuperável (`[skip] ... ja esta
+completo`) depois que ela termina os 50 rounds inteiros — não existe checkpoint
+por round. Se a energia cair no meio de uma execução, ao rodar de novo ela
+reinicia do round 1, perdendo o tempo já gasto nessa execução específica (as
+outras execuções já completas do mesmo `--all` continuam sendo puladas
+normalmente). Para limitar o prejuízo de uma queda, prefira rodar execução por
+execução (`--scenario X --repetition N`) em vez de `--all` de uma vez, e considere
+um nobreak se a energia na sua região for instável — 6-7h é bastante tempo de
+exposição por execução.
 
 **`FileNotFoundError: Particao TACO nao encontrada`**
 O passo 2 não foi concluído nessa máquina. Rode
