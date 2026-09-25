@@ -278,11 +278,11 @@ FedAvg já rodou (6/6). Falta a varredura de FedProx, μ ∈ {0,01 / 0,1 / 0,2 /
 
 | Config | μ | Execuções | Onda | Responsável |
 |---|---:|---:|---|---|
-| `configs/fedprox_mu001.yaml` | 0,01 | 6 | 1 (prioridade) | Camila |
-| `configs/fedprox_mu020.yaml` | 0,2 | 6 | 1 (prioridade) | Guilherme |
-| `configs/fedprox_mu100.yaml` | 1,0 | 6 | 1 (prioridade) | Anabelly |
-| `configs/fedprox_mu010.yaml` | 0,1 | 6 | 2 | veremos depois |
-| `configs/fedprox_mu050.yaml` | 0,5 | 6 | 2 | veremos depois |
+| `configs/fedprox_mu0_01.yaml` | 0,01 | 6 | 1 (prioridade) | Camila |
+| `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 (prioridade) | Guilherme |
+| `configs/fedprox_mu1.yaml` | 1,0 | 6 | 1 (prioridade) | Anabelly |
+| `configs/fedprox_mu0_1.yaml` | 0,1 | 6 | 2 | veremos depois |
+| `configs/fedprox_mu0_5.yaml` | 0,5 | 6 | 2 | veremos depois |
 
 A Onda 1 cobre o primeiro, o do meio e o último valor do grid — dá uma leitura
 inicial da forma da curva (μ pequeno vs. médio vs. grande) antes de preencher os
@@ -304,13 +304,13 @@ python run_config.py --config configs/<nome>.yaml --scenario non_iid --repetitio
 
 ```bash
 # Camila
-python run_config.py --config configs/fedprox_mu001.yaml --all
+python run_config.py --config configs/fedprox_mu0_01.yaml --all
 
 # Guilherme
-python run_config.py --config configs/fedprox_mu020.yaml --all
+python run_config.py --config configs/fedprox_mu0_2.yaml --all
 
 # Anabelly
-python run_config.py --config configs/fedprox_mu100.yaml --all
+python run_config.py --config configs/fedprox_mu1.yaml --all
 ```
 
 18 execuções no total, 6 por pessoa, ~3 dias de GPU contínua cada (Seção 5). Cada
