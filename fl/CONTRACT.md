@@ -60,19 +60,36 @@ ficaria dominada pela inicialização e mascararia a atualização do cliente.
 
 ## Métricas retornadas pelo cliente
 
-Dict retornado por `fit()` e `evaluate()` do `FLClient`, contendo no mínimo:
+`fit()` e `evaluate()` têm **formatos diferentes** — não confunda um com o outro.
+
+`evaluate()` roda `model.val()` e retorna:
 
 ```python
-{"loss": float, "num_examples": int}
+{
+    "loss": float,          # 1 - map50 (proxy; Ultralytics não expõe loss de detecção sem backward)
+    "map50": float,
+    "map50_95": float,
+    "precision": float,
+    "recall": float,
+    "num_examples": int,    # imagens do split "val" usado na avaliação
+}
 ```
 
-e opcionalmente:
+`fit()` roda `train_local()` (treino local) e retorna:
 
 ```python
-{"map50": float}
+{
+    "train_loss": float,               # soma dos componentes de loss do Ultralytics (box+cls+dfl)
+    "fitness": float,                  # metrics.fitness do Ultralytics ao fim do treino local
+    "mu": float,                       # eco do mu recebido em config, para auditoria
+    "proximal_distance_sq_half": float,  # (1/2)||w - w_global||² ao final do treino — 0 quando mu=0
+    "num_examples": int,               # adicionado pelo FLClient, não por train_local()
+}
 ```
 
-`num_examples` é o número de imagens usadas no treino/avaliação local daquele veículo
+Não existe chave `"loss"` no retorno de `fit()` — quem espera isso (ex. um agregador de métricas de treino) precisa ler `"train_loss"`.
+
+`num_examples` é o número de imagens usadas no treino/avaliação local daquele **cliente**
 naquele round.
 
 ## Número de clientes
@@ -87,11 +104,6 @@ Se quisermos ver `loss`/`map50` do treino (não só da avaliação) agregados no
 P3 precisa registrar um `fit_metrics_aggregation_fn` na `Strategy` (ver TODO em
 `server.py::get_strategy`).
 
-## Simulação de dropout / conectividade intermitente (desativada)
-
-Não faz parte do experimento principal da Sprint 2. O código histórico permanece em
-[`sprint2_preview/dropout.py`](../sprint2_preview/dropout.py), isolado e sem imports no
-cliente ativo. Isso permite reativá-lo futuramente como experimento secundário.
 
 ## Pendências para alinhar com P3
 
