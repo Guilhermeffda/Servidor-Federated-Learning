@@ -1,0 +1,32 @@
+{
+  "dataset_yaml": "data/centralized/data.yaml",
+  "dataset_label": "TACO-10",
+  "scientific_valid": true,
+  "partition_root": "data/partitions",
+  "evaluation_yaml": "taco_data/data/test_global/data.yaml",
+  "model": "yolov8n.pt",
+  "num_clients": 5,
+  "rounds": 50,
+  "local_epochs": 5,
+  "mu": 0.01,
+  "batch_size": 16,
+  "image_size": 640,
+  "device": "0",
+  "base_seed": 20260914,
+  "partition_seed": 42,
+  "output_dir": "results/fedprox_mu0_01",
+  "augmentation": {
+    "hsv_h": 0.015,
+    "hsv_s": 0.7,
+    "hsv_v": 0.4,
+    "degrees": 0.0,
+    "translate": 0.1,
+    "scale": 0.5,
+    "flipud": 0.0,
+    "fliplr": 0.5,
+    "mosaic": 1.0
+  },
+  "scenario": "iid",
+  "repetition": 2,
+  "seed": 20260916
+}
