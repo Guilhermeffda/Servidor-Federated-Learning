@@ -81,6 +81,7 @@ como falha do particionamento. É o comportamento esperado de α=0,5.
 | `fl/CONTRACT.md` atualizado | ✅ | Documenta `mu`, `nbs` e as chaves `aug_*` |
 | **Baseline FedAvg end-to-end (50 rounds, IID + non-IID)** | 🟡 | Pipeline validado em smoke test; **execução científica pendente** |
 | **FedProx com μ fixo rodando até o fim** | 🟡 | Código pronto; **nenhuma execução com μ > 0 registrada** |
+| **FedTrimmed (trimmed mean, β=0,4)** | 🟡 | `fl/server.py::aggregate_fedtrimmed` + `FedTrimmed(FedAvg)`; smoke test IID e non-IID completos (`configs/fedtrimmed_smoke.yaml`); **execução científica pendente** |
 
 > **Nota sobre `start_server` vs simulação.** O card previa migrar de
 > `fl.server.start_server` para `fl.simulation.start_simulation`. A implementação
@@ -186,7 +187,7 @@ integrante deve rodar o benchmark na própria máquina e levar o número ao grup
 
 | Card | Área |
 |---|---|
-| Implementar FedTrimmed (trimmed mean, β=0,4) | P3 |
+| ~~Implementar FedTrimmed (trimmed mean, β=0,4)~~ | P3 — código pronto, ver P3 acima |
 | Varredura de μ ∈ {0, 0.001, 0.01, 0.1, 1} — 30 execuções | P3/P4/P5 |
 | Identificar μ* por cenário | P4/P5 |
 | Rascunho de Trabalhos Relacionados + Introdução | P1 |
