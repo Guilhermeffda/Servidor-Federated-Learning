@@ -81,7 +81,7 @@ como falha do particionamento. É o comportamento esperado de α=0,5.
 | `fl/CONTRACT.md` atualizado | ✅ | Documenta `mu`, `nbs` e as chaves `aug_*` |
 | **Baseline FedAvg end-to-end (50 rounds, IID + non-IID)** | 🟡 | Pipeline validado em smoke test; **execução científica pendente** |
 | **FedProx com μ fixo rodando até o fim** | 🟡 | Código pronto; **nenhuma execução com μ > 0 registrada** |
-| **FedTrimmed (trimmed mean, β=0,4)** | 🟡 | `fl/server.py::aggregate_fedtrimmed` + `FedTrimmed(FedAvg)`; smoke test IID e non-IID completos (`configs/fedtrimmed_smoke.yaml`); **execução científica pendente** |
+| **FedTrimmed (trimmed mean, β=0,4)** | ✅ | `fl/server.py::aggregate_fedtrimmed` + `FedTrimmed(FedAvg)`; 6/6 execuções científicas completas em **16h48min** (GPU Guilherme, 26–27/09/2026); `results/fedtrimmed/`, validado por `scripts/validate_baseline.py` |
 
 > **Nota sobre `start_server` vs simulação.** O card previa migrar de
 > `fl.server.start_server` para `fl.simulation.start_simulation`. A implementação
@@ -169,6 +169,30 @@ artefatos batam em formato com os de P4.
 |---|---:|---:|
 | GPU CAMILA | 20,28s | 12 dias |
 | GPU GUILHERME | 18,60s | 11 dias |
+
+### TEMPO REAL MEDIDO — FedTrimmed (6 execuções completas, GPU Guilherme)
+
+Primeira grade de 6 execuções (1 estratégia inteira) rodada do início ao fim,
+não mais estimativa: `configs/fedtrimmed.yaml --all`, 26–27/09/2026.
+
+| Execução | Início (BRT) | Fim (BRT) | Duração |
+|---|---|---|---:|
+| iid_rep1 | 26/09 23:44 | 27/09 02:34 | 2h49min |
+| iid_rep2 | 27/09 02:34 | 27/09 05:23 | 2h49min |
+| iid_rep3 | 27/09 05:23 | 27/09 08:12 | 2h49min |
+| non_iid_rep1 | 27/09 08:12 | 27/09 10:58 | 2h46min |
+| non_iid_rep2 | 27/09 10:58 | 27/09 13:46 | 2h47min |
+| non_iid_rep3 | 27/09 13:46 | 27/09 16:32 | 2h47min |
+| **Total (6 execuções, sequencial)** | 26/09 23:44 | 27/09 16:32 | **16h48min** |
+
+Média de **2h48min por execução** (~10.080s), bem estável entre repetições
+(mín. 9.959s, máx. 10.173s) — bem abaixo da estimativa pessimista original de
+11 dias/grade, que era para as **42 execuções completas** (todas as
+estratégias), não para uma estratégia isolada. Extrapolando linearmente: 7
+configs de estratégia (FedAvg + 5 μ do FedProx + FedTrimmed) × 16h48min ≈ **4,9
+dias sequenciais numa única GPU** para a grade inteira — ainda seria bom
+paralelizar entre integrantes, mas o prazo não é mais tão apertado quanto a
+estimativa de CPU/M1 Pro sugeria.
 
 Opções, em ordem de preferência:
 
