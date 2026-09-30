@@ -276,10 +276,12 @@ tempo_por_época × 1.250
 FedAvg já rodou (6/6). Falta a varredura de FedProx, μ ∈ {0,01 / 0,1 / 0,2 / 0,5 / 1}
 — 5 valores × 6 execuções (IID×3 + non-IID×3) = **30 execuções**.
 
+Fedtrimmed ja rodou e ja foi implementado
+
 | Config | μ | Execuções | Onda | Responsável |
 |---|---:|---:|---|---|
-| `configs/fedprox_mu0_01.yaml` | 0,01 | 6 | 1 (prioridade) | Camila |
-| `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 (prioridade) | Guilherme |
+| `configs/fedprox_mu0_01.yaml` | 0,01 | 6 | concluido | Camila |
+| `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 concluido | Camila |
 | `configs/fedprox_mu1.yaml` | 1,0 | 6 | 1 (prioridade) | Anabelly |
 | `configs/fedprox_mu0_1.yaml` | 0,1 | 6 | 2 | veremos depois |
 | `configs/fedprox_mu0_5.yaml` | 0,5 | 6 | 2 | veremos depois |
@@ -341,11 +343,6 @@ As outras duas pessoas rodam `git pull` para ver os resultados de todo mundo. Se
 `final.pt` aparecer no `git status`, adicione `results/**/final.pt` ao
 `.gitignore` antes de commitar.
 
-### 6.7 FedTrimmed (Sprint 3, ainda não roda)
-
-Depende da implementação do card de FedTrimmed. Quando pronto, segue o mesmo
-padrão: `configs/fedtrimmed.yaml` clonado de `baseline_taco.yaml`, 6 execuções,
-divididas entre as três máquinas do mesmo jeito.
 
 ---
 
