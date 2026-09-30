@@ -1,0 +1,21 @@
+{
+  "dataset_yaml": "data/centralized/data.yaml",
+  "dataset_label": "TACO-10-smoke",
+  "scientific_valid": false,
+  "partition_root": "data/partitions",
+  "evaluation_yaml": "taco_data/data/test_global/data.yaml",
+  "model": "yolov8n.pt",
+  "num_clients": 5,
+  "rounds": 2,
+  "local_epochs": 1,
+  "mu": 0.0,
+  "batch_size": 8,
+  "image_size": 416,
+  "device": 0,
+  "base_seed": 20260914,
+  "partition_seed": 42,
+  "output_dir": "results/taco_smoke",
+  "scenario": "iid",
+  "repetition": 1,
+  "seed": 20260915
+}

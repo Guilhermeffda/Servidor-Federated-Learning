@@ -1,0 +1,113 @@
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=16, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_0\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=client_0_mu_0, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\results\client_taco_smoke\local_runs, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\results\client_taco_smoke\local_runs\client_0_mu_0, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=42, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.20.1 ms, read: 53.329.0 MB/s, size: 1980.8 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train.cache... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192  0.0s
+WARNING val: Slow image access detected (ping: 0.20.1 ms, read: 46.221.7 MB/s, size: 2140.3 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+val: Scanning F:\sfl\project\data\centralized\labels\val.cache... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48  0.0s
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=640
+Using 0 dataloader workers
+Logging results to F:\sfl\project\results\client_taco_smoke\local_runs\client_0_mu_0
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.309G      1.428      5.028       1.24         59        640: 0% ──────────── 0/12  19.0s
+        1/1         2G       1.45      4.787      1.306         61        640: 8% ━─────────── 1/12 6.6s/it 20.9s<1:12
+        1/1         2G      1.399      4.798      1.278         53        640: 16% ━━────────── 2/12 3.3s/it 22.4s<32.6s
+        1/1         2G       1.39      4.894      1.294         28        640: 25% ━━━───────── 3/12 3.1s/it 25.2s<27.7s
+        1/1      2.01G      1.449      4.786      1.299         62        640: 33% ━━━━──────── 4/12 2.4s/it 26.8s<19.5s
+        1/1      2.02G      1.468      4.778       1.28         55        640: 41% ━━━━━─────── 5/12 2.3s/it 28.9s<16.2s
+        1/1      2.02G      1.476      4.754      1.259         47        640: 50% ━━━━━━────── 6/12 2.2s/it 30.8s<13.1s
+        1/1      2.02G      1.475      4.718      1.261         40        640: 58% ━━━━━━━───── 7/12 2.0s/it 32.6s<10.1s
+        1/1      2.02G      1.475      4.688      1.263         50        640: 66% ━━━━━━━━──── 8/12 2.0s/it 34.5s<8.0s
+        1/1      2.02G      1.471      4.607      1.278         56        640: 75% ━━━━━━━━━─── 9/12 1.7s/it 35.9s<5.2s
+        1/1      2.02G      1.479      4.564      1.268         46        640: 83% ━━━━━━━━━━── 10/12 1.6s/it 37.1s<3.1s
+        1/1      2.02G      1.478      4.529      1.273         43        640: 91% ━━━━━━━━━━━─ 11/12 1.5s/it 38.5s<1.5s
+        1/1      2.02G      1.478      4.529      1.273         43        640: 100% ━━━━━━━━━━━━ 12/12 3.2s/it 38.5s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 11.4s/it 3.4s<11.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 2.3s/it 4.7s
+                   all         48        159    0.00699      0.255      0.032     0.0185
+
+1 epochs completed in 0.013 hours.
+Optimizer stripped from F:\sfl\project\results\client_taco_smoke\local_runs\client_0_mu_0\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\results\client_taco_smoke\local_runs\client_0_mu_0\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\results\client_taco_smoke\local_runs\client_0_mu_0\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 5.7s/it 1.7s<5.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 1.2s/it 2.4s
+                   all         48        159    0.00701      0.255     0.0314      0.018
+Speed: 0.2ms preprocess, 1.3ms inference, 0.0ms loss, 1.6ms postprocess per image
+{
+  "hardware": {
+    "system": "Windows",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "torch_version": "2.13.0+rocm10.0.0",
+    "backend": "rocm",
+    "cuda_version": null,
+    "hip_version": "7.15.26333",
+    "cuda_available": true,
+    "device": "0",
+    "gpu_name": "AMD Radeon RX 7600",
+    "vram_bytes": 8573157376,
+    "batchnorm_native": true
+  },
+  "changed_trainable_parameters": 183,
+  "status": "complete",
+  "dataset": "TACO-10 real",
+  "data_yaml": "data\\partitions\\iid\\client_0\\data.yaml",
+  "client_id": "client_0",
+  "num_examples": 192,
+  "num_parameter_tensors": 355,
+  "weight_roundtrip_exact": true,
+  "dropout_active": false,
+  "metrics": {
+    "train_loss": 7.279364109039307,
+    "fitness": 0.018004362448177068,
+    "mu": 0.0,
+    "proximal_distance_sq_half": 2.851250648498535,
+    "num_examples": 192
+  }
+}

@@ -1,0 +1,1220 @@
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 14,430 gradients, 8.1 GFLOPs
+val: Fast image access  (ping: 0.10.0 ms, read: 62.621.1 MB/s, size: 1998.1 KB)
+
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 1 images, 0 backgrounds, 0 corrupt: 0% ──────────── 1/300 1.9it/s 0.2s<2:39
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 9 images, 0 backgrounds, 0 corrupt: 3% ──────────── 9/300 20.7it/s 0.3s<14.1s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 16 images, 0 backgrounds, 0 corrupt: 5% ╸─────────── 16/300 19.1it/s 0.7s<14.9s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 80 images, 0 backgrounds, 0 corrupt: 26% ━━━───────── 80/300 200.9it/s 0.8s<1.1s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 97 images, 0 backgrounds, 0 corrupt: 32% ━━━╸──────── 97/300 183.1it/s 1.0s<1.1s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 112 images, 0 backgrounds, 0 corrupt: 37% ━━━━──────── 112/300 171.5it/s 1.1s<1.1s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 113 images, 0 backgrounds, 0 corrupt: 37% ━━━━╸─────── 113/300 121.7it/s 1.3s<1.5s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 123 images, 0 backgrounds, 0 corrupt: 41% ━━━━╸─────── 123/300 105.9it/s 1.4s<1.7s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 129 images, 0 backgrounds, 0 corrupt: 43% ━━━━━─────── 129/300 78.9it/s 1.8s<2.2s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 167 images, 0 backgrounds, 0 corrupt: 55% ━━━━━━╸───── 167/300 81.1it/s 2.2s<1.6s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 229 images, 0 backgrounds, 0 corrupt: 76% ━━━━━━━━━─── 229/300 114.1it/s 2.5s<0.6s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 252 images, 0 backgrounds, 0 corrupt: 84% ━━━━━━━━━━── 252/300 105.8it/s 2.8s<0.5s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 299 images, 0 backgrounds, 0 corrupt: 99% ━━━━━━━━━━━╸ 299/300 184.1it/s 2.9s<0.0s
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels... 300 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 300/300 102.2it/s 2.9s
+val: New cache created: F:\sfl\project\taco_data\data\test_global\labels.cache
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 2% ──────────── 1/38 20.2s/it 6.1s<12:27
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 5% ╸─────────── 2/38 3.5s/it 7.2s<2:05
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 7% ╸─────────── 3/38 1.3s/it 7.8s<44.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 10% ━─────────── 4/38 1.1s/it 8.6s<36.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 13% ━╸────────── 5/38 1.1it/s 9.2s<30.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 15% ━╸────────── 6/38 1.1it/s 10.1s<28.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 18% ━━────────── 7/38 1.1it/s 11.0s<28.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 21% ━━╸───────── 8/38 1.3it/s 11.5s<22.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 23% ━━╸───────── 9/38 1.4it/s 12.2s<20.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 26% ━━━───────── 10/38 1.3it/s 13.1s<21.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 28% ━━━───────── 11/38 1.3it/s 13.9s<21.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 31% ━━━╸──────── 12/38 1.3it/s 14.6s<19.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 34% ━━━━──────── 13/38 1.4it/s 15.2s<17.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 36% ━━━━──────── 14/38 1.5it/s 15.8s<15.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 39% ━━━━╸─────── 15/38 1.6it/s 16.3s<14.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 42% ━━━━━─────── 16/38 1.5it/s 17.3s<15.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 44% ━━━━━─────── 17/38 1.4it/s 18.0s<14.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 47% ━━━━━╸────── 18/38 1.3it/s 18.9s<14.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 19/38 1.4it/s 19.6s<13.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 52% ━━━━━━────── 20/38 1.4it/s 20.4s<13.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 55% ━━━━━━╸───── 21/38 1.3it/s 21.3s<13.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 57% ━━━━━━╸───── 22/38 1.3it/s 22.0s<12.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 60% ━━━━━━━───── 23/38 1.2it/s 23.0s<12.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 63% ━━━━━━━╸──── 24/38 1.2it/s 24.0s<12.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 65% ━━━━━━━╸──── 25/38 1.1it/s 24.9s<11.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 68% ━━━━━━━━──── 26/38 1.1it/s 25.8s<10.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 71% ━━━━━━━━╸─── 27/38 1.2it/s 26.5s<8.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 73% ━━━━━━━━╸─── 28/38 1.4it/s 27.1s<7.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 76% ━━━━━━━━━─── 29/38 1.2it/s 28.3s<7.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 78% ━━━━━━━━━─── 30/38 1.3it/s 29.0s<6.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 81% ━━━━━━━━━╸── 31/38 1.4it/s 29.7s<5.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 84% ━━━━━━━━━━── 32/38 1.4it/s 30.3s<4.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 86% ━━━━━━━━━━── 33/38 1.5it/s 30.9s<3.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 89% ━━━━━━━━━━╸─ 34/38 1.4it/s 31.7s<2.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 92% ━━━━━━━━━━━─ 35/38 1.4it/s 32.4s<2.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 94% ━━━━━━━━━━━─ 36/38 1.5it/s 33.0s<1.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 97% ━━━━━━━━━━━╸ 37/38 1.7it/s 33.4s<0.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 38/38 1.1it/s 33.7s
+                   all        300        976    0.00123      0.103    0.00591    0.00391
+Speed: 0.5ms preprocess, 1.5ms inference, 0.0ms loss, 3.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_0\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_1_client_0, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261015, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 51.218.4 MB/s, size: 1409.7 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train.cache... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192  0.0s
+val: Fast image access  (ping: 0.20.1 ms, read: 51.627.7 MB/s, size: 1279.4 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val.cache... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48  0.0s
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.176G      1.612      4.735      1.165         43        416: 0% ──────────── 0/24  14.1s
+        1/1     0.463G        1.3      4.693      1.161         13        416: 4% ──────────── 1/24 1.8s/it 14.6s<40.7s
+        1/1     0.465G      1.284      4.621      1.169         29        416: 8% ━─────────── 2/24 1.1s/it 15.2s<23.5s
+        1/1     0.465G      1.246      4.609      1.182         14        416: 12% ━─────────── 3/24 1.2it/s 15.7s<17.3s
+        1/1     0.465G      1.293      4.605      1.188         22        416: 16% ━━────────── 4/24 1.3it/s 16.3s<15.2s
+        1/1     0.465G      1.382      4.599      1.238         25        416: 20% ━━────────── 5/24 1.4it/s 16.9s<13.4s
+        1/1     0.465G      1.319      4.595      1.206         12        416: 25% ━━━───────── 6/24 1.5it/s 17.5s<11.8s
+        1/1     0.465G      1.323      4.606      1.186         21        416: 29% ━━━───────── 7/24 1.3it/s 18.6s<12.7s
+        1/1     0.475G      1.336      4.572      1.163         13        416: 33% ━━━━──────── 8/24 1.4it/s 19.2s<11.2s
+        1/1     0.484G       1.43      4.628      1.171         18        416: 37% ━━━━──────── 9/24 1.5it/s 19.8s<10.0s
+        1/1     0.484G      1.493      4.596      1.189         19        416: 41% ━━━━━─────── 10/24 1.6it/s 20.4s<8.9s
+        1/1     0.484G      1.498      4.552      1.189         38        416: 45% ━━━━━─────── 11/24 1.6it/s 21.0s<8.1s
+        1/1     0.486G      1.575       4.54      1.218         25        416: 50% ━━━━━━────── 12/24 1.7it/s 21.5s<6.9s
+        1/1     0.486G      1.575      4.536      1.213         14        416: 54% ━━━━━━────── 13/24 1.7it/s 22.1s<6.5s
+        1/1     0.486G      1.577        4.5      1.219         16        416: 58% ━━━━━━━───── 14/24 1.8it/s 22.6s<5.5s
+        1/1     0.486G      1.641      4.512      1.245         42        416: 62% ━━━━━━━───── 15/24 1.7it/s 23.2s<5.1s
+        1/1     0.486G      1.651      4.469      1.244         24        416: 66% ━━━━━━━━──── 16/24 1.6it/s 23.9s<4.9s
+        1/1     0.486G      1.641      4.436       1.25         18        416: 70% ━━━━━━━━──── 17/24 1.8it/s 24.4s<4.0s
+        1/1     0.486G      1.644      4.425       1.25         16        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 25.0s<3.4s
+        1/1     0.486G      1.659      4.414      1.244         30        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 25.6s<2.9s
+        1/1     0.486G       1.66      4.393      1.237         51        416: 83% ━━━━━━━━━━── 20/24 1.7it/s 26.2s<2.4s
+        1/1     0.486G      1.655      4.389      1.228         31        416: 87% ━━━━━━━━━━── 21/24 1.6it/s 26.9s<1.8s
+        1/1     0.486G       1.66      4.367      1.233         22        416: 91% ━━━━━━━━━━━─ 22/24 1.7it/s 27.4s<1.2s
+        1/1     0.486G      1.666       4.34      1.232         38        416: 95% ━━━━━━━━━━━─ 23/24 1.7it/s 28.1s<0.6s
+        1/1     0.486G      1.666       4.34      1.232         38        416: 100% ━━━━━━━━━━━━ 24/24 1.2s/it 28.1s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 8.3s/it 2.5s<16.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 5.2s/it 5.2s<5.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 2.1s/it 6.2s
+                   all         48        159    0.00234      0.148     0.0133     0.0039
+
+1 epochs completed in 0.010 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+MIOpen: Error [EvaluateInvokers] DESKTOP-QH35SB1:C:/home/runner/_work/rockrel/rockrel/rocm-libraries/projects/miopen/src/conv/solver_finders.cpp:373: Invalid elapsed time detected in EvaluateInvokers, failed condition: elapsed <= 0
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.4s/it 0.7s<4.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.6s/it 1.6s<1.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.3it/s 2.2s
+                   all         48        159    0.00234      0.148     0.0133    0.00391
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 1.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_1\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_1_client_1, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261016, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+WARNING train: Slow image access detected (ping: 0.10.0 ms, read: 40.016.5 MB/s, size: 1563.6 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 5 images, 0 backgrounds, 0 corrupt: 2% ──────────── 5/192 4.1it/s 0.4s<45.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 29 images, 0 backgrounds, 0 corrupt: 15% ━╸────────── 29/192 34.4it/s 0.6s<4.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 74 images, 0 backgrounds, 0 corrupt: 38% ━━━━╸─────── 74/192 100.0it/s 0.8s<1.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 82 images, 0 backgrounds, 0 corrupt: 42% ━━━━━─────── 82/192 85.8it/s 0.9s<1.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 117 images, 0 backgrounds, 0 corrupt: 60% ━━━━━━━───── 117/192 151.7it/s 1.0s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 129 images, 0 backgrounds, 0 corrupt: 67% ━━━━━━━━──── 129/192 123.6it/s 1.2s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 151 images, 0 backgrounds, 0 corrupt: 78% ━━━━━━━━━─── 151/192 106.0it/s 1.6s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 174 images, 0 backgrounds, 0 corrupt: 90% ━━━━━━━━━━╸─ 174/192 111.2it/s 1.8s<0.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 108.7it/s 1.8s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+WARNING val: Slow image access detected (ping: 0.20.1 ms, read: 47.39.3 MB/s, size: 1833.0 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 1 images, 0 backgrounds, 0 corrupt: 2% ──────────── 1/48 1.2s/it 0.4s<58.5s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 119.8it/s 0.4s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.484G      1.087      4.584       0.97         16        416: 0% ──────────── 0/24  0.6s
+        1/1     0.514G      1.004      4.515     0.9735         20        416: 4% ──────────── 1/24 1.7s/it 1.2s<39.6s
+        1/1     0.514G      1.003      4.526      1.023         14        416: 8% ━─────────── 2/24 1.1s/it 1.7s<23.2s
+        1/1     0.514G      1.021        4.5      1.079         23        416: 12% ━─────────── 3/24 1.2it/s 2.2s<17.1s
+        1/1     0.514G      1.041      4.558      1.074         25        416: 16% ━━────────── 4/24 1.3it/s 2.9s<15.0s
+        1/1     0.514G      1.132      4.607      1.118         20        416: 20% ━━────────── 5/24 1.4it/s 3.5s<13.6s
+        1/1     0.514G      1.148      4.594      1.118         22        416: 25% ━━━───────── 6/24 1.4it/s 4.2s<12.5s
+        1/1     0.514G      1.167      4.648      1.122         12        416: 29% ━━━───────── 7/24 1.6it/s 4.7s<10.8s
+        1/1     0.525G      1.284      4.639      1.194         34        416: 33% ━━━━──────── 8/24 1.6it/s 5.3s<9.9s
+        1/1     0.535G        1.4       4.63      1.226         33        416: 37% ━━━━──────── 9/24 1.7it/s 5.8s<8.8s
+        1/1     0.535G      1.451      4.605       1.26         19        416: 41% ━━━━━─────── 10/24 1.8it/s 6.3s<7.8s
+        1/1     0.535G      1.501      4.581      1.255         20        416: 45% ━━━━━─────── 11/24 1.8it/s 6.8s<7.1s
+        1/1     0.535G      1.539      4.563      1.252         50        416: 50% ━━━━━━────── 12/24 1.7it/s 7.6s<7.0s
+        1/1     0.535G      1.569      4.542      1.259         20        416: 54% ━━━━━━────── 13/24 1.7it/s 8.2s<6.7s
+        1/1     0.535G      1.603      4.519      1.262         53        416: 58% ━━━━━━━───── 14/24 1.7it/s 8.8s<5.9s
+        1/1     0.535G      1.624      4.524      1.287         17        416: 62% ━━━━━━━───── 15/24 1.7it/s 9.3s<5.2s
+        1/1     0.535G      1.612      4.501      1.273         25        416: 66% ━━━━━━━━──── 16/24 1.7it/s 10.0s<4.8s
+        1/1     0.535G      1.624      4.504      1.281         21        416: 70% ━━━━━━━━──── 17/24 1.6it/s 10.6s<4.3s
+        1/1     0.535G       1.62      4.448      1.282         19        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 11.1s<3.4s
+        1/1     0.535G      1.608      4.433      1.283         18        416: 79% ━━━━━━━━━─── 19/24 1.8it/s 11.6s<2.7s
+        1/1     0.535G       1.61      4.409      1.285         18        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 12.2s<2.2s
+        1/1     0.535G      1.628      4.392      1.282         45        416: 87% ━━━━━━━━━━── 21/24 1.8it/s 12.8s<1.7s
+        1/1     0.535G      1.636      4.376       1.28         18        416: 91% ━━━━━━━━━━━─ 22/24 1.8it/s 13.3s<1.1s
+        1/1     0.535G      1.642      4.382      1.278         15        416: 95% ━━━━━━━━━━━─ 23/24 1.8it/s 13.8s<0.5s
+        1/1     0.535G      1.642      4.382      1.278         15        416: 100% ━━━━━━━━━━━━ 24/24 1.7it/s 13.8s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 8.1s/it 2.4s<16.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 3.1s/it 3.7s<3.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.6s/it 4.7s
+                   all         48        138    0.00167        0.1     0.0212     0.0172
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.3s/it 0.7s<4.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.6s/it 1.6s<1.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.2it/s 2.4s
+                   all         48        138    0.00167        0.1     0.0212     0.0172
+Speed: 0.1ms preprocess, 0.9ms inference, 0.0ms loss, 0.9ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_2\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_1_client_2, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261017, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+WARNING train: Slow image access detected (ping: 0.20.1 ms, read: 29.116.9 MB/s, size: 1145.2 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 2 images, 0 backgrounds, 0 corrupt: 1% ──────────── 2/192 2.0it/s 0.3s<1:36
+train: Scanning F:\sfl\project\data\centralized\labels\train... 29 images, 0 backgrounds, 0 corrupt: 15% ━╸────────── 29/192 81.4it/s 0.4s<2.0s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 41 images, 0 backgrounds, 0 corrupt: 21% ━━╸───────── 41/192 85.4it/s 0.5s<1.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 54 images, 0 backgrounds, 0 corrupt: 28% ━━━───────── 54/192 76.7it/s 0.8s<1.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 82 images, 0 backgrounds, 0 corrupt: 42% ━━━━━─────── 82/192 121.3it/s 0.9s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 93 images, 0 backgrounds, 0 corrupt: 48% ━━━━━╸────── 93/192 113.8it/s 1.0s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 107 images, 0 backgrounds, 0 corrupt: 55% ━━━━━━╸───── 107/192 94.1it/s 1.3s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 134 images, 0 backgrounds, 0 corrupt: 69% ━━━━━━━━──── 134/192 133.9it/s 1.4s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 150 images, 0 backgrounds, 0 corrupt: 78% ━━━━━━━━━─── 150/192 141.4it/s 1.5s<0.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 155 images, 0 backgrounds, 0 corrupt: 80% ━━━━━━━━━╸── 155/192 106.5it/s 1.7s<0.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 105.9it/s 1.8s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+WARNING val: Slow image access detected (ping: 0.10.0 ms, read: 44.49.3 MB/s, size: 1692.8 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 2 images, 0 backgrounds, 0 corrupt: 4% ──────────── 2/48 1.8it/s 0.3s<25.0s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 33 images, 0 backgrounds, 0 corrupt: 68% ━━━━━━━━──── 33/48 51.2it/s 0.5s<0.3s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 84.4it/s 0.6s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.535G      1.157      4.396      1.082         26        416: 0% ──────────── 0/24  0.5s
+        1/1     0.564G      1.054      4.415      1.033         25        416: 4% ──────────── 1/24 1.9s/it 1.1s<44.7s
+        1/1     0.564G      1.117       4.54      1.042         22        416: 8% ━─────────── 2/24 1.1s/it 1.7s<24.1s
+        1/1     0.564G      1.275      4.598      1.126         15        416: 12% ━─────────── 3/24 1.2it/s 2.2s<17.3s
+        1/1     0.564G      1.296      4.604      1.136         21        416: 16% ━━────────── 4/24 1.4it/s 2.7s<14.1s
+        1/1     0.564G      1.225      4.657      1.116         20        416: 20% ━━────────── 5/24 1.5it/s 3.3s<12.5s
+        1/1     0.564G      1.276      4.662      1.145         26        416: 25% ━━━───────── 6/24 1.7it/s 3.8s<10.6s
+        1/1     0.564G      1.244      4.656      1.151         14        416: 29% ━━━───────── 7/24 1.7it/s 4.3s<10.0s
+        1/1     0.574G      1.294      4.625      1.143         14        416: 33% ━━━━──────── 8/24 1.8it/s 4.8s<8.8s
+        1/1     0.584G      1.381       4.63      1.172         22        416: 37% ━━━━──────── 9/24 1.7it/s 5.5s<8.8s
+        1/1     0.584G      1.414      4.598      1.195         23        416: 41% ━━━━━─────── 10/24 1.7it/s 6.1s<8.4s
+        1/1     0.584G      1.475      4.609      1.206         12        416: 45% ━━━━━─────── 11/24 1.7it/s 6.7s<7.6s
+        1/1     0.584G      1.537      4.625      1.215         42        416: 50% ━━━━━━────── 12/24 1.8it/s 7.2s<6.6s
+        1/1     0.584G      1.576      4.595      1.233         31        416: 54% ━━━━━━────── 13/24 1.9it/s 7.7s<5.9s
+        1/1     0.584G      1.599      4.603      1.232         14        416: 58% ━━━━━━━───── 14/24 1.9it/s 8.2s<5.4s
+        1/1     0.584G      1.608      4.583      1.242         25        416: 62% ━━━━━━━───── 15/24 1.8it/s 8.8s<5.0s
+        1/1     0.584G      1.619      4.552       1.24         20        416: 66% ━━━━━━━━──── 16/24 1.7it/s 9.5s<4.6s
+        1/1     0.584G      1.642       4.55      1.249         14        416: 70% ━━━━━━━━──── 17/24 1.8it/s 10.0s<3.8s
+        1/1     0.584G      1.638      4.504      1.255         34        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 10.5s<3.3s
+        1/1     0.584G       1.64      4.481      1.247         19        416: 79% ━━━━━━━━━─── 19/24 1.8it/s 11.1s<2.8s
+        1/1     0.584G      1.637      4.445      1.242         34        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 11.7s<2.3s
+        1/1     0.584G      1.626      4.427      1.242         25        416: 87% ━━━━━━━━━━── 21/24 1.7it/s 12.4s<1.8s
+        1/1     0.584G      1.629      4.409       1.24         16        416: 91% ━━━━━━━━━━━─ 22/24 1.8it/s 12.9s<1.1s
+        1/1     0.584G      1.613      4.372      1.237         16        416: 95% ━━━━━━━━━━━─ 23/24 1.8it/s 13.4s<0.6s
+        1/1     0.584G      1.613      4.372      1.237         16        416: 100% ━━━━━━━━━━━━ 24/24 1.8it/s 13.4s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.5s/it 1.1s<7.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 3.3s/it 4.1s<3.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.7s/it 5.1s
+                   all         48        138    0.00218      0.119     0.0115    0.00498
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.3s/it 0.7s<4.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.5s/it 1.5s<1.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.3it/s 2.3s
+                   all         48        138    0.00218      0.119     0.0108    0.00465
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 1.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_3\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_1_client_3, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261018, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 51.620.6 MB/s, size: 1984.4 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 1 images, 0 backgrounds, 0 corrupt: 0% ──────────── 1/192 2.1it/s 0.1s<1:32
+train: Scanning F:\sfl\project\data\centralized\labels\train... 9 images, 0 backgrounds, 0 corrupt: 4% ╸─────────── 9/192 23.1it/s 0.3s<7.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 26 images, 0 backgrounds, 0 corrupt: 13% ━╸────────── 26/192 60.8it/s 0.4s<2.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 37 images, 0 backgrounds, 0 corrupt: 19% ━━────────── 37/192 65.0it/s 0.5s<2.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 45 images, 0 backgrounds, 0 corrupt: 23% ━━╸───────── 45/192 62.2it/s 0.7s<2.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 78 images, 0 backgrounds, 0 corrupt: 40% ━━━━╸─────── 78/192 135.4it/s 0.8s<0.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 88 images, 0 backgrounds, 0 corrupt: 45% ━━━━━─────── 88/192 119.1it/s 0.9s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 112 images, 0 backgrounds, 0 corrupt: 58% ━━━━━━━───── 112/192 142.2it/s 1.0s<0.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 114 images, 0 backgrounds, 0 corrupt: 59% ━━━━━━━───── 114/192 102.4it/s 1.2s<0.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 146 images, 0 backgrounds, 0 corrupt: 76% ━━━━━━━━━─── 146/192 161.5it/s 1.3s<0.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 148 images, 0 backgrounds, 0 corrupt: 77% ━━━━━━━━━─── 148/192 114.7it/s 1.7s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 109.8it/s 1.7s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.10.0 ms, read: 56.227.6 MB/s, size: 1699.6 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 1 images, 0 backgrounds, 0 corrupt: 2% ──────────── 1/48 1.7it/s 0.2s<27.0s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 5 images, 0 backgrounds, 0 corrupt: 10% ━─────────── 5/48 6.3it/s 0.4s<6.8s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 45 images, 0 backgrounds, 0 corrupt: 93% ━━━━━━━━━━━─ 45/48 72.6it/s 0.6s<0.0s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 82.3it/s 0.6s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.574G      1.331      4.786      1.385         16        416: 0% ──────────── 0/24  0.8s
+        1/1     0.605G      1.444      4.918      1.336         19        416: 4% ──────────── 1/24 2.2s/it 1.4s<49.7s
+        1/1     0.605G      1.442      4.905      1.301         15        416: 8% ━─────────── 2/24 1.4s/it 2.2s<30.2s
+        1/1     0.605G      1.566      4.857      1.376         22        416: 12% ━─────────── 3/24 1.1it/s 2.7s<19.6s
+        1/1     0.605G      1.567      4.803      1.319         28        416: 16% ━━────────── 4/24 1.3it/s 3.3s<15.6s
+        1/1     0.605G      1.529      4.814      1.272         23        416: 20% ━━────────── 5/24 1.5it/s 3.8s<13.0s
+        1/1     0.605G      1.606      4.831      1.272         96        416: 25% ━━━───────── 6/24 1.5it/s 4.5s<12.1s
+        1/1     0.605G      1.588      4.807      1.269         29        416: 29% ━━━───────── 7/24 1.5it/s 5.1s<11.3s
+        1/1     0.615G      1.643      4.779      1.261         20        416: 33% ━━━━──────── 8/24 1.6it/s 5.7s<10.2s
+        1/1     0.625G      1.623      4.734       1.24         14        416: 37% ━━━━──────── 9/24 1.6it/s 6.3s<9.3s
+        1/1     0.625G      1.629      4.708      1.239         22        416: 41% ━━━━━─────── 10/24 1.6it/s 6.9s<8.6s
+        1/1     0.625G       1.65      4.691       1.23         31        416: 45% ━━━━━─────── 11/24 1.7it/s 7.4s<7.7s
+        1/1     0.625G      1.656      4.657      1.217         29        416: 50% ━━━━━━────── 12/24 1.7it/s 8.0s<7.3s
+        1/1     0.625G      1.675       4.65      1.208         28        416: 54% ━━━━━━────── 13/24 1.7it/s 8.6s<6.7s
+        1/1     0.625G      1.681      4.645      1.211         15        416: 58% ━━━━━━━───── 14/24 1.6it/s 9.3s<6.1s
+        1/1     0.625G      1.673      4.629      1.205         22        416: 62% ━━━━━━━───── 15/24 1.7it/s 9.9s<5.5s
+        1/1     0.625G      1.687        4.6      1.211         22        416: 66% ━━━━━━━━──── 16/24 1.6it/s 10.5s<4.9s
+        1/1     0.625G      1.671      4.565      1.208         15        416: 70% ━━━━━━━━──── 17/24 1.6it/s 11.1s<4.4s
+        1/1     0.625G      1.668      4.533      1.205         18        416: 75% ━━━━━━━━━─── 18/24 1.6it/s 11.8s<3.7s
+        1/1     0.625G      1.646      4.483      1.198         29        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 12.3s<2.9s
+        1/1     0.625G      1.626      4.459      1.198         13        416: 83% ━━━━━━━━━━── 20/24 1.7it/s 12.9s<2.4s
+        1/1     0.625G      1.611      4.419      1.196         22        416: 87% ━━━━━━━━━━── 21/24 1.7it/s 13.5s<1.7s
+        1/1     0.625G      1.624      4.409      1.197         27        416: 91% ━━━━━━━━━━━─ 22/24 1.6it/s 14.2s<1.2s
+        1/1     0.625G      1.639      4.431      1.194         29        416: 95% ━━━━━━━━━━━─ 23/24 1.5it/s 14.9s<0.7s
+        1/1     0.625G      1.639      4.431      1.194         29        416: 100% ━━━━━━━━━━━━ 24/24 1.6it/s 14.9s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.0s/it 0.9s<6.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 2.3s/it 2.4s<2.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.2s/it 3.5s
+                   all         48        224    0.00211      0.108     0.0108    0.00771
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.1s/it 0.6s<4.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.6s/it 1.7s<1.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.2it/s 2.5s
+                   all         48        224    0.00211      0.108     0.0107    0.00782
+Speed: 0.1ms preprocess, 0.8ms inference, 0.0ms loss, 1.3ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_4\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_1_client_4, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261019, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 72.017.7 MB/s, size: 2874.6 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 6 images, 0 backgrounds, 0 corrupt: 3% ──────────── 6/192 8.3it/s 0.2s<22.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 25 images, 0 backgrounds, 0 corrupt: 13% ━╸────────── 25/192 33.9it/s 0.4s<4.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 46 images, 0 backgrounds, 0 corrupt: 23% ━━╸───────── 46/192 56.0it/s 0.6s<2.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 78 images, 0 backgrounds, 0 corrupt: 40% ━━━━╸─────── 78/192 95.4it/s 0.8s<1.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 88 images, 0 backgrounds, 0 corrupt: 45% ━━━━━─────── 88/192 89.9it/s 0.9s<1.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 119 images, 0 backgrounds, 0 corrupt: 61% ━━━━━━━───── 119/192 134.9it/s 1.0s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 128 images, 0 backgrounds, 0 corrupt: 66% ━━━━━━━━──── 128/192 117.1it/s 1.2s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 139 images, 0 backgrounds, 0 corrupt: 72% ━━━━━━━━╸─── 139/192 94.4it/s 1.4s<0.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 159 images, 0 backgrounds, 0 corrupt: 82% ━━━━━━━━━╸── 159/192 101.2it/s 1.6s<0.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 162 images, 0 backgrounds, 0 corrupt: 84% ━━━━━━━━━━── 162/192 74.5it/s 1.9s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 189 images, 0 backgrounds, 0 corrupt: 98% ━━━━━━━━━━━╸ 189/192 129.3it/s 2.0s<0.0s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 98.2it/s 2.0s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.10.0 ms, read: 59.616.9 MB/s, size: 1885.6 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 2 images, 0 backgrounds, 0 corrupt: 4% ──────────── 2/48 2.5it/s 0.2s<18.1s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 27 images, 0 backgrounds, 0 corrupt: 56% ━━━━━━╸───── 27/48 73.1it/s 0.3s<0.3s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 126.4it/s 0.4s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.615G       1.55      4.615      1.159         47        416: 0% ──────────── 0/24  0.7s
+        1/1     0.645G      1.322      4.709      1.144         14        416: 4% ──────────── 1/24 2.1s/it 1.3s<47.9s
+        1/1     0.645G       1.32      4.802      1.178         13        416: 8% ━─────────── 2/24 1.1s/it 1.9s<23.7s
+        1/1     0.645G      1.452      4.795      1.196         49        416: 12% ━─────────── 3/24 1.2it/s 2.4s<17.5s
+        1/1     0.645G      1.342      4.752      1.176         17        416: 16% ━━────────── 4/24 1.5it/s 2.9s<13.6s
+        1/1     0.645G      1.381      4.804      1.182         12        416: 20% ━━────────── 5/24 1.5it/s 3.5s<12.3s
+        1/1     0.645G      1.416        4.8      1.198         19        416: 25% ━━━───────── 6/24 1.6it/s 4.1s<11.5s
+        1/1     0.646G      1.366      4.747      1.178         20        416: 29% ━━━───────── 7/24 1.6it/s 4.6s<10.4s
+        1/1     0.656G       1.38      4.707      1.185         15        416: 33% ━━━━──────── 8/24 1.7it/s 5.2s<9.4s
+        1/1     0.666G      1.422      4.676      1.196         19        416: 37% ━━━━──────── 9/24 1.6it/s 5.8s<9.2s
+        1/1     0.666G      1.449      4.639      1.183         21        416: 41% ━━━━━─────── 10/24 1.6it/s 6.5s<8.6s
+        1/1     0.666G      1.464      4.616      1.168         27        416: 45% ━━━━━─────── 11/24 1.6it/s 7.1s<7.9s
+        1/1     0.666G      1.447      4.584      1.155         21        416: 50% ━━━━━━────── 12/24 1.7it/s 7.6s<7.1s
+        1/1     0.666G      1.478      4.559      1.162         34        416: 54% ━━━━━━────── 13/24 1.8it/s 8.1s<6.3s
+        1/1     0.666G      1.471      4.559      1.151         18        416: 58% ━━━━━━━───── 14/24 1.8it/s 8.7s<5.6s
+        1/1     0.666G        1.5      4.563      1.162         21        416: 62% ━━━━━━━───── 15/24 1.8it/s 9.3s<5.1s
+        1/1     0.666G       1.52      4.536      1.176         24        416: 66% ━━━━━━━━──── 16/24 1.8it/s 9.8s<4.6s
+        1/1     0.666G      1.549      4.542      1.184         14        416: 70% ━━━━━━━━──── 17/24 1.7it/s 10.5s<4.2s
+        1/1     0.666G      1.524      4.512      1.176         21        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 11.0s<3.3s
+        1/1     0.666G      1.496       4.48      1.163         13        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 11.7s<2.9s
+        1/1     0.668G      1.512       4.48      1.164         20        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 12.1s<2.2s
+        1/1     0.668G      1.522      4.475      1.162         16        416: 87% ━━━━━━━━━━── 21/24 1.8it/s 12.7s<1.7s
+        1/1     0.668G      1.503       4.44      1.157         13        416: 91% ━━━━━━━━━━━─ 22/24 1.8it/s 13.3s<1.1s
+        1/1     0.668G      1.517       4.44      1.167         16        416: 95% ━━━━━━━━━━━─ 23/24 1.8it/s 13.8s<0.5s
+        1/1     0.668G      1.517       4.44      1.167         16        416: 100% ━━━━━━━━━━━━ 24/24 1.7it/s 13.8s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.7s/it 1.1s<7.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.9s/it 2.0s<1.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.0s
+                   all         48        159    0.00229      0.191     0.0198     0.0112
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.6s/it 0.8s<5.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.3s/it 1.4s<1.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.4it/s 2.2s
+                   all         48        159    0.00221      0.171     0.0197      0.011
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 1.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 14,430 gradients, 8.1 GFLOPs
+val: Fast image access  (ping: 0.20.2 ms, read: 72.123.1 MB/s, size: 1670.3 KB)
+
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels.cache... 300 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 300/300  0.0s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 2% ──────────── 1/38 1.6s/it 0.5s<58.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 5% ╸─────────── 2/38 1.4s/it 1.5s<48.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 7% ╸─────────── 3/38 1.3it/s 1.9s<27.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 10% ━─────────── 4/38 1.5it/s 2.3s<22.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 13% ━╸────────── 5/38 1.7it/s 2.8s<19.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 15% ━╸────────── 6/38 1.9it/s 3.3s<17.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 18% ━━────────── 7/38 1.9it/s 3.7s<15.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 21% ━━╸───────── 8/38 2.1it/s 4.1s<14.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 23% ━━╸───────── 9/38 2.2it/s 4.5s<13.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 26% ━━━───────── 10/38 2.1it/s 5.1s<13.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 28% ━━━───────── 11/38 2.1it/s 5.6s<13.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 31% ━━━╸──────── 12/38 2.0it/s 6.1s<12.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 34% ━━━━──────── 13/38 2.0it/s 6.6s<12.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 36% ━━━━──────── 14/38 2.2it/s 7.0s<10.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 39% ━━━━╸─────── 15/38 2.4it/s 7.3s<9.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 42% ━━━━━─────── 16/38 2.2it/s 7.9s<9.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 44% ━━━━━─────── 17/38 2.0it/s 8.5s<10.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 47% ━━━━━╸────── 18/38 2.0it/s 9.1s<10.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 19/38 1.9it/s 9.7s<10.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 52% ━━━━━━────── 20/38 1.8it/s 10.3s<9.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 55% ━━━━━━╸───── 21/38 1.8it/s 10.9s<9.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 57% ━━━━━━╸───── 22/38 1.7it/s 11.5s<9.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 60% ━━━━━━━───── 23/38 1.7it/s 12.2s<9.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 63% ━━━━━━━╸──── 24/38 1.6it/s 12.9s<8.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 65% ━━━━━━━╸──── 25/38 1.6it/s 13.5s<8.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 68% ━━━━━━━━──── 26/38 1.5it/s 14.2s<7.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 71% ━━━━━━━━╸─── 27/38 1.6it/s 14.8s<7.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 73% ━━━━━━━━╸─── 28/38 1.7it/s 15.3s<5.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 76% ━━━━━━━━━─── 29/38 1.6it/s 16.0s<5.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 78% ━━━━━━━━━─── 30/38 1.7it/s 16.6s<4.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 81% ━━━━━━━━━╸── 31/38 1.7it/s 17.2s<4.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 84% ━━━━━━━━━━── 32/38 1.6it/s 17.9s<3.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 86% ━━━━━━━━━━── 33/38 1.7it/s 18.4s<3.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 89% ━━━━━━━━━━╸─ 34/38 1.6it/s 19.1s<2.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 92% ━━━━━━━━━━━─ 35/38 1.5it/s 19.9s<2.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 94% ━━━━━━━━━━━─ 36/38 1.6it/s 20.5s<1.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 97% ━━━━━━━━━━━╸ 37/38 1.8it/s 20.9s<0.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 38/38 1.8it/s 21.2s
+                   all        300        976    0.00483      0.255     0.0189     0.0106
+Speed: 0.2ms preprocess, 1.1ms inference, 0.0ms loss, 1.0ms postprocess per image
+[iid_rep1] round 1/2 mAP50=0.018941
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_0\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_0\weights\best.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_2_client_0, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_0, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261115, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.20.1 ms, read: 68.530.3 MB/s, size: 1665.5 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 1 images, 0 backgrounds, 0 corrupt: 0% ──────────── 1/192 1.7it/s 0.2s<1:52
+train: Scanning F:\sfl\project\data\centralized\labels\train... 15 images, 0 backgrounds, 0 corrupt: 7% ╸─────────── 15/192 34.4it/s 0.3s<5.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 27 images, 0 backgrounds, 0 corrupt: 14% ━╸────────── 27/192 40.2it/s 0.5s<4.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 37 images, 0 backgrounds, 0 corrupt: 19% ━━────────── 37/192 32.2it/s 1.3s<4.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 99 images, 0 backgrounds, 0 corrupt: 51% ━━━━━━────── 99/192 53.9it/s 1.9s<1.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 124 images, 0 backgrounds, 0 corrupt: 64% ━━━━━━━╸──── 124/192 75.4it/s 2.1s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 171 images, 0 backgrounds, 0 corrupt: 89% ━━━━━━━━━━╸─ 171/192 96.4it/s 2.4s<0.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 80.3it/s 2.4s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+WARNING val: Slow image access detected (ping: 0.20.0 ms, read: 49.616.3 MB/s, size: 2012.7 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 4 images, 0 backgrounds, 0 corrupt: 8% ━─────────── 4/48 9.0it/s 0.1s<4.9s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 9 images, 0 backgrounds, 0 corrupt: 18% ━━────────── 9/48 20.3it/s 0.2s<1.9s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 20 images, 0 backgrounds, 0 corrupt: 41% ━━━━━─────── 20/48 31.3it/s 0.4s<0.9s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 36 images, 0 backgrounds, 0 corrupt: 75% ━━━━━━━━━─── 36/48 45.2it/s 0.6s<0.3s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 72.2it/s 0.7s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_0
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.676G      1.413      3.167      1.046         28        416: 0% ──────────── 0/24  0.7s
+        1/1     0.705G      1.419      3.102      1.053         21        416: 4% ──────────── 1/24 2.1s/it 1.3s<47.9s
+        1/1     0.707G      1.421      3.038      1.089         25        416: 8% ━─────────── 2/24 1.2s/it 1.9s<26.6s
+        1/1     0.707G      1.497      3.234      1.097         23        416: 12% ━─────────── 3/24 1.2it/s 2.4s<17.9s
+        1/1     0.707G      1.509      3.292      1.117         29        416: 16% ━━────────── 4/24 1.3it/s 3.0s<15.1s
+        1/1     0.707G      1.479      3.271      1.086         17        416: 20% ━━────────── 5/24 1.5it/s 3.5s<12.5s
+        1/1     0.707G      1.439      3.444      1.053         18        416: 25% ━━━───────── 6/24 1.5it/s 4.2s<11.9s
+        1/1     0.707G      1.422      3.486      1.069         26        416: 29% ━━━───────── 7/24 1.6it/s 4.7s<10.4s
+        1/1     0.717G      1.449      3.574      1.062         41        416: 33% ━━━━──────── 8/24 1.7it/s 5.3s<9.6s
+        1/1     0.727G      1.501      3.628      1.093         17        416: 37% ━━━━──────── 9/24 1.7it/s 5.9s<9.1s
+        1/1     0.727G      1.486      3.654        1.1         24        416: 41% ━━━━━─────── 10/24 1.7it/s 6.5s<8.3s
+        1/1     0.727G       1.52      3.674      1.121         18        416: 45% ━━━━━─────── 11/24 1.8it/s 7.0s<7.2s
+        1/1     0.727G      1.538      3.729      1.112         31        416: 50% ━━━━━━────── 12/24 1.8it/s 7.5s<6.6s
+        1/1     0.727G      1.573      3.738      1.122         32        416: 54% ━━━━━━────── 13/24 1.8it/s 8.1s<6.1s
+        1/1     0.727G      1.574      3.759      1.145         26        416: 58% ━━━━━━━───── 14/24 1.8it/s 8.6s<5.6s
+        1/1     0.727G      1.588       3.75      1.146         29        416: 62% ━━━━━━━───── 15/24 1.8it/s 9.2s<5.1s
+        1/1     0.727G      1.565      3.751      1.156         21        416: 66% ━━━━━━━━──── 16/24 1.8it/s 9.8s<4.6s
+        1/1     0.727G      1.573      3.743      1.163         23        416: 70% ━━━━━━━━──── 17/24 1.7it/s 10.5s<4.2s
+        1/1     0.727G      1.543      3.747      1.157         11        416: 75% ━━━━━━━━━─── 18/24 1.7it/s 11.1s<3.6s
+        1/1     0.727G      1.527      3.765      1.156         15        416: 79% ━━━━━━━━━─── 19/24 1.8it/s 11.5s<2.7s
+        1/1     0.727G      1.525      3.773      1.166         23        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 12.1s<2.2s
+        1/1     0.727G      1.513      3.777      1.165         27        416: 87% ━━━━━━━━━━── 21/24 1.9it/s 12.6s<1.6s
+        1/1     0.727G      1.506      3.765      1.161         28        416: 91% ━━━━━━━━━━━─ 22/24 1.9it/s 13.1s<1.1s
+        1/1     0.727G      1.525      3.784      1.158         30        416: 95% ━━━━━━━━━━━─ 23/24 1.9it/s 13.6s<0.5s
+        1/1     0.727G      1.525      3.784      1.158         30        416: 100% ━━━━━━━━━━━━ 24/24 1.8it/s 13.6s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.2s/it 1.0s<6.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 2.1s/it 2.1s<2.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.1s
+                   all         48        159    0.00379      0.194     0.0281     0.0169
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_0\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_0\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_0\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.3s/it 0.7s<4.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.5s/it 1.6s<1.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.4it/s 2.2s
+                   all         48        159    0.00381      0.194     0.0282      0.017
+Speed: 0.1ms preprocess, 0.9ms inference, 0.0ms loss, 0.9ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_1\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_1\weights\best.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_2_client_1, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_1, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261116, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.30.3 ms, read: 61.827.2 MB/s, size: 1404.9 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 2 images, 0 backgrounds, 0 corrupt: 1% ──────────── 2/192 1.2it/s 0.5s<2:36
+train: Scanning F:\sfl\project\data\centralized\labels\train... 5 images, 0 backgrounds, 0 corrupt: 2% ──────────── 5/192 2.2it/s 1.2s<1:26
+train: Scanning F:\sfl\project\data\centralized\labels\train... 82 images, 0 backgrounds, 0 corrupt: 42% ━━━━━─────── 82/192 95.6it/s 1.4s<1.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 88 images, 0 backgrounds, 0 corrupt: 45% ━━━━━─────── 88/192 75.7it/s 1.6s<1.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 123 images, 0 backgrounds, 0 corrupt: 64% ━━━━━━━╸──── 123/192 142.6it/s 1.7s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 129 images, 0 backgrounds, 0 corrupt: 67% ━━━━━━━━──── 129/192 108.4it/s 2.0s<0.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 146 images, 0 backgrounds, 0 corrupt: 76% ━━━━━━━━━─── 146/192 108.3it/s 2.1s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 156 images, 0 backgrounds, 0 corrupt: 81% ━━━━━━━━━╸── 156/192 85.8it/s 2.4s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 79.5it/s 2.4s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.20.0 ms, read: 80.921.3 MB/s, size: 1481.1 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 2 images, 0 backgrounds, 0 corrupt: 4% ──────────── 2/48 2.1it/s 0.3s<22.3s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 30 images, 0 backgrounds, 0 corrupt: 62% ━━━━━━━───── 30/48 38.1it/s 0.5s<0.5s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 88.8it/s 0.5s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_1
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.668G      1.799      3.592      1.125         35        416: 0% ──────────── 0/24  0.6s
+        1/1     0.697G      1.588      3.899      1.185         13        416: 4% ──────────── 1/24 2.2s/it 1.3s<50.4s
+        1/1     0.699G      1.569      3.903       1.16         20        416: 8% ━─────────── 2/24 1.2s/it 1.9s<26.7s
+        1/1     0.699G      1.498      3.655      1.147         37        416: 12% ━─────────── 3/24 1.1it/s 2.5s<19.4s
+        1/1     0.699G      1.469      3.507       1.15         26        416: 16% ━━────────── 4/24 1.3it/s 3.1s<15.7s
+        1/1     0.699G      1.407      3.425      1.117         27        416: 20% ━━────────── 5/24 1.5it/s 3.6s<13.0s
+        1/1     0.699G      1.497      3.519      1.116         42        416: 25% ━━━───────── 6/24 1.5it/s 4.2s<11.9s
+        1/1     0.699G      1.509      3.539      1.111         20        416: 29% ━━━───────── 7/24 1.6it/s 4.7s<10.4s
+        1/1     0.707G        1.5      3.575      1.129         27        416: 33% ━━━━──────── 8/24 1.6it/s 5.3s<9.8s
+        1/1     0.719G       1.52      3.641      1.162         18        416: 37% ━━━━──────── 9/24 1.7it/s 5.9s<8.9s
+        1/1     0.719G      1.516      3.662      1.165         15        416: 41% ━━━━━─────── 10/24 1.6it/s 6.5s<8.5s
+        1/1     0.719G      1.496      3.641      1.143         14        416: 45% ━━━━━─────── 11/24 1.7it/s 7.1s<7.8s
+        1/1     0.719G      1.523      3.618      1.148         24        416: 50% ━━━━━━────── 12/24 1.8it/s 7.6s<6.6s
+        1/1     0.719G      1.546      3.616      1.145         52        416: 54% ━━━━━━────── 13/24 1.8it/s 8.1s<6.0s
+        1/1     0.719G      1.563      3.631      1.152         31        416: 58% ━━━━━━━───── 14/24 1.8it/s 8.7s<5.7s
+        1/1     0.719G      1.606      3.651      1.161         28        416: 62% ━━━━━━━───── 15/24 1.7it/s 9.4s<5.3s
+        1/1     0.719G      1.612      3.689      1.153         20        416: 66% ━━━━━━━━──── 16/24 1.7it/s 10.0s<4.7s
+        1/1     0.719G      1.596      3.685      1.151         19        416: 70% ━━━━━━━━──── 17/24 1.8it/s 10.5s<4.0s
+        1/1     0.719G      1.604      3.718      1.154         16        416: 75% ━━━━━━━━━─── 18/24 1.7it/s 11.1s<3.5s
+        1/1     0.719G      1.636      3.735      1.167         25        416: 79% ━━━━━━━━━─── 19/24 1.8it/s 11.7s<2.8s
+        1/1     0.719G      1.641      3.722      1.193         13        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 12.2s<2.2s
+        1/1     0.719G      1.626      3.718      1.192         18        416: 87% ━━━━━━━━━━── 21/24 1.9it/s 12.6s<1.5s
+        1/1     0.719G      1.649      3.719      1.205         11        416: 91% ━━━━━━━━━━━─ 22/24 1.9it/s 13.1s<1.0s
+        1/1     0.719G      1.642      3.726      1.205         19        416: 95% ━━━━━━━━━━━─ 23/24 1.9it/s 13.7s<0.5s
+        1/1     0.719G      1.642      3.726      1.205         19        416: 100% ━━━━━━━━━━━━ 24/24 1.7it/s 13.7s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.1s/it 0.9s<6.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 2.0s/it 2.1s<2.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.0s
+                   all         48        138    0.00388      0.209     0.0211    0.00748
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_1\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_1\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_1\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.3s/it 0.7s<4.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.6s/it 1.6s<1.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.2it/s 2.4s
+                   all         48        138    0.00387      0.209     0.0212    0.00746
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 1.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_2\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_2\weights\best.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_2_client_2, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_2, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261117, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.20.1 ms, read: 67.019.2 MB/s, size: 1784.1 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 2 images, 0 backgrounds, 0 corrupt: 1% ──────────── 2/192 2.1it/s 0.3s<1:30
+train: Scanning F:\sfl\project\data\centralized\labels\train... 4 images, 0 backgrounds, 0 corrupt: 2% ──────────── 4/192 3.8it/s 0.5s<49.3s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 47 images, 0 backgrounds, 0 corrupt: 24% ━━╸───────── 47/192 28.4it/s 1.0s<5.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 82 images, 0 backgrounds, 0 corrupt: 42% ━━━━━─────── 82/192 96.0it/s 1.2s<1.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 101 images, 0 backgrounds, 0 corrupt: 52% ━━━━━━────── 101/192 94.4it/s 1.4s<1.0s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 107 images, 0 backgrounds, 0 corrupt: 55% ━━━━━━╸───── 107/192 73.8it/s 1.6s<1.2s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 134 images, 0 backgrounds, 0 corrupt: 69% ━━━━━━━━──── 134/192 92.1it/s 1.8s<0.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 139 images, 0 backgrounds, 0 corrupt: 72% ━━━━━━━━╸─── 139/192 67.8it/s 2.3s<0.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 187 images, 0 backgrounds, 0 corrupt: 97% ━━━━━━━━━━━╸ 187/192 162.5it/s 2.4s<0.0s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 79.9it/s 2.4s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.20.0 ms, read: 87.527.0 MB/s, size: 2022.8 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 2 images, 0 backgrounds, 0 corrupt: 4% ──────────── 2/48 1.9it/s 0.3s<24.1s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 4 images, 0 backgrounds, 0 corrupt: 8% ━─────────── 4/48 5.2it/s 0.5s<8.4s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 34 images, 0 backgrounds, 0 corrupt: 70% ━━━━━━━━──── 34/48 87.0it/s 0.6s<0.2s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 80.6it/s 0.6s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_2
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1      0.66G      1.458      3.333      1.137         47        416: 0% ──────────── 0/24  0.5s
+        1/1     0.689G      1.289      3.583      1.084         12        416: 4% ──────────── 1/24 2.3s/it 1.2s<53.5s
+        1/1     0.689G      1.334      3.319      1.095         17        416: 8% ━─────────── 2/24 1.2s/it 1.8s<27.3s
+        1/1     0.689G      1.234      3.425      1.049         11        416: 12% ━─────────── 3/24 1.1it/s 2.4s<19.1s
+        1/1     0.689G      1.276      3.442      1.088         35        416: 16% ━━────────── 4/24 1.2it/s 3.0s<16.1s
+        1/1     0.689G      1.279      3.459      1.068         32        416: 20% ━━────────── 5/24 1.5it/s 3.5s<12.9s
+        1/1     0.691G      1.255      3.475      1.048         18        416: 25% ━━━───────── 6/24 1.5it/s 4.1s<11.8s
+        1/1     0.691G      1.296      3.497      1.069         18        416: 29% ━━━───────── 7/24 1.6it/s 4.6s<10.3s
+        1/1     0.701G        1.3      3.494      1.066         20        416: 33% ━━━━──────── 8/24 1.7it/s 5.2s<9.3s
+        1/1     0.711G      1.327      3.531      1.082         15        416: 37% ━━━━──────── 9/24 1.8it/s 5.7s<8.5s
+        1/1     0.711G      1.339       3.55      1.087         17        416: 41% ━━━━━─────── 10/24 1.7it/s 6.3s<8.0s
+        1/1     0.711G      1.349      3.575      1.081         14        416: 45% ━━━━━─────── 11/24 1.7it/s 6.8s<7.4s
+        1/1     0.711G      1.389      3.622       1.11         49        416: 50% ━━━━━━────── 12/24 1.8it/s 7.4s<6.7s
+        1/1     0.711G      1.374      3.621      1.108         23        416: 54% ━━━━━━────── 13/24 1.8it/s 8.0s<6.2s
+        1/1     0.711G      1.354      3.595      1.097         23        416: 58% ━━━━━━━───── 14/24 1.8it/s 8.5s<5.5s
+        1/1     0.711G      1.369      3.611      1.092         28        416: 62% ━━━━━━━───── 15/24 1.9it/s 9.0s<4.8s
+        1/1     0.711G      1.413      3.643       1.09         18        416: 66% ━━━━━━━━──── 16/24 1.9it/s 9.5s<4.2s
+        1/1     0.711G      1.412      3.632      1.098         18        416: 70% ━━━━━━━━──── 17/24 1.9it/s 10.0s<3.6s
+        1/1     0.711G      1.432      3.661      1.104         29        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 10.6s<3.3s
+        1/1     0.711G      1.447      3.672      1.102         22        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 11.3s<2.9s
+        1/1     0.711G      1.436      3.698      1.098         17        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 11.8s<2.3s
+        1/1     0.711G      1.435       3.68      1.092         18        416: 87% ━━━━━━━━━━── 21/24 1.7it/s 12.5s<1.8s
+        1/1     0.711G      1.424      3.672      1.089         19        416: 91% ━━━━━━━━━━━─ 22/24 1.8it/s 13.0s<1.1s
+        1/1     0.711G      1.424      3.682      1.088         13        416: 95% ━━━━━━━━━━━─ 23/24 1.7it/s 13.6s<0.6s
+        1/1     0.711G      1.424      3.682      1.088         13        416: 100% ━━━━━━━━━━━━ 24/24 1.8it/s 13.6s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.4s/it 1.0s<6.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 2.1s/it 2.1s<2.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.1s
+                   all         48        138    0.00393      0.185     0.0227      0.012
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_2\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_2\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_2\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.3s/it 0.7s<4.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.5s/it 1.5s<1.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.3it/s 2.3s
+                   all         48        138    0.00396      0.188     0.0228      0.012
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 0.9ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_3\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_3\weights\best.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_2_client_3, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_3, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261118, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 67.620.6 MB/s, size: 1547.9 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 2 images, 0 backgrounds, 0 corrupt: 1% ──────────── 2/192 2.0it/s 0.3s<1:33
+train: Scanning F:\sfl\project\data\centralized\labels\train... 26 images, 0 backgrounds, 0 corrupt: 13% ━╸────────── 26/192 61.5it/s 0.4s<2.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 27 images, 0 backgrounds, 0 corrupt: 14% ━╸────────── 27/192 45.6it/s 0.5s<3.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 40 images, 0 backgrounds, 0 corrupt: 20% ━━────────── 40/192 63.9it/s 0.7s<2.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 45 images, 0 backgrounds, 0 corrupt: 23% ━━╸───────── 45/192 50.8it/s 0.9s<2.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 75 images, 0 backgrounds, 0 corrupt: 39% ━━━━╸─────── 75/192 117.0it/s 1.0s<1.0s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 86 images, 0 backgrounds, 0 corrupt: 44% ━━━━━─────── 86/192 96.6it/s 1.2s<1.1s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 101 images, 0 backgrounds, 0 corrupt: 52% ━━━━━━────── 101/192 97.5it/s 1.4s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 114 images, 0 backgrounds, 0 corrupt: 59% ━━━━━━━───── 114/192 97.5it/s 1.5s<0.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 126 images, 0 backgrounds, 0 corrupt: 65% ━━━━━━━╸──── 126/192 95.3it/s 1.7s<0.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 128 images, 0 backgrounds, 0 corrupt: 66% ━━━━━━━━──── 128/192 70.6it/s 1.8s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 146 images, 0 backgrounds, 0 corrupt: 76% ━━━━━━━━━─── 146/192 64.8it/s 2.2s<0.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 155 images, 0 backgrounds, 0 corrupt: 80% ━━━━━━━━━╸── 155/192 59.8it/s 2.3s<0.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 80.7it/s 2.4s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.20.0 ms, read: 67.542.9 MB/s, size: 1759.9 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 1 images, 0 backgrounds, 0 corrupt: 2% ──────────── 1/48 1.2it/s 0.2s<38.9s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 3 images, 0 backgrounds, 0 corrupt: 6% ╸─────────── 3/48 2.5it/s 0.6s<18.3s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 68.6it/s 0.7s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_3
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.664G      1.139      3.255     0.8821         23        416: 0% ──────────── 0/24  0.6s
+        1/1     0.693G      1.496      3.325      1.059         37        416: 4% ──────────── 1/24 1.9s/it 1.2s<42.9s
+        1/1     0.695G      1.691      3.515      1.132         29        416: 8% ━─────────── 2/24 1.2s/it 1.8s<25.7s
+        1/1     0.695G      1.553      3.593      1.079         17        416: 12% ━─────────── 3/24 1.1it/s 2.4s<18.7s
+        1/1     0.695G      1.507      3.565      1.088         28        416: 16% ━━────────── 4/24 1.4it/s 2.9s<14.2s
+        1/1     0.695G      1.534      3.524      1.077         15        416: 20% ━━────────── 5/24 1.5it/s 3.5s<12.9s
+        1/1     0.695G      1.488      3.482      1.075         17        416: 25% ━━━───────── 6/24 1.5it/s 4.1s<11.7s
+        1/1     0.695G      1.504      3.551      1.096         18        416: 29% ━━━───────── 7/24 1.6it/s 4.7s<10.8s
+        1/1     0.705G      1.523      3.577      1.107         21        416: 33% ━━━━──────── 8/24 1.6it/s 5.3s<10.0s
+        1/1     0.715G      1.553      3.595      1.121         21        416: 37% ━━━━──────── 9/24 1.6it/s 5.9s<9.3s
+        1/1     0.715G      1.575      3.617       1.11         21        416: 41% ━━━━━─────── 10/24 1.6it/s 6.5s<8.6s
+        1/1     0.715G      1.558      3.591      1.101         19        416: 45% ━━━━━─────── 11/24 1.6it/s 7.1s<8.0s
+        1/1     0.715G      1.574      3.651      1.105         17        416: 50% ━━━━━━────── 12/24 1.6it/s 7.7s<7.4s
+        1/1     0.715G      1.577      3.658      1.104         27        416: 54% ━━━━━━────── 13/24 1.7it/s 8.3s<6.6s
+        1/1     0.715G      1.577      3.654      1.101         14        416: 58% ━━━━━━━───── 14/24 1.8it/s 8.8s<5.6s
+        1/1     0.715G      1.593       3.68      1.096         23        416: 62% ━━━━━━━───── 15/24 1.7it/s 9.4s<5.2s
+        1/1     0.715G       1.58      3.664      1.098         17        416: 66% ━━━━━━━━──── 16/24 1.7it/s 9.9s<4.6s
+        1/1     0.734G      1.613      3.659      1.099        108        416: 70% ━━━━━━━━──── 17/24 1.8it/s 10.5s<3.9s
+        1/1     0.734G      1.593      3.647      1.089         21        416: 75% ━━━━━━━━━─── 18/24 1.7it/s 11.1s<3.5s
+        1/1     0.734G      1.594      3.641      1.087         28        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 11.7s<2.9s
+        1/1     0.734G      1.586      3.635      1.091         23        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 12.2s<2.2s
+        1/1     0.734G      1.615      3.667      1.097         24        416: 87% ━━━━━━━━━━── 21/24 1.8it/s 12.7s<1.6s
+        1/1     0.734G      1.604       3.65       1.09         17        416: 91% ━━━━━━━━━━━─ 22/24 1.8it/s 13.3s<1.1s
+        1/1     0.734G      1.596      3.649      1.086         17        416: 95% ━━━━━━━━━━━─ 23/24 1.7it/s 14.0s<0.6s
+        1/1     0.734G      1.596      3.649      1.086         17        416: 100% ━━━━━━━━━━━━ 24/24 1.7it/s 14.0s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.0s/it 0.9s<5.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 2.1s/it 2.1s<2.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.0s
+                   all         48        224     0.0031      0.105     0.0157    0.00757
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_3\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_3\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_3\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 1.7s/it 0.5s<3.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.3s/it 1.4s<1.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.5it/s 2.1s
+                   all         48        224     0.0031      0.105     0.0157    0.00769
+Speed: 0.1ms preprocess, 0.8ms inference, 0.0ms loss, 1.0ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=8, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=F:\sfl\project\data\partitions\iid\client_4\data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=416, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=F:\sfl\project\runs\federated_scratch\iid_rep1\round_1_client_4\weights\best.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=round_2_client_4, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\project\runs\federated_scratch\iid_rep1, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_4, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=20261119, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 75.822.8 MB/s, size: 1383.7 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train... 1 images, 0 backgrounds, 0 corrupt: 0% ──────────── 1/192 3.4s/it 1.0s<10:53
+train: Scanning F:\sfl\project\data\centralized\labels\train... 46 images, 0 backgrounds, 0 corrupt: 23% ━━╸───────── 46/192 91.6it/s 1.2s<1.6s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 85 images, 0 backgrounds, 0 corrupt: 44% ━━━━━─────── 85/192 136.5it/s 1.3s<0.8s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 100 images, 0 backgrounds, 0 corrupt: 52% ━━━━━━────── 100/192 135.7it/s 1.4s<0.7s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 102 images, 0 backgrounds, 0 corrupt: 53% ━━━━━━────── 102/192 97.7it/s 1.7s<0.9s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 134 images, 0 backgrounds, 0 corrupt: 69% ━━━━━━━━──── 134/192 140.3it/s 1.8s<0.4s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 138 images, 0 backgrounds, 0 corrupt: 71% ━━━━━━━━╸─── 138/192 100.2it/s 2.4s<0.5s
+train: Scanning F:\sfl\project\data\centralized\labels\train... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192 77.5it/s 2.5s
+train: New cache created: F:\sfl\project\data\centralized\labels\train.cache
+val: Fast image access  (ping: 0.20.1 ms, read: 69.432.6 MB/s, size: 1301.3 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val... 1 images, 0 backgrounds, 0 corrupt: 2% ──────────── 1/48 1.4it/s 0.2s<32.8s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 10 images, 0 backgrounds, 0 corrupt: 20% ━━────────── 10/48 12.1it/s 0.5s<3.1s
+val: Scanning F:\sfl\project\data\centralized\labels\val... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48 88.9it/s 0.5s
+val: New cache created: F:\sfl\project\data\centralized\labels\val.cache
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=416
+Using 0 dataloader workers
+Logging results to F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_4
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.664G      1.259      4.571     0.9723         13        416: 0% ──────────── 0/24  0.6s
+        1/1     0.695G       1.48      4.004      1.183         28        416: 4% ──────────── 1/24 2.2s/it 1.3s<51.1s
+        1/1     0.695G      1.388      4.003      1.136         13        416: 8% ━─────────── 2/24 1.2s/it 1.9s<26.9s
+        1/1     0.695G      1.332      3.911      1.136         12        416: 12% ━─────────── 3/24 1.0it/s 2.6s<20.9s
+        1/1     0.695G      1.331      3.787      1.137         22        416: 16% ━━────────── 4/24 1.2it/s 3.2s<16.2s
+        1/1     0.695G      1.372      3.746       1.12         33        416: 20% ━━────────── 5/24 1.4it/s 3.7s<13.2s
+        1/1     0.695G      1.337      3.718        1.1         15        416: 25% ━━━───────── 6/24 1.7it/s 4.1s<10.5s
+        1/1     0.695G      1.286      3.695      1.082          9        416: 29% ━━━───────── 7/24 1.8it/s 4.6s<9.2s
+        1/1     0.703G      1.283      3.695       1.09         15        416: 33% ━━━━──────── 8/24 1.8it/s 5.2s<9.0s
+        1/1     0.713G      1.251      3.712      1.078         10        416: 37% ━━━━──────── 9/24 1.7it/s 5.9s<8.9s
+        1/1     0.713G      1.267       3.72      1.071         27        416: 41% ━━━━━─────── 10/24 1.8it/s 6.4s<7.9s
+        1/1     0.715G      1.273      3.766      1.067         25        416: 45% ━━━━━─────── 11/24 1.8it/s 6.9s<7.1s
+        1/1     0.715G      1.328      3.784      1.081         38        416: 50% ━━━━━━────── 12/24 1.9it/s 7.4s<6.4s
+        1/1     0.715G      1.342      3.752      1.082         20        416: 54% ━━━━━━────── 13/24 1.9it/s 7.9s<5.7s
+        1/1     0.715G      1.361      3.771      1.097         18        416: 58% ━━━━━━━───── 14/24 1.9it/s 8.4s<5.3s
+        1/1     0.715G      1.381       3.79      1.095         11        416: 62% ━━━━━━━───── 15/24 1.9it/s 9.0s<4.7s
+        1/1     0.715G       1.39      3.789      1.108         22        416: 66% ━━━━━━━━──── 16/24 1.9it/s 9.5s<4.2s
+        1/1     0.715G      1.385      3.792      1.111         12        416: 70% ━━━━━━━━──── 17/24 1.8it/s 10.1s<3.9s
+        1/1     0.715G      1.384      3.786      1.112         18        416: 75% ━━━━━━━━━─── 18/24 1.8it/s 10.6s<3.3s
+        1/1     0.715G      1.369      3.773      1.105         25        416: 79% ━━━━━━━━━─── 19/24 1.7it/s 11.3s<2.9s
+        1/1     0.715G       1.41      3.785      1.121         56        416: 83% ━━━━━━━━━━── 20/24 1.8it/s 11.8s<2.3s
+        1/1     0.715G      1.432      3.804      1.122         18        416: 87% ━━━━━━━━━━── 21/24 1.8it/s 12.4s<1.7s
+        1/1     0.715G      1.432      3.822      1.128         15        416: 91% ━━━━━━━━━━━─ 22/24 1.7it/s 13.0s<1.1s
+        1/1     0.715G       1.44      3.824      1.134         16        416: 95% ━━━━━━━━━━━─ 23/24 1.8it/s 13.5s<0.6s
+        1/1     0.715G       1.44      3.824      1.134         16        416: 100% ━━━━━━━━━━━━ 24/24 1.8it/s 13.5s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 3.7s/it 1.1s<7.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.9s/it 2.0s<1.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.0s/it 3.0s
+                   all         48        159    0.00325      0.289     0.0145    0.00663
+
+1 epochs completed in 0.005 hours.
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_4\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_4\weights\best.pt, 6.2MB
+
+Validating F:\sfl\project\runs\federated_scratch\iid_rep1\round_2_client_4\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 33% ━━━━──────── 1/3 2.6s/it 0.8s<5.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 66% ━━━━━━━━──── 2/3 1.3s/it 1.4s<1.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 3/3 1.4it/s 2.2s
+                   all         48        159    0.00323      0.289     0.0131    0.00649
+Speed: 0.1ms preprocess, 0.7ms inference, 0.0ms loss, 0.9ms postprocess per image
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 14,430 gradients, 8.1 GFLOPs
+WARNING val: Slow image access detected (ping: 0.20.1 ms, read: 36.938.6 MB/s, size: 1708.6 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+
+val: Scanning F:\sfl\project\taco_data\data\test_global\labels.cache... 300 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 300/300  0.0s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 2% ──────────── 1/38 40.1s/it 12.0s<24:43
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 5% ╸─────────── 2/38 4.1s/it 13.4s<2:29
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 7% ╸─────────── 3/38 1.2s/it 13.8s<41.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 10% ━─────────── 4/38 1.2it/s 14.3s<27.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 13% ━╸────────── 5/38 1.5it/s 14.7s<21.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 15% ━╸────────── 6/38 1.7it/s 15.2s<18.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 18% ━━────────── 7/38 1.8it/s 15.7s<16.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 21% ━━╸───────── 8/38 1.9it/s 16.1s<15.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 23% ━━╸───────── 9/38 2.0it/s 16.6s<14.7s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 26% ━━━───────── 10/38 1.9it/s 17.2s<14.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 28% ━━━───────── 11/38 1.9it/s 17.7s<14.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 31% ━━━╸──────── 12/38 1.9it/s 18.2s<13.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 34% ━━━━──────── 13/38 1.9it/s 18.7s<13.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 36% ━━━━──────── 14/38 2.1it/s 19.1s<11.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 39% ━━━━╸─────── 15/38 2.3it/s 19.5s<9.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 42% ━━━━━─────── 16/38 2.2it/s 20.0s<10.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 44% ━━━━━─────── 17/38 2.1it/s 20.6s<10.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 47% ━━━━━╸────── 18/38 2.1it/s 21.0s<9.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 19/38 2.0it/s 21.6s<9.4s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 52% ━━━━━━────── 20/38 2.0it/s 22.1s<9.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 55% ━━━━━━╸───── 21/38 1.9it/s 22.6s<8.8s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 57% ━━━━━━╸───── 22/38 2.0it/s 23.1s<8.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 60% ━━━━━━━───── 23/38 1.8it/s 23.8s<8.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 63% ━━━━━━━╸──── 24/38 1.7it/s 24.5s<8.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 65% ━━━━━━━╸──── 25/38 1.7it/s 25.0s<7.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 68% ━━━━━━━━──── 26/38 1.7it/s 25.7s<7.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 71% ━━━━━━━━╸─── 27/38 1.7it/s 26.3s<6.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 73% ━━━━━━━━╸─── 28/38 1.8it/s 26.8s<5.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 76% ━━━━━━━━━─── 29/38 1.7it/s 27.5s<5.3s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 78% ━━━━━━━━━─── 30/38 1.7it/s 28.0s<4.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 81% ━━━━━━━━━╸── 31/38 1.7it/s 28.6s<4.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 84% ━━━━━━━━━━── 32/38 1.6it/s 29.3s<3.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 86% ━━━━━━━━━━── 33/38 1.7it/s 29.9s<3.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 89% ━━━━━━━━━━╸─ 34/38 1.6it/s 30.6s<2.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 92% ━━━━━━━━━━━─ 35/38 1.6it/s 31.3s<1.9s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 94% ━━━━━━━━━━━─ 36/38 1.6it/s 31.8s<1.2s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 97% ━━━━━━━━━━━╸ 37/38 1.8it/s 32.3s<0.6s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 38/38 1.2it/s 32.5s
+                   all        300        976    0.00932      0.286     0.0345      0.022
+Speed: 0.2ms preprocess, 1.1ms inference, 0.0ms loss, 1.0ms postprocess per image
+[iid_rep1] round 2/2 mAP50=0.034516

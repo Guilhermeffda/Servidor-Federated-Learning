@@ -10,6 +10,7 @@ import torch
 from ultralytics import YOLO
 from ultralytics.nn.tasks import DetectionModel
 from ultralytics.utils.torch_utils import unwrap_model
+from fl.runtime import run_yolo
 
 
 def load_model(weights: str = "yolov8n.pt", num_classes: int | None = None) -> YOLO:
@@ -98,7 +99,9 @@ def _install_fedprox_loss(trainer, reference: dict[str, torch.Tensor], mu: float
     def loss_with_proximal_term(batch, preds=None):
         detection_loss, loss_items = original_loss(batch, preds)
         penalty = proximal_penalty(train_model, reference).to(detection_loss.dtype)
-        return detection_loss + mu * penalty, loss_items
+        # Ultralytics may return a vector of detection-loss components. Sum it
+        # before adding the scalar penalty so trainer.loss.sum() applies mu once.
+        return detection_loss.sum() + mu * penalty, loss_items
 
     train_model.loss = loss_with_proximal_term
 
@@ -136,7 +139,7 @@ def train_local(
         # federadas pequenas podem nao atingir o acumulo com nbs=64 e terminar o
         # round sem nenhum passo do otimizador; nbs=batch garante um passo por
         # iteracao quando isso importa (ex.: smoke tests).
-        result = model.train(
+        result = run_yolo(model.train,
             data=data_yaml,
             epochs=epochs,
             batch=batch_size,
@@ -184,7 +187,7 @@ def evaluate_model(
 ) -> dict[str, float | int]:
     from fl.partition import count_split_images
 
-    result = model.val(
+    result = run_yolo(model.val,
         data=data_yaml,
         split="val",
         imgsz=image_size,

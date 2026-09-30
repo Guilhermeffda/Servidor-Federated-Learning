@@ -1,0 +1,3 @@
+ docs/evidence/windows-rocm/git-diff-stat.txt | 6 ++++--
+ docs/evidence/windows-rocm/git-status.txt    | 2 ++
+ 2 files changed, 6 insertions(+), 2 deletions(-)

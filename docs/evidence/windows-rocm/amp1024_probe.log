@@ -1,0 +1,85 @@
+Overriding model.yaml nc=80 with nc=10
+Transferred 319/355 items from pretrained weights
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=16, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=data/partitions/iid/client_0/data.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, iou=0.7, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=amp1024_probe, nbs=64, nms=None, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=F:\sfl\debug_train, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=False, save_conf=False, save_crop=False, save_dir=F:\sfl\debug_train\amp1024_probe, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=42, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=False, verbose=False, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    753262  ultralytics.nn.modules.head.Detect           [10, 16, None, [64, 128, 256]]
+Model summary: 129 layers, 3,012,798 parameters, 3,012,782 gradients, 8.2 GFLOPs
+
+Transferred 355/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.0 ms, read: 74.733.5 MB/s, size: 1980.8 KB)
+
+train: Scanning F:\sfl\project\data\centralized\labels\train.cache... 192 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 192/192  0.0s
+val: Fast image access  (ping: 0.20.1 ms, read: 83.717.6 MB/s, size: 2140.3 KB)
+
+val: Scanning F:\sfl\project\data\centralized\labels\val.cache... 48 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 48/48  0.0s
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000714, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Using 192 train, 48 val images for fraction=1.0 at imgsz=640
+Using 0 dataloader workers
+Logging results to F:\sfl\debug_train\amp1024_probe
+Starting training for 1 epochs...
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+
+        1/1     0.309G      1.397      4.948      1.237         59        640: 0% ──────────── 0/12  6.4s
+        1/1         2G       1.41       4.78      1.294         61        640: 8% ━─────────── 1/12 4.8s/it 7.9s<52.8s
+        1/1         2G      1.379      4.832      1.265         53        640: 16% ━━────────── 2/12 2.9s/it 9.3s<28.6sAMP1024 AUDIT scale 1024.0 -> 1024.0 nonfinite 0 first weight changed True
+
+        1/1         2G      1.371      4.903      1.275         28        640: 25% ━━━───────── 3/12 2.5s/it 11.2s<22.2s
+        1/1      2.01G      1.447      4.841      1.291         62        640: 33% ━━━━──────── 4/12 2.0s/it 12.7s<16.4s
+        1/1      2.02G       1.45      4.824      1.268         55        640: 41% ━━━━━─────── 5/12 1.8s/it 14.1s<12.6s
+        1/1      2.02G      1.473      4.808      1.259         47        640: 50% ━━━━━━────── 6/12 1.8s/it 15.7s<10.6sAMP1024 AUDIT scale 1024.0 -> 1024.0 nonfinite 0 first weight changed True
+
+        1/1      2.02G      1.471       4.77      1.266         40        640: 58% ━━━━━━━───── 7/12 1.7s/it 17.2s<8.3s
+        1/1      2.02G      1.473      4.708      1.264         50        640: 66% ━━━━━━━━──── 8/12 1.6s/it 18.6s<6.3s
+        1/1      2.02G      1.451      4.617      1.269         56        640: 75% ━━━━━━━━━─── 9/12 1.5s/it 20.0s<4.5s
+        1/1      2.02G      1.454       4.59      1.256         46        640: 83% ━━━━━━━━━━── 10/12 1.4s/it 21.3s<2.8sAMP1024 AUDIT scale 1024.0 -> 1024.0 nonfinite 0 first weight changed True
+
+        1/1      2.02G      1.459      4.547      1.267         43        640: 91% ━━━━━━━━━━━─ 11/12 1.4s/it 22.7s<1.4s
+        1/1      2.02G      1.459      4.547      1.267         43        640: 100% ━━━━━━━━━━━━ 12/12 1.9s/it 22.7s
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 9.5s/it 2.9s<9.5s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 2.0s/it 4.1s
+                   all         48        159    0.00434      0.298     0.0448     0.0245
+
+1 epochs completed in 0.008 hours.
+Optimizer stripped from F:\sfl\debug_train\amp1024_probe\weights\last.pt, 6.2MB
+Optimizer stripped from F:\sfl\debug_train\amp1024_probe\weights\best.pt, 6.2MB
+
+Validating F:\sfl\debug_train\amp1024_probe\weights\best.pt...
+Ultralytics 8.4.164  Python-3.12.10 torch-2.13.0+rocm10.0.0 CUDA:0 (AMD Radeon RX 7600, 8176MiB)
+Model summary (fused): 72 layers, 3,007,598 parameters, 0 gradients, 8.1 GFLOPs
+
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 6.1s/it 1.8s<6.1s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 1.3s/it 2.6s
+                   all         48        159    0.00429      0.294     0.0452     0.0253
+Speed: 0.2ms preprocess, 1.3ms inference, 0.0ms loss, 1.5ms postprocess per image
+METRICS {'train_loss': 7.2737932205200195, 'fitness': 0.025345662525643374, 'mu': 0.0, 'proximal_distance_sq_half': 2.8733620643615723, 'num_examples': 192} CHANGED TRAINABLE 183

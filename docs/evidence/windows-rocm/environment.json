@@ -1,0 +1,15 @@
+{
+  "python": "3.12.10",
+  "torch": "2.13.0+rocm10.0.0",
+  "torchvision": "0.28.0+rocm10.0.0",
+  "ultralytics": "8.4.164",
+  "flower": "1.38.0",
+  "numpy": "2.5.2",
+  "pandas": "2.3.3",
+  "hip": "7.15.26333",
+  "cuda": null,
+  "batchnorm_modules": {
+    "BatchNorm2d": 57
+  },
+  "gpu": "AMD Radeon RX 7600"
+}

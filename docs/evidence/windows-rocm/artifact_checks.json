@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "round_rows": 3,
+  "client_rows": 10,
+  "all_client_updates_changed": true,
+  "minimum_client_parameter_distance": 1.744924783706665,
+  "map50_by_round": [
+    0.0059109110354926,
+    0.0189411277561842,
+    0.0345155064424062
+  ],
+  "duration_seconds": 400.898068
+}

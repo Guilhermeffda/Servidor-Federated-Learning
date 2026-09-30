@@ -1,0 +1,15 @@
+{
+  "system": "Windows",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "torch_version": "2.13.0+rocm10.0.0",
+  "backend": "rocm",
+  "cuda_version": null,
+  "hip_version": "7.15.26333",
+  "cuda_available": true,
+  "device": "0",
+  "gpu_name": "AMD Radeon RX 7600",
+  "vram_bytes": 8573157376,
+  "batchnorm_native": true,
+  "amp_initial_scale_limit": 1024.0
+}
