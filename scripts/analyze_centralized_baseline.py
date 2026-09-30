@@ -12,6 +12,7 @@ Saídas em results/baseline_centralized/:
 """
 
 import json
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -19,6 +20,8 @@ import numpy as np
 import yaml
 from scipy import stats
 from ultralytics import YOLO
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from fl.runtime import run_yolo
 
 BEST_PT = Path("runs/centralized_baseline/yolov8n_taco10/weights/best.pt")
 RESULTS_CSV = Path("runs/centralized_baseline/yolov8n_taco10/results.csv")
@@ -40,7 +43,7 @@ def load_class_instance_counts():
 
 def per_class_evaluation():
     model = YOLO(str(BEST_PT))
-    metrics = model.val(data=str(TEST_DATA_YAML), split="test", plots=True)
+    metrics = run_yolo(model.val, data=str(TEST_DATA_YAML), split="test", plots=True)
 
     instance_counts = load_class_instance_counts()
     rows = []

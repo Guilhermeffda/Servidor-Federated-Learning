@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 import shutil
 import sys
 from pathlib import Path
@@ -16,9 +17,14 @@ sys.path.insert(0, str(ROOT))
 from fl.client import FLClient
 from fl.dataset import resolve_client_dataset
 from fl.model import get_weights, set_weights
+from fl.runtime import get_accelerator_info
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--mu", type=float, default=0.0)
+    args = parser.parse_args()
     data_yaml = resolve_client_dataset("client_0", "iid")
     client = FLClient(
         "client_0",
@@ -43,14 +49,22 @@ def main() -> None:
             "local_epochs": 1,
             "batch_size": 16,
             "image_size": 640,
-            "device": "cpu",
+            "device": args.device,
             "seed": 42,
-            "mu": 0.0,
+            "mu": args.mu,
             "output_dir": str(local_runs),
-            "run_name": "client_0_mu_0",
+            "run_name": f"client_0_mu_{args.mu:g}",
         },
     )
+    trainable = set(dict(client.model.model.named_parameters()))
+    names = list(client.model.model.state_dict())
+    changed = [name for name, left, right in zip(names, before, updated)
+               if name in trainable and not np.array_equal(left, right)]
+    if not changed:
+        raise AssertionError("Treino local nao alterou nenhum parametro treinavel")
     result = {
+        "hardware": get_accelerator_info(args.device),
+        "changed_trainable_parameters": len(changed),
         "status": "complete",
         "dataset": "TACO-10 real",
         "data_yaml": str(Path(data_yaml).resolve().relative_to(ROOT)),

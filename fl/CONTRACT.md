@@ -92,6 +92,17 @@ Não existe chave `"loss"` no retorno de `fit()` — quem espera isso (ex. um ag
 `num_examples` é o número de imagens usadas no treino/avaliação local daquele **cliente**
 naquele round.
 
+## Dispositivo e metadados de hardware
+
+`device: "0"` representa GPU via APIs CUDA tanto em NVIDIA quanto em AMD ROCm.
+O backend AMD é identificado por `torch.version.hip`, sem alterar o payload
+Flower, pesos, loss, seeds ou hiperparâmetros. Compatibilidade numérica Windows
+ROCm (BatchNorm nativo e limite inicial de escala AMP) fica em `fl/runtime.py`.
+O runner pode gerar `hardware.json` informativo separado, com backend, GPU,
+VRAM, versões HIP/CUDA/PyTorch e limite inicial AMP; esse arquivo é opcional.
+Não modifica o schema dos quatro artefatos exigidos pelo validador nem impede
+validar execuções antigas. Não é configuração científica adicional do servidor.
+
 ## Número de clientes
 
 `fl/server.py::get_strategy` recebe o número de clientes da configuração e usa o
