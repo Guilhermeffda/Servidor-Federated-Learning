@@ -1,0 +1,7 @@
+# RX 7600 / gfx1102, validated separately from generic requirements.
+# Install official AMD wheels first; constraints forbid a CUDA/CPU replacement.
+torch==2.13.0+rocm10.0.0
+torchvision==0.28.0+rocm10.0.0
+torchaudio==2.11.0.2+rocm10.0.0
+ultralytics==8.4.164
+flwr==1.38.0

@@ -1,0 +1,20 @@
+{
+  "run_id": "iid_rep1",
+  "status": "complete",
+  "scenario": "iid",
+  "repetition": 1,
+  "dataset_label": "TACO-10-smoke",
+  "scientific_valid": false,
+  "rounds_completed": 2,
+  "started_at": "2026-09-28T02:47:17.699078+00:00",
+  "finished_at": "2026-09-28T02:53:58.597146+00:00",
+  "duration_seconds": 400.898068,
+  "final_map50": 0.03451550644240627,
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.13.0+rocm10.0.0",
+    "flower": "1.38.0",
+    "ultralytics": "8.4.164",
+    "pandas": "2.3.3"
+  }
+}

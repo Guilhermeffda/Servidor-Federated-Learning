@@ -65,7 +65,7 @@ pip install -r requirements.txt
 python -c "import torch; print('CUDA:', torch.cuda.is_available()); print('MPS:', torch.backends.mps.is_available())"
 ```
 
-Se `CUDA: True`, o PyTorch está vendo a GPU NVIDIA corretamente. Guarde o
+Se `CUDA: True`, o PyTorch está vendo uma GPU via CUDA **ou ROCm**. Guarde o
 resultado — ele define o valor de `device` nos passos seguintes.
 
 Em `configs/taco_smoke.yaml` (linha `device:`) e em cada `configs/*.yaml` que você
@@ -74,8 +74,99 @@ for rodar (Seção 6), ajuste `device` conforme seu hardware:
 | Hardware | `device` |
 |---|---|
 | NVIDIA | `"0"` |
+| AMD Radeon / ROCm | `"0"` |
 | Apple Silicon | `"mps"` |
 | Sem GPU | `"cpu"` |
+
+### Windows nativo + AMD Radeon RX 7600 (gfx1102)
+
+Use Python 3.12 x64 e caminho curto fora do OneDrive. Não instale wheels CUDA
+nesse ambiente. ROCm usa as APIs `torch.cuda.*` e o Ultralytics pode mostrar
+`CUDA:0 (AMD Radeon RX 7600)`; `torch.version.hip is not None` distingue ROCm.
+
+Baseline de instalação: ROCm 10.0.0, torch 2.13.0+rocm10.0.0,
+torchvision 0.28.0+rocm10.0.0. Fonte: [instalação oficial AMD](https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html).
+Confira os requisitos de driver da AMD antes de reproduzir em outra máquina.
+Os gates abaixo são necessários para declarar o ambiente operacional.
+
+Exemplo com Python instalado em `F:\Python312` e checkout em `F:\sfl\project`:
+
+```powershell
+New-Item -ItemType Directory -Force F:\rocm-temp,F:\pip-cache | Out-Null
+$env:TEMP="F:\rocm-temp"
+$env:TMP="F:\rocm-temp"
+$env:PIP_CACHE_DIR="F:\pip-cache"
+$env:PYTHONUTF8="1"
+$env:YOLO_CONFIG_DIR="F:\sfl\yolo-config"
+Set-Location F:\sfl\project
+& F:\Python312\python.exe -m venv F:\sfl\.venv
+& F:\sfl\.venv\Scripts\Activate.ps1
+python --version
+python -c "import tempfile; print(tempfile.gettempdir())"
+python -m pip install --no-cache-dir --index-url https://stable.repo.amd.com/rocm/whl-next/ "rocm[libraries,device-gfx1102]==10.0.0" "torch[device-gfx1102]==2.13.0+rocm10.0.0" "torchvision[device-gfx1102]==0.28.0+rocm10.0.0" "torchaudio==2.11.0.2+rocm10.0.0"
+python -m pip install --no-cache-dir -c constraints-windows-rocm.txt -r requirements.txt
+python -c "import torch; print(torch.__version__, torch.version.hip, torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
+```
+
+Use sempre as constraints ao instalar dependências nesse ambiente. Sem elas,
+faixas mínimas de versões não garantem que o resolver preserve a build ROCm.
+Após a validação completa, fixamos também Ultralytics 8.4.164 e Flower 1.38.0
+nessas constraints AMD. O arquivo de requisitos genérico permanece multiplataforma.
+Não use `device-all`: instale somente gfx1102. Torchaudio não participa do treino.
+
+Antes dos testes do projeto, reproduza o comportamento sem compatibilidade:
+
+```powershell
+python scripts/check_accelerator.py --raw
+python scripts/check_accelerator.py --output results/accelerator_check.json
+python -m pytest
+```
+
+O repro original falha em MIOpen BatchNorm com `HIPRTC_ERROR_COMPILATION` e
+`'type_traits' file not found`. `fl/runtime.py` limita o fallback ao dispatch de
+BatchNorm em Windows + HIP disponível + GPU disponível + tensor GPU no contexto
+de execução. A operação `torch.native_batch_norm` preserva autograd, buffers e
+parâmetros; convoluções continuam em MIOpen. O contexto restaura o callable até
+em exceções e usa ContextVar para isolar threads. Não altera flags globais.
+NVIDIA, CPU, MPS e Linux ROCm mantêm seu caminho original. JIT/torch.compile e
+SyncBatchNorm distribuído não fazem parte deste pipeline YOLO eager validado.
+
+Também foi reproduzido um treino curto que terminou sem alterar pesos: os três
+passos do otimizador foram descartados por overflow de gradientes com a escala
+inicial AMP 65536. No caminho Windows ROCm, novos treinos limitam essa escala
+numérica a 1024 via a API pública do GradScaler. A loss é desescalada antes do
+passo; AMP, loss, learning rate, batch, nbs e épocas permanecem iguais. Os três
+passos então tiveram gradientes finitos e atualizaram 183 parâmetros treináveis.
+Checkpoints retomados preservam sua escala salva. Esse ajuste é registrado
+explicitamente para reprodução, sem modificar configs científicos.
+
+Compatibilidade FedProx: o loss vetorial do Ultralytics é somado antes de adicionar
+o termo proximal escalar, garantindo `loss_detecção + mu/2 * ||w-w_global||²`.
+Isso corrige um bug anterior de broadcasting que aplicava 3×mu nesta versão.
+Essa correção matemática vale em todos os hardwares e está registrada no
+[relatório de validação](VALIDACAO_WINDOWS_ROCM.md); demais adaptações são
+restritas ao backend Windows ROCm.
+
+A [documentação MIOpen](https://rocm.docs.amd.com/projects/MIOpen/en/docs-7.2.2/how-to/use-nhwc-batchnorm-in-pytorch.html)
+documenta o fallback nativo usando `cudnn.flags(enabled=False)`. No build testado,
+o argumento `cudnn_enabled=False` sozinho não evitou MIOpen; por isso usamos a
+operação ATen nativa sem alterar a flag global. Não instale Visual Studio para
+resolver esse erro antes de executar o repro e o preflight.
+
+Após preparar os dados (Seção 2), execute nesta ordem:
+
+```powershell
+python scripts/test_taco_client.py --device 0
+python run_config.py --config configs/taco_smoke.yaml --scenario iid --repetition 1 --force
+python scripts/validate_run_format.py --candidate results/taco_smoke/iid_rep1
+python scripts/sanity_check.py --epochs 1 --imgsz 640 --batch 16 --device 0
+# Regressão adicional FedProx real, sem alterar configs científicos:
+python scripts/test_taco_client.py --device 0 --mu 1
+```
+
+Detecção ou inferência não provam treino: preflight, testes, cliente, smoke,
+artefatos e benchmark 640/batch16 precisam passar. Não interprete resultados
+antigos versionados de outras máquinas como evidência da RX 7600.
 
 > Este projeto roda exclusivamente em máquinas próprias com GPU (Seção 5 confirma
 > por quê). Não há caminho de execução via Google Colab — foi removido deste guia
@@ -118,8 +209,9 @@ data/
 taco_data/data/test_global/   # 300 imagens + data.yaml + test_image_ids.txt
 ```
 
-As imagens são **symlinks** para `taco_data/data/raw/`, não cópias — não ocupa
-espaço duplicado, mas não mova a pasta `raw` depois.
+As imagens usam **symlinks** para `taco_data/data/raw/` quando permitido. No
+Windows, sem privilégio de symlink (erro 1314), o preparador usa cópia segura.
+Não mova a pasta `raw` depois de materializar links.
 
 **Importante para quem for rodar a grade em paralelo (Seção 6.4):** a
 `partition_seed: 42` é fixa no config, então as partições IID e non-IID geradas
@@ -169,7 +261,7 @@ Lista combinações (cliente, classe) com poucas instâncias →
 python -m pytest
 ```
 
-Nove testes devem passar. Cobrem: média ponderada do FedAvg, contrato do
+Todos os testes devem passar. Cobrem: média ponderada do FedAvg, contrato do
 `on_fit_config_fn`, agregação de métricas, disjunção e reprodutibilidade das
 partições, termo proximal do FedProx, round-trip exato dos pesos, e — importante —
 **regressão de que o treino local realmente altera os pesos**.
@@ -412,10 +504,10 @@ atingir o número de iterações necessário. Nesses casos, defina `nbs` igual a
 `batch_size` no config. Ver `fl/CONTRACT.md`.
 
 **Out of memory na GPU**
-Reduza `batch_size` de 16 para 8 e mantenha `nbs: 64`. Registre a mudança no
-`config.json` da execução — batch diferente muda a comparabilidade. Se você mudar
-isso, avise as outras duas pessoas: as execuções deixam de ser comparáveis entre
-si se o batch size divergir entre máquinas.
+Pare e registre erro, VRAM disponível, pico de memória e batch testado. Não
+reduza batch automaticamente: isso exige decisão científica do grupo e uma
+configuração explicitamente documentada. No caminho Windows ROCm, o wrapper
+impede o retry do Ultralytics que reduziria o batch silenciosamente.
 
 **`[skip] <run_id> ja esta completo` mas eu queria refazer**
 Use `--force`:

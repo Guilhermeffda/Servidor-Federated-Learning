@@ -24,7 +24,10 @@ import yaml
 from fl.client import FLClient
 from fl.model import evaluate_model, get_weights, load_model, set_weights
 from fl.partition import count_split_images, load_dataset, materialize_partitions
+
 from fl.server import aggregate_fedavg, aggregate_fedtrimmed, get_strategy
+from fl.runtime import get_accelerator_info
+
 
 ROOT = Path(__file__).resolve().parent
 
@@ -139,6 +142,10 @@ def run_one(config: dict, scenario: str, repetition: int, force: bool = False) -
         encoding="utf-8",
     )
     try:
+        (run_dir / "hardware.json").write_text(
+            json.dumps(get_accelerator_info(str(config["device"])), indent=2) + "\n",
+            encoding="utf-8",
+        )
         partitions, validation_yaml, num_classes = resolve_run_datasets(
             config, scenario, run_dir
         )

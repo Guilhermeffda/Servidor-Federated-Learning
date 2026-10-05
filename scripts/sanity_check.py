@@ -17,6 +17,7 @@ from ultralytics import YOLO
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from fl.partition import count_split_images
+from fl.runtime import run_yolo, get_accelerator_info, uses_cuda_api
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DATA = ROOT / "data" / "partitions" / "iid" / "client_0" / "data.yaml"
@@ -46,8 +47,11 @@ def main() -> None:
         raise ValueError("epochs deve ser positivo")
     train_images = count_split_images(data, "train")
     model = YOLO(str(ROOT / "yolov8n.pt"))
+    first_parameter = next(model.model.parameters()).detach().cpu().clone()
     started = time.perf_counter()
-    model.train(
+    if uses_cuda_api(args.device) and torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
+    run_yolo(model.train,
         data=str(data),
         epochs=args.epochs,
         imgsz=args.imgsz,
@@ -60,7 +64,13 @@ def main() -> None:
         plots=False,
         verbose=False,
     )
+    if uses_cuda_api(args.device) and torch.cuda.is_available():
+        torch.cuda.synchronize()
     elapsed = time.perf_counter() - started
+    trained_parameter = next(model.trainer.model.parameters()).detach().cpu()
+    weights_changed = not torch.equal(first_parameter, trained_parameter)
+    if not weights_changed:
+        raise AssertionError("Benchmark terminou sem alterar pesos treinaveis")
     seconds_per_epoch = elapsed / args.epochs
     total_seconds = seconds_per_epoch * TOTAL_FEDERATED_EPOCHS
     decision = "colab" if total_seconds > 24 * 3600 else "cpu_local"
@@ -73,12 +83,16 @@ def main() -> None:
         "batch_size": args.batch,
         "device": args.device,
         "elapsed_seconds": elapsed,
+        "trainable_weights_changed": weights_changed,
         "seconds_per_epoch": seconds_per_epoch,
         "estimated_federated_epochs": TOTAL_FEDERATED_EPOCHS,
         "estimated_total_hours": total_seconds / 3600,
         "estimated_total_days": total_seconds / 86400,
         "decision": decision,
         "hardware": {
+            **get_accelerator_info(args.device),
+            "peak_allocated_bytes": torch.cuda.max_memory_allocated() if uses_cuda_api(args.device) and torch.cuda.is_available() else None,
+            "peak_reserved_bytes": torch.cuda.max_memory_reserved() if uses_cuda_api(args.device) and torch.cuda.is_available() else None,
             "platform": platform.platform(),
             "processor": platform.processor(),
             "python": platform.python_version(),

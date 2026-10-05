@@ -1,0 +1,27 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
+rootdir: F:\sfl\project
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1
+collected 35 items
+
+tests\test_baseline.py ........                                          [ 22%]
+tests\test_prepare_experiments.py .                                      [ 25%]
+tests\test_runtime.py ..........................                         [100%]
+
+============================== warnings summary ===============================
+..\.venv\Lib\site-packages\typer\__init__.py:24
+  F:\sfl\.venv\Lib\site-packages\typer\__init__.py:24: DeprecationWarning: 'click.utils.get_binary_stream' is deprecated and will be removed in Click 9.0.
+    from click.utils import get_binary_stream as get_binary_stream
+
+..\.venv\Lib\site-packages\typer\__init__.py:25
+  F:\sfl\.venv\Lib\site-packages\typer\__init__.py:25: DeprecationWarning: 'click.utils.get_text_stream' is deprecated and will be removed in Click 9.0.
+    from click.utils import get_text_stream as get_text_stream
+
+tests/test_runtime.py::test_native_gpu_batchnorm_matches_documented_fallback[dtype0-BatchNorm1d-shape0]
+  F:\sfl\.venv\Lib\site-packages\torch\backends\cudnn\__init__.py:177: UserWarning: cuDNN Benchmark limit is not supported in MIOpen and will have no effect. (Triggered internally at B:/src/pytorch/torch/csrc/cuda/Module.cpp:2108.)
+    torch._C._cuda_set_cudnn_benchmark_limit(_benchmark_limit)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 35 passed, 3 warnings in 26.64s =======================

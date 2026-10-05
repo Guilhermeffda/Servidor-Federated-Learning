@@ -8,6 +8,7 @@ import hashlib
 import json
 import platform
 import shutil
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +18,8 @@ import yaml
 from ultralytics import YOLO
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from fl.runtime import run_yolo
 DEFAULT_DATA = ROOT / "data" / "centralized" / "data.yaml"
 RESULTS = ROOT / "results" / "baseline_centralized"
 
@@ -77,10 +80,10 @@ def main() -> None:
     try:
         if args.resume:
             model = YOLO(str(args.resume.resolve()))
-            training = model.train(resume=True)
+            training = run_yolo(model.train, resume=True)
         else:
             model = YOLO(str(ROOT / "yolov8n.pt"))
-            training = model.train(
+            training = run_yolo(model.train,
                 data=str(data),
                 epochs=args.epochs,
                 imgsz=args.imgsz,
@@ -96,7 +99,7 @@ def main() -> None:
             )
         best = Path(model.trainer.best)
         best_model = YOLO(str(best))
-        evaluation = best_model.val(
+        evaluation = run_yolo(best_model.val,
             data=str(data), split="test", imgsz=args.imgsz, batch=args.batch,
             device=args.device, workers=2, plots=True,
             project=str(ROOT / "runs" / "centralized_baseline"), name="test_global",
