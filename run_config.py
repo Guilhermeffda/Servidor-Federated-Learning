@@ -24,7 +24,7 @@ import yaml
 from fl.client import FLClient
 from fl.model import evaluate_model, get_weights, load_model, set_weights
 from fl.partition import count_split_images, load_dataset, materialize_partitions
-from fl.server import aggregate_fedavg, get_strategy
+from fl.server import aggregate_fedavg, aggregate_fedtrimmed, get_strategy
 
 ROOT = Path(__file__).resolve().parent
 
@@ -56,6 +56,20 @@ def load_config(path: Path) -> dict:
         if int(config[key]) <= 0:
             raise ValueError(f"{key} deve ser positivo")
     return config
+
+
+def resolve_aggregation_fn(config: dict):
+    """Escolhe aggregate_fedavg ou aggregate_fedtrimmed conforme `config["strategy"]`.
+
+    FedProx nao muda a agregacao (o termo proximal age so no cliente), entao
+    `mu > 0` continua usando aggregate_fedavg — a chave `strategy` e o unico
+    seletor de estrategia de agregacao.
+    """
+    strategy = str(config.get("strategy", "fedavg")).lower()
+    if strategy == "fedtrimmed":
+        beta = float(config.get("beta", 0.4))
+        return lambda updates: aggregate_fedtrimmed(updates, beta=beta)
+    return aggregate_fedavg
 
 
 def save_plot(rounds: pd.DataFrame, destination: Path) -> None:
@@ -134,6 +148,7 @@ def run_one(config: dict, scenario: str, repetition: int, force: bool = False) -
         scratch_dir = ROOT / "runs" / "federated_scratch" / run_id
         # Valida a mesma Strategy que seria usada num servidor Flower distribuido.
         get_strategy(int(config["num_clients"]), config)
+        aggregate_fn = resolve_aggregation_fn(config)
         clients = [
             FLClient(f"client_{index}", data_yaml, count, str(ROOT / config["model"]))
             for index, (data_yaml, count) in enumerate(partitions)
@@ -172,7 +187,7 @@ def run_one(config: dict, scenario: str, repetition: int, force: bool = False) -
                 client_rows.append(
                     {"round": server_round, "client_id": f"client_{index}", "num_examples": count, **metrics}
                 )
-            global_weights = aggregate_fedavg(updates)
+            global_weights = aggregate_fn(updates)
             set_weights(global_model, global_weights)
             metrics = evaluate_model(
                 global_model, validation_yaml, int(config["image_size"]),
