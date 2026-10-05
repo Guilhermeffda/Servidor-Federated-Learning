@@ -276,10 +276,12 @@ tempo_por_época × 1.250
 FedAvg já rodou (6/6). Falta a varredura de FedProx, μ ∈ {0,01 / 0,1 / 0,2 / 0,5 / 1}
 — 5 valores × 6 execuções (IID×3 + non-IID×3) = **30 execuções**.
 
+Fedtrimmed ja rodou e ja foi implementado
+
 | Config | μ | Execuções | Onda | Responsável |
 |---|---:|---:|---|---|
-| `configs/fedprox_mu0_01.yaml` | 0,01 | 6 | 1 (prioridade) | Camila |
-| `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 (prioridade) | Guilherme |
+| `configs/fedprox_mu0_01.yaml` | 0,01 | 6 | concluido | Camila |
+| `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 concluido | Camila |
 | `configs/fedprox_mu1.yaml` | 1,0 | 6 | 1 (prioridade) | Anabelly |
 | `configs/fedprox_mu0_1.yaml` | 0,1 | 6 | 2 | veremos depois |
 | `configs/fedprox_mu0_5.yaml` | 0,5 | 6 | 2 | veremos depois |
@@ -341,29 +343,6 @@ As outras duas pessoas rodam `git pull` para ver os resultados de todo mundo. Se
 `final.pt` aparecer no `git status`, adicione `results/**/final.pt` ao
 `.gitignore` antes de commitar.
 
-### 6.7 FedTrimmed (Sprint 3 — concluído)
-
-Implementado: `fl/server.py::aggregate_fedtrimmed` (trimmed mean coordenada a
-coordenada, β=0,4 → k=1 de cada lado com 5 clientes, média ponderada por
-`num_examples` dos 3 restantes) e a Strategy `FedTrimmed(FedAvg)` que a usa em
-`aggregate_fit`. Smoke test (`configs/fedtrimmed_smoke.yaml`) validado
-ponta a ponta em IID e non-IID.
-
-**As 6 execuções científicas já rodaram** (`configs/fedtrimmed.yaml`, GPU
-Guilherme, 27/09/2026) e estão em `results/fedtrimmed/` — validadas por
-`scripts/validate_baseline.py --results results/fedtrimmed`. mAP50 médio final:
-0,268 (IID, σ=0,019) e 0,250 (non-IID, σ=0,009). Não precisa rodar de novo.
-
-Config científico usado, clonado de `baseline_taco.yaml` (mesma partição, mesmo
-modelo, mesmos rounds/épocas/augmentation; difere em `strategy: fedtrimmed`,
-`beta: 0.4` e `output_dir`):
-
-```bash
-python run_config.py --config configs/fedtrimmed.yaml --all
-```
-
-6 execuções (IID×3 + non-IID×3); caso precise refazer, a dividir entre as três máquinas do mesmo jeito
-que o FedProx (Seção 6.4).
 
 ---
 
