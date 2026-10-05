@@ -1,12 +1,16 @@
 from pathlib import Path
 
 import numpy as np
+import pytest
 import torch
+from flwr.common import Code, FitRes, Status, ndarrays_to_parameters, parameters_to_ndarrays
 
 from fl.model import get_weights, load_model, proximal_penalty, set_weights
 from fl.partition import partition_images
 from fl.server import (
+    FedTrimmed,
     aggregate_fedavg,
+    aggregate_fedtrimmed,
     get_strategy,
     make_fit_config_fn,
     weighted_evaluate_metrics,
@@ -17,6 +21,85 @@ def test_fedavg_is_weighted_by_num_examples() -> None:
     updates = [([np.array([1.0, 3.0])], 1), ([np.array([5.0, 7.0])], 3)]
     result = aggregate_fedavg(updates)
     np.testing.assert_allclose(result[0], [4.0, 6.0])
+
+
+def test_fedtrimmed_beta_0_4_with_five_clients_trims_exactly_one_each_side() -> None:
+    n, beta = 5, 0.4
+    assert int(n * beta / 2) == 1
+
+
+def test_fedtrimmed_cuts_one_client_each_side_per_coordinate_and_weights_the_rest() -> None:
+    # 5 clientes, 1 camada com 2 coordenadas; a ordem dos valores e invertida
+    # entre as coordenadas para garantir que o corte e a ponderacao sao feitos
+    # independentemente por coordenada, nao por cliente inteiro.
+    num_examples = [1, 2, 3, 4, 5]
+    coord0 = [10.0, 20.0, 30.0, 40.0, 50.0]
+    coord1 = [50.0, 40.0, 30.0, 20.0, 10.0]
+    updates = [
+        ([np.array([coord0[i], coord1[i]])], num_examples[i]) for i in range(5)
+    ]
+
+    result = aggregate_fedtrimmed(updates, beta=0.4)
+
+    # coordenada 0: descarta cliente 0 (10, menor) e cliente 4 (50, maior);
+    # restam os clientes 1, 2, 3 com num_examples 2, 3, 4.
+    expected_coord0 = (20.0 * 2 + 30.0 * 3 + 40.0 * 4) / (2 + 3 + 4)
+    # coordenada 1: descarta cliente 4 (10, menor) e cliente 0 (50, maior);
+    # restam os mesmos clientes 1, 2, 3, mas com seus valores de coord1.
+    expected_coord1 = (40.0 * 2 + 30.0 * 3 + 20.0 * 4) / (2 + 3 + 4)
+    np.testing.assert_allclose(result[0], [expected_coord0, expected_coord1])
+
+    # A agregacao precisa ser a media ponderada dos 3 restantes, nao a media
+    # simples — senao o efeito do corte fica indistinguivel do efeito da
+    # ponderacao na comparacao com o FedAvg.
+    simple_mean_coord0 = (20.0 + 30.0 + 40.0) / 3
+    assert not np.isclose(result[0][0], simple_mean_coord0)
+
+
+def test_fedtrimmed_rejects_beta_that_would_cut_zero_clients() -> None:
+    updates = [([np.array([float(i)])], 1) for i in range(5)]
+    with pytest.raises(ValueError, match="k=0"):
+        aggregate_fedtrimmed(updates, beta=0.1)
+
+
+def test_fedtrimmed_strategy_aggregate_fit_matches_aggregate_function() -> None:
+    strategy = FedTrimmed(
+        beta=0.4,
+        fraction_fit=1.0,
+        fraction_evaluate=0.0,
+        min_fit_clients=5,
+        min_available_clients=5,
+    )
+    num_examples = [1, 2, 3, 4, 5]
+    coord0 = [10.0, 20.0, 30.0, 40.0, 50.0]
+    results = [
+        (
+            None,
+            FitRes(
+                status=Status(code=Code.OK, message="ok"),
+                parameters=ndarrays_to_parameters([np.array([coord0[i]])]),
+                num_examples=num_examples[i],
+                metrics={},
+            ),
+        )
+        for i in range(5)
+    ]
+
+    parameters_aggregated, _ = strategy.aggregate_fit(1, results, [])
+    aggregated = parameters_to_ndarrays(parameters_aggregated)
+    expected = aggregate_fedtrimmed(
+        [(parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples) for _, fit_res in results],
+        beta=0.4,
+    )
+    np.testing.assert_allclose(aggregated[0], expected[0])
+
+
+def test_get_strategy_returns_fedtrimmed_when_configured() -> None:
+    strategy = get_strategy(5, {"strategy": "fedtrimmed", "beta": 0.4})
+    assert isinstance(strategy, FedTrimmed)
+    assert strategy.beta == 0.4
+    assert strategy.min_fit_clients == 5
+    assert strategy.min_available_clients == 5
 
 
 def test_fit_config_fn_follows_contract() -> None:
