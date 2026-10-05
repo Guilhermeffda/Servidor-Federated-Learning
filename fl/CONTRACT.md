@@ -108,6 +108,19 @@ validar execuções antigas. Não é configuração científica adicional do ser
 `fl/server.py::get_strategy` recebe o número de clientes da configuração e usa o
 mesmo valor em `min_fit_clients` e `min_available_clients`.
 
+## Estratégia de agregação (`strategy` no config)
+
+Chave opcional do config lido por `run_config.py`/`get_strategy`, não repassada ao
+cliente (não faz parte do payload de `on_fit_config_fn`): `"fedavg"` (padrão) ou
+`"fedtrimmed"`. Ao contrário de `mu`, que muda o treino local sem tocar na
+agregação, `strategy: fedtrimmed` troca a função de agregação usada no servidor —
+`fl/server.py::aggregate_fedtrimmed` — por uma trimmed mean coordenada a
+coordenada: descarta, por coordenada, os `k = int(num_clients * beta / 2)`
+clientes com o maior e os `k` com o menor valor recebido, e faz a média
+ponderada por `num_examples` dos restantes (com 5 clientes e `beta=0.4`, k=1).
+`beta` é outra chave opcional do config, default `0.4`. `fedavg` e `fedtrimmed`
+podem ser combinados com `mu > 0` (FedProx no cliente + FedTrimmed no servidor).
+
 ## Métricas de fit agregadas
 
 O `FedAvg` nativo do Flower não agrega `fit_metrics` por padrão — só `evaluate_metrics`.

@@ -12,6 +12,7 @@ datasets/
 results/baseline/*/local_runs/
 results/baseline/*/partitions/
 results/taco_smoke/
+results/fedtrimmed_smoke/
 *.cache
 
 # Dados grandes — não versionados
