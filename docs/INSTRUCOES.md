@@ -284,7 +284,7 @@ Fedtrimmed ja rodou e ja foi implementado
 | `configs/fedprox_mu0_2.yaml` | 0,2 | 6 | 1 | concluido | Camila |
 | `configs/fedprox_mu1.yaml` | 1,0 | 6 | 1 | concluido | Camila |
 | `configs/fedprox_mu3.yaml` | 3,0 | 6 | 2 | concluido | Camila |
-| `configs/fedprox_mu5.yaml` | 8,0 | 6 | 2 | pendente | Guilherme |
+| `configs/fedprox_mu8.yaml` | 8,0 | 6 | 2 | pendente | Guilherme |
 
 A Onda 1 cobre o primeiro, o do meio e o último valor do grid — dá uma leitura
 inicial da forma da curva (μ pequeno vs. médio vs. grande) antes de preencher os
