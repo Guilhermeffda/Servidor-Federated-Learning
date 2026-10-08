@@ -1,0 +1,7 @@
+run_id,status,scenario,repetition,dataset_label,scientific_valid,rounds_completed,duration_seconds,final_map50
+iid_rep1,complete,iid,1,TACO-10,True,50,15084.140491,0.2614805822901426
+iid_rep2,complete,iid,2,TACO-10,True,50,15098.31378,0.27184398484436334
+iid_rep3,complete,iid,3,TACO-10,True,50,15103.75565,0.25596191378144684
+non_iid_rep1,complete,non_iid,1,TACO-10,True,50,14966.667457,0.2451333850194683
+non_iid_rep2,complete,non_iid,2,TACO-10,True,50,14910.998739,0.2553838359437618
+non_iid_rep3,complete,non_iid,3,TACO-10,True,50,14916.791166,0.25775034820609144

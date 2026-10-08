@@ -1,0 +1,20 @@
+{
+  "run_id": "iid_rep2",
+  "status": "complete",
+  "scenario": "iid",
+  "repetition": 2,
+  "dataset_label": "TACO-10",
+  "scientific_valid": true,
+  "rounds_completed": 50,
+  "started_at": "2026-10-07T16:26:27.872593+00:00",
+  "finished_at": "2026-10-07T20:38:06.186373+00:00",
+  "duration_seconds": 15098.31378,
+  "final_map50": 0.27184398484436334,
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.14.0+cu126",
+    "flower": "1.37.0",
+    "ultralytics": "8.4.155",
+    "pandas": "2.3.3"
+  }
+}
