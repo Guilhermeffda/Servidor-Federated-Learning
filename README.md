@@ -109,49 +109,6 @@ backward (`fl/model.py::_install_fedprox_loss`), ativado quando `mu > 0`.
 
 ---
 
-## Status macro
-
-| Área | Status |
-|---|---|
-| Aquisição, auditoria e reagrupamento do TACO | ✅ Completo |
-| Teste global (300 imagens, estratificado) | ✅ Completo |
-| Partições IID e non-IID (Dirichlet α=0,5) | ✅ Completo |
-| Relatório de classes escassas + augmentation | ✅ Completo |
-| Cliente federado (troca de pesos + treino local) | ✅ Completo |
-| Agregação FedAvg + config por round + métricas | ✅ Completo |
-| Termo proximal do FedProx (código) | ✅ Completo |
-| Pipeline validado ponta a ponta (smoke test) | ✅ Completo |
-| **Baseline centralizada (50 épocas)** | ⬜ **Pendente de execução** |
-| **6 baselines federadas TACO-10 (50 rounds)** | ⬜ **Pendente de execução** |
-| **Execução com μ > 0 (FedProx real)** | ⬜ **Pendente de execução** |
-| Infraestrutura de execução paralela (P5) | ⬜ Não iniciado |
-| FedTrimmed | ⛔ Sprint 3 |
-
-> **O código está pronto; os experimentos científicos não foram rodados.**
-> Todos os resultados hoje em `results/baseline/` estão marcados
-> `scientific_valid: false` — são smoke tests de pipeline, não resultados do artigo.
-
-Detalhamento por card em [`docs/STATUS.md`](docs/STATUS.md).
-
----
-
-## Riscos abertos
-
-**Tamanho da grade experimental.** 42 execuções × 50 rounds × 5 épocas × 5 clientes
-= 52.500 épocas de treino. Medição real: 160 s/época em CPU, 50 s/época em GPU (MPS)
-sobre uma partição de 192 imagens. Mesmo em GPU, isso dá ~30 dias sequenciais numa
-máquina só. **Precisa de decisão do grupo** — paralelizar entre integrantes, reduzir
-a grade de μ de 5 para 3 valores, ou reduzir rounds de 50 para 30. Ver
-`notes/hardware_benchmark.md`.
-
-**Classes escassas pós-Dirichlet.** Combinações (cliente, classe) com menos de 15
-instâncias estão catalogadas em `taco_data/data/partitions/augmentation_report.json`.
-Mitigação via augmentations nativas do Ultralytics, configuradas em
-`configs/baseline_taco.yaml`. Casos com 0 instâncias não são resolvíveis por
-augmentation e ficam como limitação declarada do cenário non-IID.
-
----
-
 ## Escopo — o que este projeto NÃO faz
 
 - Não simula clientes maliciosos nem ataques Byzantine à agregação
@@ -159,11 +116,4 @@ augmentation e ficam como limitação declarada do cenário non-IID.
 - Não implanta em hardware físico real — tudo é simulação em lote, máquina única
 - Não oferece garantia formal de privacidade (privacidade diferencial, agregação
   segura ficam fora do escopo)
-  
 
-### RESULTADOS DE BENCHMARK JA OBTIDOS:
-
-| Pessoa | s/epoca | tempo estimado |
-|---|---:|---:|
-| GPU CAMILA | 20,28s | 12 dias |
-| GPU GUILHERME | 18,60s | 11 dias |
